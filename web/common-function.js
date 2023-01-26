@@ -2577,14 +2577,14 @@ function Show(pageName) {
     window.history.pushState(nextState, nextTitle, nextURL);
 
 
-    x = document.getElementById("filescannerLinkId");
-    x.classList.remove("active");
+    // x = document.getElementById("filescannerLinkId");
+    // x.classList.remove("active");
 
-    x = document.getElementById("projectscannerLinkId");
-    x.classList.remove("active");
+    // x = document.getElementById("projectscannerLinkId");
+    // x.classList.remove("active");
 
-    x = document.getElementById("HelpTopicsLinkId");
-    x.classList.remove("active");
+    // x = document.getElementById("HelpTopicsLinkId");
+    // x.classList.remove("active");
 
     x = document.getElementById("loginLinkId");
     x.classList.remove("active");
@@ -2595,8 +2595,8 @@ function Show(pageName) {
     x = document.getElementById("contactusLinkId");
     x.classList.remove("active");
 
-    x = document.getElementById("howtoLinkId");
-    x.classList.remove("active");
+    // x = document.getElementById("howtoLinkId");
+    // x.classList.remove("active");
 
     x = document.getElementById("homeLinkId");
     x.classList.remove("active");
@@ -2862,7 +2862,7 @@ function checkURL() {
 		}
 		document.getElementById("logoutLinkId").style.display = "none";
 
-		document.getElementById("HelpTopicsLinkId").style.display = "none";
+		//document.getElementById("HelpTopicsLinkId").style.display = "none";
         //document.getElementById("HelpTopicsLinkId").style.display = "block";
 		
 	} else {
@@ -2870,7 +2870,7 @@ function checkURL() {
 		document.getElementById("loginLinkId").style.display = "none";
 		document.getElementById("logoutLinkId").style.display = "block";
 		if (sessionStorage.getItem("userLvl") == "9"){
-			document.getElementById("HelpTopicsLinkId").style.display = "block";
+			//document.getElementById("HelpTopicsLinkId").style.display = "block";
             the.smusr = true;
 		}
 	}
