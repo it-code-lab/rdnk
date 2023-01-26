@@ -1,4 +1,8 @@
 php
 img
 images
+assets
 .htaccess
+*.jpg
+*.png
+*.ico
