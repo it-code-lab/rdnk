@@ -3769,7 +3769,7 @@ function showProfile(){
     var userObjs ;
     var scoresList ;
     var newHTML = "";
-    if (userdata != null) {
+    if ((userdata != null) && (userdata != "")) {
         userObjs =  JSON.parse(userdata);
         scoresList = userObjs.scores;
         newHTML = newHTML + "<div class='scoresheader'>Quiz Scores</div>"; 
