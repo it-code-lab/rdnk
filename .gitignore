@@ -6,3 +6,4 @@ assets
 *.jpg
 *.png
 *.ico
+.vscode/launch.json
