@@ -24,6 +24,7 @@ var the = {
 	LanguageHelpCodeAndIds_LclJson: null, //SM:Added
 	filelvlhelp: null,
     smusr:false,
+    hosturl: '/readernook',
     
 };
 
@@ -1211,7 +1212,7 @@ function c_L_C(hlpCdId) {
 
     //Pull the details for the help code
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "HelpDetails",
@@ -1669,7 +1670,7 @@ function getConditionsToIdentifyCodeLanguage() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "IdentifyCodeLanguage"
@@ -1695,7 +1696,7 @@ function getDistinctCommentsCombination() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "CommentsCombination"
@@ -1724,7 +1725,7 @@ function getLanguageHelpCodeAndIds() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "LanguageHelpCodeAndIds"
@@ -1755,7 +1756,7 @@ function getTutorialList() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "tutorials"
@@ -1788,9 +1789,9 @@ function populateTutorialsDropDownDisplay(){
 
     for (var i = 0; i < rows.length; i++)  {
         if (i == 0) {
-            innHTML = innHTML + "<a href='/readernook/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
         }else if (rows[i].technology != rows[i-1].technology){
-            innHTML = innHTML + "<a href='/readernook/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>"+ rows[i].technology +"</a>";
         }
         // if (i == 0) {
         //     innHTML = innHTML + "<a href='javascript:showTechnology("+ '"' + rows[i].technology + '"' + ")'>"+ rows[i].technology +"</a>";
@@ -1806,7 +1807,7 @@ function getHelpDetails(codeId) {
 
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "HelpDetails",
@@ -1913,7 +1914,7 @@ function addOrUpdateHelpDetails() {
 		
 
         $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             type: 'POST',
             data: jQuery.param({
                 usrfunction: "UpdateHelpDetails",
@@ -1963,7 +1964,7 @@ function addOrUpdateHelpDetails() {
         //console.log("calling add help");
         /**/
         $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             type: 'POST',
             data: jQuery.param({
                 usrfunction: "AddNewHelp",
@@ -1993,7 +1994,7 @@ function addOrUpdateHelpDetails() {
                     //Refresh the help code list
 
                     $.ajax({
-                        url: '/readernook/php/process.php',
+                        url: the.hosturl + '/php/process.php',
                         type: 'POST',
                         data: jQuery.param({
                             usrfunction: "LanguageHelpCodeAndIds"
@@ -2048,7 +2049,7 @@ function getEnvironmentSetUpDetails() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "EnvironmentSetUpDetails"
@@ -2075,7 +2076,7 @@ function getCodeCommentsConditions() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "CodeCommentsConditions"
@@ -2102,7 +2103,7 @@ function getLaguagesSubCatgHelpCodeGroups() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "LaguagesSubCatgHelpCodeGroups"
@@ -2129,7 +2130,7 @@ function getHelpCodeGroupDisplayOrder() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "HelpCodeGroupDisplayOrder"
@@ -2155,7 +2156,7 @@ function getLangForFileExtension() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "LanguageForFileExtension"
@@ -2181,7 +2182,7 @@ function getHowToVideos(){
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "HowToVideos"
@@ -2209,7 +2210,7 @@ function getSpecialFiles(){
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "SpecialFiles"
@@ -2256,7 +2257,7 @@ function getStoredProjectList() {
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "GetSavedProjects"
@@ -2870,18 +2871,38 @@ function checkURL() {
 		}
 		document.getElementById("logoutLinkId").style.display = "none";
         document.getElementById("profileLinkId").style.display = "none";
-		//document.getElementById("HelpTopicsLinkId").style.display = "none";
-        //document.getElementById("HelpTopicsLinkId").style.display = "block";
-		
+	
 	} else {
-		localStorage.setItem("userLoggedIn", "y");
-		document.getElementById("loginLinkId").style.display = "none";
-		document.getElementById("logoutLinkId").style.display = "block";
-        document.getElementById("profileLinkId").style.display = "block";
-		if (localStorage.getItem("userLvl") == "9"){
-			//document.getElementById("HelpTopicsLinkId").style.display = "block";
-            the.smusr = true;
-		}
+
+        $.ajax({
+            url: the.hosturl + '/php/process.php',
+            data: {usrfunction: "checklogin"},
+            type: 'POST',
+            dataType: 'json',
+            success: function (retstatus) {
+                if (retstatus == "err"){
+                    localStorage.setItem("userLoggedIn", "n");
+                    if (!onMobileBrowser()){
+                        document.getElementById("loginLinkId").style.display = "block";
+                    }
+                    document.getElementById("logoutLinkId").style.display = "none";
+                    document.getElementById("profileLinkId").style.display = "none";
+                }else {
+                    localStorage.setItem("userLoggedIn", "y");
+                    document.getElementById("loginLinkId").style.display = "none";
+                    document.getElementById("logoutLinkId").style.display = "block";
+                    document.getElementById("profileLinkId").style.display = "block";
+                    if (localStorage.getItem("userLvl") == "9"){
+                        the.smusr = true;
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+
+            }
+        });
+        
+
 	}
 
     if (path.indexOf('tutorials/') > 0) {
@@ -3118,7 +3139,7 @@ function checkURL() {
 
 function getTutorial(tutorialStr){
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         type: 'POST',
         data: jQuery.param({
             usrfunction: "getTutorial",
@@ -3285,7 +3306,7 @@ function editItem( btn ){
     discontinue = btn.dataset.discontinue;
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         data: {usrfunction: "checksession"},
         type: 'POST',
         dataType: 'json',
@@ -3387,7 +3408,7 @@ function editItem( btn ){
    "<input type='text' id='image-" + itemid + "' style='width:95%; margin:auto;'  value=''>"
 
    +
-   "<br><img id='image-src-replace-" + itemid + "' src='/readernook/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
+   "<br><img id='image-src-replace-" + itemid + "' src= '" + the.hosturl + "/img/"  + "' style='width: 200px; height: 200px; background-color: white;' alt='Image not available' />"
 
    +
    "<br><input type='file'  id='image-replace-" + itemid + "' data-itemid = '" + itemid + "'   data-imageelementid='image-src-replace-' onchange='showImage(event)'>"
@@ -3653,15 +3674,15 @@ function addComponent(itemid, type){
 
     }else if (type == "image1") {
         var imagename = document.getElementById("image-" + itemid).value;
-        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src='/readernook/img/"+ imagename +"'> "+ " <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
+        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/"+ imagename +"'> "+ " <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
 
     }else if (type == "image2") {
         var imagename = document.getElementById("image-" + itemid).value;
-        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image2-desc'> " + "<img class='movieImageCls' alt ='' src='/readernook/img/"+ imagename +"'> "+ "  <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
+        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image2-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/"+ imagename +"'> "+ "  <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
 
     }else if (type == "image3") {
         var imagename = document.getElementById("image-" + itemid).value;
-        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image3-desc'> " + "<img class='movieImageCls' alt ='' src='/readernook/img/"+ imagename +"'> "+ " <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
+        document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image3-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/"+ imagename +"'> "+ " <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
 
     }else if (type == "warning") {
         document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'warning-desc'> TODO Edit - warning <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"+ partTwoHTML;
@@ -3963,7 +3984,7 @@ function updateItem(itemid, createNewItem) {
 	
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         data: {
             usremail: usremail,
             itemid: itemid,
@@ -4029,7 +4050,7 @@ function updateInfo(data){
     }
 
     $.ajax({
-        url: '/readernook/php/process.php',
+        url: the.hosturl + '/php/process.php',
         data: {
             usremail: usremail,
             data: data,
@@ -4048,7 +4069,7 @@ function updateInfo(data){
 function activateAccount(pass){
 	
         $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             type: 'POST',
             data: jQuery.param({
                 usrfunction: "activateAcc",
@@ -4137,7 +4158,7 @@ function setPassword(){
 	  var StrAddress = "";
 
 		$.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             data: {usrpassword: StrPass, resetkey: resetkey, usrfunction: StrFunction},
             type: 'POST',
             dataType: 'JSON',			
@@ -4733,7 +4754,7 @@ function saveProject() {
         /***Project does not exist*****/
 
         $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             type: 'POST',
             data: jQuery.param({
                 usrfunction: "SaveNewProject",
@@ -4755,7 +4776,7 @@ function saveProject() {
                     //Refresh the saved projects list list
 
                     $.ajax({
-                        url: '/readernook/php/process.php',
+                        url: the.hosturl + '/php/process.php',
                         type: 'POST',
                         data: jQuery.param({
                             usrfunction: "GetSavedProjects"
@@ -4787,7 +4808,7 @@ function saveProject() {
         });
     } else {
         $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             type: 'POST',
             data: jQuery.param({
                 usrfunction: "UpdateProject",
@@ -4810,7 +4831,7 @@ function saveProject() {
                     //Refresh the saved projects list list
 
                     $.ajax({
-                        url: '/readernook/php/process.php',
+                        url: the.hosturl + '/php/process.php',
                         type: 'POST',
                         data: jQuery.param({
                             usrfunction: "GetSavedProjects"
@@ -5513,7 +5534,7 @@ function login(){
 	  }
 
 	  $.ajax({
-				url: '/readernook/php/process.php',
+				url: the.hosturl + '/php/process.php',
 				data: {usremail: StrEmail, usrpassword: StrPass, usrremember: StrRemember,usrfunction: StrFunction},
 				type: 'POST',
 				dataType: 'json',
@@ -5609,7 +5630,7 @@ function loginWithoutRefresh(){
 	  }
 
 	  $.ajax({
-				url: '/readernook/php/process.php',
+				url: the.hosturl + '/php/process.php',
 				data: {usremail: StrEmail, usrpassword: StrPass, usrremember: StrRemember,usrfunction: StrFunction},
 				type: 'POST',
 				dataType: 'json',
@@ -5661,7 +5682,7 @@ function Logout(){
   error_message = "";
 
   $.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             data: {usrfunction: StrFunction},
             type: 'POST',
             dataType: 'json',
@@ -5770,7 +5791,7 @@ function register(){
 	  var StrAddress = "";
 
 		$.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             data: {usremail: StrEmail, usrpassword: StrPass, usrfullname: StrName, usraddress: StrAddress, usrfunction: StrFunction},
             type: 'POST',
             dataType: 'JSON',			
@@ -5872,7 +5893,7 @@ function Subregister(){
 	  var StrAddress = "";
 
 		$.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             data: {usremail: StrEmail, usrpassword: StrPass, usrfullname: StrName, usraddress: StrAddress, usrfunction: StrFunction},
             type: 'POST',
             dataType: 'JSON',			
@@ -5943,7 +5964,7 @@ function forgotpw(){
 
 
 		$.ajax({
-            url: '/readernook/php/process.php',
+            url: the.hosturl + '/php/process.php',
             data: {usremail: StrEmail, usrfunction: StrFunction},
             type: 'POST',
             dataType: 'JSON',			
@@ -6035,7 +6056,7 @@ function contactus(){
 		 }
 	  }
 	  $.ajax({
-				url: '/readernook/php/process.php',
+				url: the.hosturl + '/php/process.php',
 				data: {usrname: StrName, usremail: StrEmail, usrcomment: StrComment, usrfunction: StrFunction},
 				type: 'POST',
 				dataType: 'json',
