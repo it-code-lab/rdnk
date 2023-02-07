@@ -1570,6 +1570,7 @@ button.btnNewWindow::before {
    /* min-width: 300px; */
   
    height: auto;
+   background-color: #e2e8f0;
 }
 .tutorialDiv:hover{
   background-color: orange;
@@ -1601,7 +1602,7 @@ button.btnNewWindow::before {
 
 .tutorialChild {
   /* background-color:bisque; */
-  background-color: #ECF0F1;
+  /* background-color: #ECF0F1; */
 }
 
 .menucard {
@@ -1848,6 +1849,7 @@ input:checked + .slider:after
   text-decoration: none !important;
   white-space:unset;
   /* white-space: pre-wrap; */
+  color: #556377;
 }
 
 .tutorialTitleH2 {
@@ -2401,7 +2403,8 @@ footer {
   display: block;
 }
 .dropdown-content a {
-  float: none;
+  /* float: none; */
+  float: left;
   color: #f2f2f2;
   padding: 14px 14px;
   text-decoration: none;
