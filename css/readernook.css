@@ -2435,3 +2435,4 @@ footer {
   vertical-align:text-bottom;
   margin-right: 5px;
 }
+div:has(> .hideParentDiv) {display: none; }
