@@ -65,8 +65,13 @@
    <script src="/readernook/js/jquery-resizable-delit.js"></script>
    <!--REF: https://medium.com/@petehouston/remove-tinymce-warning-notification-on-cloud-api-key-70a4a352b8b0 -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script>
-   <script>
-      tinymce.init({
+
+      <!--REF: https://highlightjs.org/usage/ -->
+      <link rel="stylesheet" href="/readernook/css/default.min.css">
+      <script src="/readernook/js/highlight.min.js"></script>
+      
+       <script>
+         tinymce.init({
          selector: '.tiny',
          menubar: false,
          plugins: "textcolor, lists, autoresize",
