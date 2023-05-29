@@ -1,3 +1,41 @@
+<?php
+include_once("php/session.php");
+
+$title = "IT Tutorials";
+$description = "Easy to understand tutorials with lots of sample codes in programming languages Java,
+ Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing
+ feature to scan and help understand the programming code";
+//$image_url = "Your Image URL";
+$keywords = "Software, IT, Tutorials, Code Samples";
+
+//SM-TODONE-Revert below
+$page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+//$page_url = $_SERVER["REQUEST_URI"];
+
+$path = urldecode($_SERVER["REQUEST_URI"]);
+$path = substr($path, 1);
+
+if (strpos($path, 'tutorials/') !== false) {
+    $itemstr = substr($path, strpos($path, "tutorials/") + 10);
+    if (strpos($itemstr, '/') !== false) {
+      if (isset($_SESSION['datafetched_XX'])) {
+         $title = $_SESSION['webTitle'];
+         $description = $_SESSION['webDesc'] ;
+         //$image_url = "https://itcodescanner.com/getimage/".$_SESSION['image_nm'];
+         $keywords = $_SESSION['webKeywords'];
+      } else {
+         $dummy = $database->getTutorial($itemstr);
+         if ($dummy != "Err in DB call") {
+            $title = $_SESSION['webTitle'];
+            $description = $_SESSION['webDesc'] ;
+            //$image_url = "https://itcodescanner.com/getimage/".$_SESSION['image_nm'];
+            $keywords = $_SESSION['webKeywords'];
+         }
+      }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +51,15 @@
    </script>
 
    <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-   <meta name="keywords" content="Software, IT, Tutorials, Code Samples" />
-   <meta name="description" content="Easy to understand tutorials with lots of sample codes in programming languages Java, Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing feature to scan and help understand the programming code." />
+
+   <title><?php echo $title; ?></title>
+   <meta name="description" content="<?php echo $description; ?>">
+   <meta property="og:title" content="<?php echo $title; ?>">
+   <meta property="og:description" content="<?php echo $description; ?>">
+
+   <meta property="og:url" content="<?php echo $page_url; ?>">
+   <meta name="keywords" content="<?php echo $keywords; ?>">
+
    <meta name="author" content="Numerouno" />
    <title>Read and Learn</title>
    <!-- Favicon-->
@@ -26,9 +70,11 @@
    <!--  
          <link href="/readernook/css/bootstrap.min.css" rel="stylesheet" />
          -->
-   <link href="/readernook/css/readernook.css" rel="stylesheet" />
+   <link href="/readernook/css/readernook-v1.1.css" rel="stylesheet" />
    <link href="/readernook/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/readernook/css/smstyleltlimit.css" rel="stylesheet" />   
+   <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
+   <link href="/readernook/css/smtheme-v1.02.css" rel="stylesheet" />
    <!-- 
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
          
@@ -96,7 +142,7 @@
    <script src="/readernook/js/lib/unpackers/myobfuscate_unpacker.js"></script>
    <!---->
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function.js"></script>
+   <script src="/readernook/web/common-function-v1.1.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
@@ -143,6 +189,17 @@
                      style="font-family: var(--bs-font-sans-serif); font-size: 14px; font-weight: 300;">Buy me a coffee
                      <span></i>
             </a>
+
+            <a class="searchWrapper"><span id="itemsearchDivId">
+               <form autocomplete="off" class="dummyForm">
+                  <input id='tutorial-search-box' data-dropdownset='n' type='text' name='item' autocomplete='off'
+                     placeholder='search' />
+                  <button id="itemsearchBtnId" class='' onclick='searchTutorial(); return false;'><i
+                        class="fas fa-search"></i></button>
+               </form>
+               </span>
+            </a>
+
             <a href="javascript:void(0);" class="icon" style="margin-right: 20px" onclick="myTopNavFunction()">
                <i class="fa fa-bars"></i>
             </a>
@@ -152,14 +209,22 @@
          <!-- Page content-->
          <div id="loaderDivId">
             <!-- <img src='/readernook/images/codescan.png' alt='Loading..' style="margin:auto"> -->
-            <div class="loader">
-               <i class="loaderDot"></i>
-               <i class="loaderDot"></i>
-               <i class="loaderDot"></i>
+            <div class="loader2">
+               <span></span>
+               <span></span>
+               <span></span>
+               <span></span>
             </div>
+
+            <!-- SM:DONOTDELETE -->
+            <!-- <div class="loader">
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+               <i class="loaderDot"></i>
+            </div> -->
          </div>
          <div id="containerNHelpDivId">
-            <svg id="bgSVGId" class="bgSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#73C1D8" fill-opacity="1" d="M0,224L30,197.3C60,171,120,117,180,117.3C240,117,300,171,360,197.3C420,224,480,224,540,208C600,192,660,160,720,165.3C780,171,840,213,900,245.3C960,277,1020,299,1080,272C1140,245,1200,171,1260,165.3C1320,160,1380,224,1410,256L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
+            <svg id="bgSVGId" class="bgSVG displayNone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#73C1D8" fill-opacity="1" d="M0,224L30,197.3C60,171,120,117,180,117.3C240,117,300,171,360,197.3C420,224,480,224,540,208C600,192,660,160,720,165.3C780,171,840,213,900,245.3C960,277,1020,299,1080,272C1140,245,1200,171,1260,165.3C1320,160,1380,224,1410,256L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
 
             <div id="mainContainer" class="panel-container panel-left">
 
@@ -173,10 +238,10 @@
                            <!-- <div class="bannerinner">
                               <i class='fas fa-desktop desktop-icon'></i> <i class="divider"></i> IT CODE SCANNER
                            </div> -->
-                           <label class="bannerLargeText">Read and Learn</label>
+                           <label class="bannerLargeText scale-in-center" style="animation-delay: 0.8s; animation-duration: 0.5s;">Read and Learn</label>
                            <br>
-                           <hr>
-                           <label class="bannerSmallText" >Learning made easy</label>
+                           <hr class="slide-in-left " style="animation-delay: 0.2s">
+                           <label class="bannerSmallText scale-in-center" style="animation-delay: 1.2s; animation-duration: 1s;" >Learning made easy</label>
                         </div>
                      </div>
                      <div id="homeCardsContainerDivId">
@@ -236,11 +301,11 @@
                </div>
 
                <div id="tutorialListDivId">
-                  <div id="tutorialSearchDivId"><input id='tutorial-search-box' type='text' name='tutorial'
+                  <!-- <div id="tutorialSearchDivId"><input id='tutorial-search-box' type='text' name='tutorial'
                         autocomplete='off' placeholder='search' />
                      <button id="tutorialSearchBtnId" class='searchButtonCls'
                         onclick='searchTutorial(); return false;'>Search</button>
-                  </div>
+                  </div> -->
                   <div id="tutorialListInnerDivId"></div>
 
                </div>
@@ -485,7 +550,7 @@
                <!--**START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
                <!--*************************************************************--->
 
-               <div id="loginDivId" class="login" >
+               <div id="loginDivId" class="login displayNone" >
                   <div id="loginSecDivId" style="margin-top: 20px;">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> LOGIN </label>
                      <hr>
@@ -505,7 +570,7 @@
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showForgotPassword();">Forgot Password? Reset</a>
                   </div>
-                  <div id="registerSecDivId" style="display:none; margin-top: 20px;">
+                  <div id="registerSecDivId" class="displayNone" style="margin-top: 20px;">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> REGISTER </label>
                      <hr>
                      <input class="un" id='registerusname' type="text" placeholder="Your full name">
@@ -525,7 +590,7 @@
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
                   </div>
-                  <div id="forgotPasswordSecDivId" style="display:none; margin-top: 20px; ">
+                  <div id="forgotPasswordSecDivId" class="displayNone" style=" margin-top: 20px; ">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> FORGOT PASSWORD </label>
                      <hr>
                      <label>Enter your email address and we will email you instructions on password reset</label>
@@ -543,7 +608,7 @@
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showLogin();">Go back to Login</a>
                   </div>
-                  <div id="accActivatedDivId" style="display:none; margin-top: 20px;">
+                  <div id="accActivatedDivId" class="displayNone" style=" margin-top: 20px;">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> ACCOUNT ACTIVATED </label>
                      <hr>
                      <label>Your account has been activated successfully. You can proceed to login</label>
@@ -553,7 +618,7 @@
                      <a href="#!" style="color: #888;  " onMouseOver="this.style.color='#000'"
                         onMouseOut="this.style.color='#888'" onclick="showLogin();">Login</a>
                   </div>
-                  <div id="forgotPWDivId" style="display:none;margin-top: 20px; ">
+                  <div id="forgotPWDivId" class="displayNone" style="margin-top: 20px; ">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> SET PASSWORD </label>
                      <hr>
                      <!---->
@@ -584,7 +649,7 @@
                <!--****END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC*****--->
                <!--*************************************************************--->               
 
-               <div id="contactusDivId">
+               <div id="contactusDivId" class="displayNone">
                   <div id="contactusSecDivId" style="margin: 0 auto;   padding: 20px; ">
                      <label style="font-size: 14px; font-weight: 900; color: #333 "> CONTACT US </label>
                      <div id="sndmsgdivid">
@@ -618,11 +683,11 @@
                      </div>
                   </div>
                </div>
-               <div id="onMobileMsgDivId" style="display:none; margin:10px; padding:10px; text-align: justify">
+               <div id="onMobileMsgDivId" class="displayNone" style=" margin:10px; padding:10px; text-align: justify">
                   Because the code upload and scanning limitations, the site has restricted functionality on mobile
                   device.
                </div>
-               <div id="howtoDivId" style="display:none; margin:auto;">
+               <div id="howtoDivId" class="displayNone" style="margin:auto;">
                   Coming soon
                </div>
             </div>
@@ -934,7 +999,7 @@
                                     onMouseOut="this.style.color='#888'" onclick="SubshowCreateAccount();">Not
                                     registered? Create account</a>
                               </div>
-                              <div id="SubregisterSecDivId" style="display:none; ">
+                              <div id="SubregisterSecDivId" class="displayNone">
                                  <label style="font-size: 20px; font-weight: 900; color: #333 "> Register </label>
                                  <hr>
                                  <input class="un" id='Subregisterusname' type="text" placeholder="Your full name">
