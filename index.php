@@ -1,10 +1,10 @@
 <?php
 include_once("php/session.php");
 
-$title = "IT Tutorials";
-$description = "Easy to understand tutorials with lots of sample codes in programming languages Java,
- Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing
- feature to scan and help understand the programming code";
+$title = "Read And Learn";
+$description = "Explore a wide range of educational tutorials in math, science,
+ social studies, computers, and more. Enhance your knowledge and skills with
+  our engaging lessons and interactive resources";
 //$image_url = "Your Image URL";
 $keywords = "Software, IT, Tutorials, Code Samples";
 
