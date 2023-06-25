@@ -3277,7 +3277,7 @@ function getTutorial(tutorialStr){
             '<a href ="'+ tutorialUrl +'" class="tutorialTopLinkCls" ' + ' >' + "Topics</a>" + " > " + 
             '<a href ="'+ technologyUrl +'" class="tutorialTopLinkCls"  >' + technology + "</a>" + " > " + 
             '<a href ="' + window.location.href + '" class="tutorialTopLinkCls"  >' + title + "</a>";
-            newHTML = newHTML + "<div classXX = 'songContainerSub' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
+            newHTML = newHTML + "<div class = 'curvedBox bgcolor_11 padding_50px color_white text_align_center' > <h1 classXX='songContainerH1' > " + title + "</h1></div>";
 
             if (localStorage.getItem("userLoggedIn") == "n") {
        
@@ -3547,6 +3547,8 @@ function editItem( btn ){
 
    document.getElementById("mainContainer").style.width = "100%"; 
    document.getElementById("tutorialEditDivId").style.width = "20%";
+   document.getElementById("tutorialListDivId").style.display = "none";
+   document.getElementById("tutorialDivId").style.width = "80%";
 
 }
 
@@ -4096,6 +4098,7 @@ function submitQuiz(){
     } else{
         var percent = rtans*100/(rtans + wans);
         percent = percent.toFixed(2);
+        storeTestResults(percent, window.location.pathname);
         if (localStorage.getItem("userLoggedIn") == "n"){
             document.getElementById("qzres").innerHTML = "You scored " + percent + "%. Click on the button below to retry.<br> Scores get saved for "+ '<a href="' + the.hosturl + '/?target=login">logged in</a>' +" users.";
         }else {
@@ -4133,6 +4136,29 @@ function submitQuiz(){
 
     }    
 }
+
+function storeTestResults(percent, url){
+    var StrFunction = "storeTestResults"
+
+
+    $.ajax({
+        url: the.hosturl + '/php/process.php',
+        data: {
+            url: url,
+            percent: percent,
+            usrfunction: StrFunction
+        },
+        type: 'POST',
+        dataType: 'json',
+        success: function(retstatus) {
+
+        },
+        error: function(xhr, status, error) {
+
+        }
+    });
+}
+
 
 function showProfile(){
     var userdata = localStorage.getItem("userdata");

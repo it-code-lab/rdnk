@@ -258,6 +258,9 @@
     border: 1px solid #666;
 }
 
+.curvedBox{
+    border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
+}
 
 .warningMsg{
     background-color: #E74C3C;
@@ -314,6 +317,10 @@
 
 .bgcolor_10{
     background-color: #2c3e50;
+}
+
+.bgcolor_11 {
+    background-color:#7b8a8b
 }
 
 .white_bg {
