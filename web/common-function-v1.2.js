@@ -3292,7 +3292,20 @@ function getTutorial(tutorialStr){
             newHTML = newHTML + '<div classXX="songDeltsNImg">';
             newHTML = newHTML + '<div classXX="songDelts">'
 
-            
+            let max = 80;
+            let min = 50;
+            let percentNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+            if (!isNaN(subpath)) {
+                if (subpath != "0"){
+                    percentNumber = subpath;
+                }                
+            }
+
+            if (description.includes("sbmtqzdivid")){
+                newHTML = newHTML + '<div id="avgResultsDivId" class="chartDiv box_shadow7 text_align_center margin_10px_auto padding_10px slide-in-left" style="animation-duration: 0.2;  background-color:#fafad2"><div class="pie" style="--p:'+ percentNumber +';--b:40px;--w:200px; --c:green;">'+ percentNumber +'%</div><br>Public Average Score</div>';
+            }
+                        
             if (description != undefined){
                 if (description != ""){
                     newHTML = newHTML + "" +"<div class = 'songLyrics' >" + description + "</div>";

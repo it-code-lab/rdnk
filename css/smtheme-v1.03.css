@@ -27,6 +27,10 @@
     margin: 10px;
 }
 
+.margin_10px_auto{
+    margin: 10px auto;
+}
+
 .margin_20px{
     margin: 20px;
 }
@@ -740,6 +744,9 @@
 .box_shadow6{
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 }
+.box_shadow7{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 /*****************TOAST***************************************/
 /**https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar***/
 /*************************************************************/
@@ -1085,7 +1092,31 @@
     transform-origin: top left;
     animation-delay: 1s;
   }
-  
+/* ******CHART*********************************/  
+/* https://codepen.io/hal-hawkins/pen/YzELqmj */
+
+.pie {  
+    width: var(--w);
+    aspect-ratio: 1;
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    margin: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+    background: white;
+    border-radius: 50%;
+  }
+  .pie:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+    -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+            mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+  }    
   
 /* ******ANIMATIONS*********************************/
 /* SM-REF:https://animista.net/play/attention/bounce/bounce-bottom */
