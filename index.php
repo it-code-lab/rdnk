@@ -76,7 +76,7 @@ if (strpos($path, 'tutorials/') !== false) {
    <!--  
          <link href="/readernook/css/bootstrap.min.css" rel="stylesheet" />
          -->
-   <link href="/readernook/css/readernook-v1.2.css" rel="stylesheet" />
+   <link href="/readernook/css/readernook-v1.3.css" rel="stylesheet" />
    <link href="/readernook/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/readernook/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
