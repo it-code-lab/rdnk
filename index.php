@@ -1,7 +1,7 @@
 <?php
 include_once("php/session.php");
 
-$title = "Read And Learn";
+$title = "Reader Nook";
 $description = "Explore a wide range of educational tutorials in math, science,
  social studies, computers, and more. Enhance your knowledge and skills with
   our engaging lessons and interactive resources";
@@ -14,14 +14,16 @@ $page_url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
 $path = urldecode($_SERVER["REQUEST_URI"]);
 $path = substr($path, 1);
-
+$isPHPUrl = false;
 $isCrawler = isset($_SERVER['HTTP_USER_AGENT'])
 && preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
+
 
 
 if (strpos($path, 'tutorials/') !== false) {
     $itemstr = substr($path, strpos($path, "tutorials/") + 10);
     if (strpos($itemstr, '/') !== false) {
+      $isPHPUrl = true;
       if (isset($_SESSION['datafetched_XX'])) {
          $title = $_SESSION['webTitle'];
          $description = $_SESSION['webDesc'] ;
@@ -70,6 +72,7 @@ if (strpos($path, 'tutorials/') !== false) {
    <title>Read and Learn</title>
    <!-- Favicon-->
    <link rel="icon" type="image/x-icon" href="/readernook/assets/favicon.ico" />
+   <link rel="canonical" href="https://readernook.com" />
    <!-- Core theme CSS (includes Bootstrap)-->
    <link href="/readernook/css/styles.css" rel="stylesheet" />
    <link href="/readernook/css/codemirror.css" rel="stylesheet" />
@@ -87,7 +90,7 @@ if (strpos($path, 'tutorials/') !== false) {
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
 
-   <?php if (!$isCrawler):  ?>
+   <?php if (!$isCrawler || !$isPHPUrl):  ?>
       <?php include 'head-add.html'; ?>
    <?php endif; ?>
 
@@ -104,7 +107,7 @@ if (strpos($path, 'tutorials/') !== false) {
 </head>
 
 <body>
-<?php if (!$isCrawler):  ?>
+<?php if (!$isCrawler || !$isPHPUrl):  ?>
    <?php include 'body-main.html'; ?>
 <?php else: ?>
    <h1> <?=$_SESSION['webTitle']?> </h1><br>
