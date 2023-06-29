@@ -83,7 +83,7 @@ if (strpos($path, 'tutorials/') !== false) {
    <link href="/readernook/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/readernook/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
-   <link href="/readernook/css/smtheme-v1.03.css" rel="stylesheet" />
+   <link href="/readernook/css/smtheme-v1.04.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
    <script src="/readernook/web/common-function-v1.2.js"></script>
    <!-----
