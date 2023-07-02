@@ -3005,6 +3005,7 @@ function checkURL() {
             getTutorial(tutorialStr);
             document.getElementById("loaderDivId").style.display = "none";
         }else {
+            document.getElementById("slideInDivId").style.display = "none";
             tutorialStr = decodeURI(tutorialStr);
             document.getElementById("tutorialDivId").style.display = "none";
             document.getElementById("tutorialEditDivId").style.display = "none";
@@ -3060,14 +3061,14 @@ function checkURL() {
         pageName = ar[1];
     }
 
-	if (onMobileBrowser()){
+	//if (onMobileBrowser()){
 		//alert("On mobile")
 		//showMobileMenu(pageName);
 		
 		//return;
-	}else {
+	//}else {
 
-	}
+	//}
 
 	 if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
         //document.getElementById("loaderDivId").style.display = "block";
@@ -3185,7 +3186,7 @@ function checkURL() {
         //document.getElementById("tutorialDivId").style.width = "100%";
         document.getElementById("tutorialDivId").style.display = "none";
         document.getElementById("tutorialEditDivId").style.display = "none";
-        
+        document.getElementById("slideInDivId").style.display = "none";
         document.getElementById("tutorialListDivId").style.width = "100%";	
         populateTutorialList();
         //document.getElementById("mainContainer").style.width = "100%";
@@ -3303,7 +3304,7 @@ function getTutorial(tutorialStr){
             }
 
             if (description.includes("sbmtqzdivid")){
-                newHTML = newHTML + '<div id="avgResultsDivId" class="chartDiv box_shadow7 text_align_center margin_10px_auto padding_10px slide-in-left" style="animation-duration: 0.2;  background-color:#fafad2"><div class="pie" style="--p:'+ percentNumber +';--b:40px;--w:200px; --c:green;">'+ percentNumber +'%</div><br>Public Average Score</div>';
+                newHTML = newHTML + '<div id="avgResultsDivId" class="chartDiv text_align_center margin_10px_auto padding_10px slide-in-left" style="animation-duration: 0.2;  background:none; border: none"><div class="pie" style="--p:'+ percentNumber +';--b:40px;--w:200px; --c:green;">'+ percentNumber +'%</div><br>Public Average Score</div>';
             }
                         
             if (description != undefined){
@@ -3332,7 +3333,7 @@ function getTutorial(tutorialStr){
             var elemId = "tutorialDiv-" + itemid;
             document.getElementById(elemId).style.backgroundColor = "orange";
             //END: Change the background color of the active tutorial link
-
+            document.getElementById("slideInDivId").style.display = "block";
             var metaDesc = shortdescription   ;
 
             var metaKey = technology + "," + subpath + "," + title + "," + keywords;
@@ -3361,10 +3362,21 @@ function getTutorial(tutorialStr){
               let jsonLdScript = document.querySelector('script[type="application/ld+json"]');
               jsonLdScript.innerHTML = JSON.stringify(structuredData);
 
-              
+              if ((sessionStorage.getItem("hideLeftMenuBar") == "Y") || (onMobileBrowser())){
+                setTimeout(() => {
+                    toggleLeftSideMenu("hide");
+                }, 50);
+              }
+
               $('html, body').animate({
                     scrollTop: $("#tutorialDivId").offset().top - 80
                 }, 100);	
+
+                setTimeout(function() {
+                    $(".qz1-ans").on("click", function() {
+                        $(this).find(".dynamicradio").prop("checked", true);
+                      });
+                    }, 800);
             
         },
         error: function(xhr, status, error) {
@@ -3575,6 +3587,36 @@ function toggleToolBarView(){
         document.getElementById("toolBarId").style.height = "600px";
     }
 }
+
+function toggleLeftSideMenu(hideFlag = ""){
+
+    if (hideFlag == ""){
+        if (document.getElementById("tutorialListInnerDivId").style.display != "none"){
+            document.getElementById("tutorialListDivId").style.width = "10%";
+            document.getElementById("tutorialEditDivId").style.width = "10%";
+            document.getElementById("tutorialListDivId").style.minWidth = "0px";
+            document.getElementById("tutorialListInnerDivId").style.display = "none";
+            //document.getElementById("slideInDivId").innerHTML = '<i class="fa fa-list"></i>';
+            sessionStorage.setItem("hideLeftMenuBar", "Y");
+        }else{
+            document.getElementById("tutorialListDivId").style.minWidth = "350px";
+            //document.getElementById("tutorialListDivId").style.width = "100%";
+            document.getElementById("tutorialListInnerDivId").style.display = "block";
+            //document.getElementById("slideInDivId").innerHTML = '<i class="fa fa-caret-left"></i>';
+            sessionStorage.setItem("hideLeftMenuBar", "N");
+        }
+    }else{
+        document.getElementById("tutorialListDivId").style.width = "10%";
+        document.getElementById("tutorialEditDivId").style.width = "10%";
+        document.getElementById("tutorialListDivId").style.minWidth = "0px";
+        document.getElementById("tutorialListInnerDivId").style.display = "none";
+        //document.getElementById("slideInDivId").innerHTML = '<i class="fa fa-list"></i>';
+        sessionStorage.setItem("hideLeftMenuBar", "Y");
+    }
+
+
+}
+
 function popolatenewImageName(itemid){
     document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)+ "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
 }
@@ -5371,16 +5413,16 @@ function populateTutorialList(rows = "") {
         technologyMaxCount = sessionStorage.getItem("max-count-" + technologySqueezed);
 
         if (i == 0) {
-            innerHTML = innerHTML + '<div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  > <div class="technologyHeader" >' ;
+            innerHTML = innerHTML + '<div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  > <a class="technologyHeader" href ="'+ technologyUrl +'">' ;
             if (the.smusr){
                 innerHTML = innerHTML + rows[i].technologyseq + '. ';
             }   
             innerHTML = innerHTML + rows[i].technology + 
 			
 			//  '<label class="switch technologyToggleLbl"  ><input class="toggleInput"  type="checkbox" checked data-cat="'+ rows[i].technology + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-             '<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
+            // '<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
 			
-			'</div>';
+			'</a>';
             startingCharURL= myUrl + "starting/bollywood-tutorials-starting-with-" + rows[i].technology;
 
          } else if (rows[i].technology != rows[i - 1].technology) {
@@ -5397,7 +5439,7 @@ function populateTutorialList(rows = "") {
 
            currDisplayCount = 0;
 
-            innerHTML = innerHTML + '</div><div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  ><div class="technologyHeader">' ;
+            innerHTML = innerHTML + '</div><div id="menucardparent-' + technologySqueezed + '" class="cardsContainerDivClassPadd"  ><a class="technologyHeader" href ="'+ technologyUrl +'">' ;
         
             if (the.smusr){
                 innerHTML = innerHTML + rows[i].technologyseq + '. ';
@@ -5405,8 +5447,8 @@ function populateTutorialList(rows = "") {
             
             innerHTML = innerHTML + rows[i].technology + 
 			//  '<label class="switch technologyToggleLbl"  ><input class="toggleInput"   type="checkbox" checked data-cat="'+ rows[i].technology + '"  onchange="handleShowToggle(this);" ><span class="slider round"></span></label>' +
-            '<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
-            '</div>';
+            //'<a class="goToTechLink" href ="'+ technologyUrl +'"> GO </a>' +
+            '</a>';
 
             startingCharURL= myUrl + "starting/bollywood-tutorials-starting-with-" + rows[i].technology;
          }
