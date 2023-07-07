@@ -49,13 +49,13 @@ if (strpos($path, 'tutorials/') !== false) {
 
 <head>
    <!-- Google tag (gtag.js) -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMD8K2RLDE"></script>
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2HXRRR286M"></script>
    <script>
    window.dataLayer = window.dataLayer || [];
    function gtag(){dataLayer.push(arguments);}
    gtag('js', new Date());
 
-   gtag('config', 'G-JMD8K2RLDE');
+   gtag('config', 'G-2HXRRR286M');
    </script>
 
    <meta charset="utf-8" />
@@ -85,7 +85,7 @@ if (strpos($path, 'tutorials/') !== false) {
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
    <link href="/readernook/css/smtheme-v1.05.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function-v1.5.js"></script>
+   <script src="/readernook/web/common-function-v1.6.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
