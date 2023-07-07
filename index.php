@@ -16,17 +16,17 @@ $path = urldecode($_SERVER["REQUEST_URI"]);
 $path = substr($path, 1);
 $isPHPUrl = false;
 $isCrawler = isset($_SERVER['HTTP_USER_AGENT'])
-&& preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
+   && preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
 
 
 
 if (strpos($path, 'tutorials/') !== false) {
-    $itemstr = substr($path, strpos($path, "tutorials/") + 10);
-    if (strpos($itemstr, '/') !== false) {
+   $itemstr = substr($path, strpos($path, "tutorials/") + 10);
+   if (strpos($itemstr, '/') !== false) {
       $isPHPUrl = true;
       if (isset($_SESSION['datafetched_XX'])) {
          $title = $_SESSION['webTitle'];
-         $description = $_SESSION['webDesc'] ;
+         $description = $_SESSION['webDesc'];
          //$image_url = "https://itcodescanner.com/getimage/".$_SESSION['image_nm'];
          $keywords = $_SESSION['webKeywords'];
          $webFullDesc = $_SESSION['webFullDesc'];
@@ -34,13 +34,13 @@ if (strpos($path, 'tutorials/') !== false) {
          $dummy = $database->getTutorial($itemstr);
          if ($dummy != "Err in DB call") {
             $title = $_SESSION['webTitle'];
-            $description = $_SESSION['webDesc'] ;
+            $description = $_SESSION['webDesc'];
             //$image_url = "https://itcodescanner.com/getimage/".$_SESSION['image_nm'];
             $keywords = $_SESSION['webKeywords'];
             $webFullDesc = $_SESSION['webFullDesc'];
          }
       }
-    }
+   }
 }
 
 ?>
@@ -85,32 +85,32 @@ if (strpos($path, 'tutorials/') !== false) {
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
    <link href="/readernook/css/smtheme-v1.05.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function-v1.4.js"></script>
+   <script src="/readernook/web/common-function-v1.5.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
 
-   <?php if (!$isCrawler || !$isPHPUrl):  ?>
+   <?php if (!$isCrawler || !$isPHPUrl): ?>
       <?php include 'head-add.html'; ?>
    <?php endif; ?>
 
    <script type="application/ld+json">{
-			"@context": "https://schema.org/",
-			"@type":"WebSite","url":"https://readernook.com/",
-			"name": "Reader Nook - Read and Learn",
-			"datePublished": "2022-07-10",
-			"description": "Reader Nook - Read and Learn.",
-			"thumbnailUrl": "https://readernook.com/images/banner.png"         
-		 }
-		 </script>
+         "@context": "https://schema.org/",
+         "@type":"WebSite","url":"https://readernook.com/",
+         "name": "Reader Nook - Read and Learn",
+         "datePublished": "2022-07-10",
+         "description": "Reader Nook - Read and Learn.",
+         "thumbnailUrl": "https://readernook.com/images/banner.png"         
+       }
+       </script>
 
 </head>
 
 <body>
-<?php if (!$isCrawler || !$isPHPUrl):  ?>
+<?php if (!$isCrawler || !$isPHPUrl): ?>
    <?php include 'body-main.html'; ?>
 <?php else: ?>
-   <h1> <?=$_SESSION['webTitle']?> </h1><br>
+   <h1> <?= $_SESSION['webTitle'] ?> </h1><br>
    
    
    <div style="margin: auto; padding:10px">
