@@ -79,13 +79,13 @@ if (strpos($path, 'tutorials/') !== false) {
    <!--  
          <link href="/readernook/css/bootstrap.min.css" rel="stylesheet" />
          -->
-   <link href="/readernook/css/readernook-v1.5.css" rel="stylesheet" />
+   <link href="/readernook/css/readernook-v1.6.css" rel="stylesheet" />
    <link href="/readernook/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/readernook/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
    <link href="/readernook/css/smtheme-v1.05.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function-v1.7.js"></script>
+   <script src="/readernook/web/common-function-v1.8.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
