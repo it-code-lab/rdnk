@@ -5634,6 +5634,9 @@ function populateTutorialList(rows = "") {
             discontinuedFlgCls = " discontinued ";
         }
 
+        let subPathQzRepl = rows[i].subpath;
+        subPathQzRepl = subPathQzRepl.replace(/quiz/i, "<span class='quizTxt'>Quiz</span>");
+
         if (previousSubpath == currentSubpath) {
             //It is a child tutorial same as previous
             innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
@@ -5643,7 +5646,7 @@ function populateTutorialList(rows = "") {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
             }
 
-            innerHTML = innerHTML + rows[i].subpath + ' </h2> </span> </a>';
+            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
             innerHTML = innerHTML + '</div>';
         } else if (nextSubPath == currentSubpath) {
             //It is a new child tutorial 
@@ -5659,7 +5662,7 @@ function populateTutorialList(rows = "") {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
             }
 
-            innerHTML = innerHTML + rows[i].subpath + ' </h2> </span> </a>';
+            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
             innerHTML = innerHTML + '</div>';
         } else {
             //It is not a new child tutorial 
@@ -5670,7 +5673,7 @@ function populateTutorialList(rows = "") {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
             }
 
-            innerHTML = innerHTML + rows[i].subpath + ' </h2> </span> </a>';
+            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
             innerHTML = innerHTML + '</div>';
         }
 
