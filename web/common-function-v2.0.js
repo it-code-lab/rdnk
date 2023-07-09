@@ -2958,6 +2958,9 @@ function checkURL() {
     //console.log("inside checkURL");
 
 
+    document.getElementById("displayFileLoaderDivId").style.display = "block";
+    document.getElementById("tutorialDivId").style.display = "none";
+    document.getElementById("tutorialListDivId").style.display = "none";
 
     var myUrl = window.location.protocol + "//" + window.location.host +
         window.location.pathname;
@@ -2976,8 +2979,14 @@ function checkURL() {
         activateAccount(accountactivationkey);
         return;
     }
-    if (localStorage.getItem("cookieAccepted") == "y") {
-        document.getElementById("cookie-div-id").style.display = "none"
+    try{
+        if (localStorage.getItem("cookieAccepted") == "y") {
+            document.getElementById("cookie-div-id").style.display = "none"
+        } else{
+            document.getElementById("cookie-div-id").style.display = "block"
+        }
+    }catch{
+
     }
 
     var myCookie = getCookie("cookname");

@@ -18,7 +18,7 @@ $isPHPUrl = false;
 $isCrawler = isset($_SERVER['HTTP_USER_AGENT'])
    && preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
 
-
+//$isCrawler = true;
 
 if (strpos($path, 'tutorials/') !== false) {
    $itemstr = substr($path, strpos($path, "tutorials/") + 10);
@@ -79,20 +79,18 @@ if (strpos($path, 'tutorials/') !== false) {
    <!--  
          <link href="/readernook/css/bootstrap.min.css" rel="stylesheet" />
          -->
-   <link href="/readernook/css/readernook-v1.7.css" rel="stylesheet" />
+   <link href="/readernook/css/readernook-v1.8.css" rel="stylesheet" />
    <link href="/readernook/css/smstylegtlimit.css" rel="stylesheet" />
    <link href="/readernook/css/smstyleltlimit.css" rel="stylesheet" />
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
    <link href="/readernook/css/smtheme-v1.05.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function-v1.9.js"></script>
+   <script src="/readernook/web/common-function-v2.0.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
 
-   <?php if (!$isCrawler || !$isPHPUrl): ?>
-      <?php include 'head-add.html'; ?>
-   <?php endif; ?>
+   <?php include 'head-add.html'; ?>
 
    <script type="application/ld+json">{
          "@context": "https://schema.org/",
@@ -107,17 +105,7 @@ if (strpos($path, 'tutorials/') !== false) {
 </head>
 
 <body>
-<?php if (!$isCrawler || !$isPHPUrl): ?>
-   <?php include 'body-main.html'; ?>
-<?php else: ?>
-   <h1> <?= $_SESSION['webTitle'] ?> </h1><br>
-   
-   
-   <div style="margin: auto; padding:10px">
-   <?= $_SESSION['webFullDesc'] ?>
-   </div>
-<?php endif; ?>
-
+<?php include 'body-main.html'; ?>
 </body>
 
 </html>

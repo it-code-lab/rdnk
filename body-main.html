@@ -45,7 +45,7 @@
        
        <!-- End of Top navigation-->
        <!-- Page content-->
-       <div id="loaderDivId">
+       <div id="loaderDivId" class="displayNone">
           <!-- <img src='/readernook/images/codescan.png' alt='Loading..' style="margin:auto"> -->
           <div class="loader2">
              <span></span>
@@ -149,6 +149,16 @@
 
              </div>
              <div id="tutorialDivId">
+               <?php if (!$isCrawler || !$isPHPUrl): ?>
+
+               <?php else: ?>
+                     <h1> <?= $_SESSION['webTitle'] ?> </h1><br>
+                  
+                  
+                     <div style="margin: auto; padding:10px">
+                     <?= $_SESSION['webFullDesc'] ?>
+                     </div>
+               <?php endif; ?>               
              </div>
 
              <div id="tutorialEditDivId">
@@ -914,23 +924,24 @@
     </p>
   </footer>
   </div>
-
- <div id="cookie-div-id" class="cookie-consent-banner">
-    <div class="cookie-consent-banner__inner">
-       <div class="cookie-consent-banner__copy">
-          <div class="cookie-consent-banner__header">We USE COOKIES</div>
-          <div class="cookie-consent-banner__description">We use cookies and other tracking technologies to improve
-             your browsing experience on our website, to show you personalized content and targeted ads, to analyze
-             our website traffic, and to understand where our visitors are coming from. You consent to our cookies if
-             you continue to use our website.</div>
-       </div>
-       <div class="cookie-consent-banner__actions">
-          <a href="#" onclick="cookieAccepted()" class="cookie-consent-banner__cta">
-             Understood
-          </a>
-       </div>
-    </div>
- </div>
+  <?php if (!$isCrawler): ?>
+      <div id="cookie-div-id" class="cookie-consent-banner">
+         <div class="cookie-consent-banner__inner">
+            <div class="cookie-consent-banner__copy">
+               <div class="cookie-consent-banner__header">We USE COOKIES</div>
+               <div class="cookie-consent-banner__description">We use cookies and other tracking technologies to improve
+                  your browsing experience on our website, to show you personalized content and targeted ads, to analyze
+                  our website traffic, and to understand where our visitors are coming from. You consent to our cookies if
+                  you continue to use our website.</div>
+            </div>
+            <div class="cookie-consent-banner__actions">
+               <a href="#" onclick="cookieAccepted()" class="cookie-consent-banner__cta">
+                  Understood
+               </a>
+            </div>
+         </div>
+      </div>
+ <?php endif; ?>
  <!--
        </div>
        -->
