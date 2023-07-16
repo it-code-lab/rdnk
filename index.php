@@ -85,7 +85,7 @@ if (strpos($path, 'tutorials/') !== false) {
    <link href="/readernook/css/slidestyles.css" rel="stylesheet" />
    <link href="/readernook/css/smtheme-v1.06.css" rel="stylesheet" />
    <script src="/readernook/web/common-editor-function.js"></script>
-   <script src="/readernook/web/common-function-v2.3.js"></script>
+   <script src="/readernook/web/common-function-v2.4.js"></script>
    <!-----
          <script src="/readernook/web/common-function-mini.js"></script>
          -->
