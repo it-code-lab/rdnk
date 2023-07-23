@@ -38,7 +38,7 @@ for ($i = 0; $i < count($rows); $i++) {
 <div class="topnav" id="myTopnav">
       <a id="homeLinkId" href="/readernook/home">HOME</a>
 
-      <a id="tutorialLinkId" href="/readernook/topics">TOPICS <i  class="fa fa-caret-down"></i></a>
+      <a id="topicsLinkId" href="/readernook/topics">TOPICS <i  class="fa fa-caret-down"></i></a>
       <div id="dropDownTutListId" class="dropdown-content">
       <?php echo $innHTML; ?>
       </div>
@@ -88,13 +88,13 @@ for ($i = 0; $i < count($rows); $i++) {
 
    let pageName = "";
    if ("<?php echo $tutorialsPageFlag ?>"){
-      pageName = "tutorial";
+      pageName = "topics";
    }else {
       var path = window.location.pathname;
       pageName =path.replaceAll("/readernook/", "");
    }
    if (pageName == ""){
-      pageName = "tutorial";
+      pageName = "topics";
    }
    x = document.getElementById(pageName + "LinkId");
    x.className += " active";
