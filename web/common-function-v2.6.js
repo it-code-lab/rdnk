@@ -1905,9 +1905,9 @@ function populateTutorialsDropDownDisplay() {
 
     for (var i = 0; i < rows.length; i++) {
         if (i == 0) {
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>" + rows[i].technology + "</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/topics/" + rows[i].technology + "'>" + rows[i].technology + "</a>";
         } else if (rows[i].technology != rows[i - 1].technology) {
-            innHTML = innHTML + "<a href= '" + the.hosturl + "/tutorials/" + rows[i].technology + "'>" + rows[i].technology + "</a>";
+            innHTML = innHTML + "<a href= '" + the.hosturl + "/topics/" + rows[i].technology + "'>" + rows[i].technology + "</a>";
         }
         // if (i == 0) {
         //     innHTML = innHTML + "<a href='javascript:showTechnology("+ '"' + rows[i].technology + '"' + ")'>"+ rows[i].technology +"</a>";
@@ -3033,7 +3033,7 @@ function checkURL() {
 
     }
 
-    if (path.indexOf('tutorials/') > 0) {
+    if (path.indexOf('topics/') > 0) {
         //var songtitle = path.replaceAll("/antaksharee/lyrics/","");
 
         if (sessionStorage.getItem("LanguageHelpCodeAndIds") == null) {
@@ -3064,7 +3064,7 @@ function checkURL() {
         document.getElementById("tutorialEditDivId").style.display = "block";
 
 
-        var tutorialStr = path.substring(path.indexOf("tutorials/") + 10);
+        var tutorialStr = path.substring(path.indexOf("topics/") + 7);
 
         if (screen.width < 700 || window.innerWidth < 700) {
             //document.getElementById("tutorialSearchDivId").style.display = "none";
@@ -3335,8 +3335,8 @@ function getTutorial(tutorialStr) {
                         nextSubpath = nextSubpath.replaceAll(" ", "-");
                         nextTechnology = (rows[i + 1].technology).toLowerCase();
                         nextTechnology = nextTechnology.replaceAll(" ", "-");
-                        //nextTutorialTitleURL = myUrl + "tutorials/" + nextTechnology + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
-                        nextTutorialTitleURL = myUrl + "tutorials/" + nextTechnology + "/" + itemName.toLowerCase();
+                        //nextTutorialTitleURL = myUrl + "topics/" + nextTechnology + "/" + nextSubpath.toLowerCase() + "/" + itemName.toLowerCase();
+                        nextTutorialTitleURL = myUrl + "topics/" + nextTechnology + "/" + itemName.toLowerCase();
                         nextTutorialTitle = rows[i + 1].subpath;
                     }
 
@@ -3347,7 +3347,7 @@ function getTutorial(tutorialStr) {
 
 
             var tutorialUrl = path.substring(0, path.indexOf('/', path.indexOf('readernook')) + 1) + "?target=tutorial";
-            var technologyUrl = path.substring(0, path.indexOf('/', path.indexOf('readernook')) + 1) + "tutorials/" + technology;
+            var technologyUrl = path.substring(0, path.indexOf('/', path.indexOf('readernook')) + 1) + "topics/" + technology;
 
             var newHTML = "<div classXX = 'songContainer' ><div class='topNavDivCls'>" +
                 '<a href ="' + tutorialUrl + '" class="tutorialTopLinkCls" ' + ' >' + "Topics</a>" + " > " +
@@ -4664,7 +4664,7 @@ function getLatestScoresHTML(){
     
             technology = technologyOrig.replaceAll(" ", "-");
 
-            quizURL = myUrl + "tutorials/" + technology.toLowerCase() + "/" + itemName.toLowerCase();
+            quizURL = myUrl + "topics/" + technology.toLowerCase() + "/" + itemName.toLowerCase();
 
             if ((i==0) || ( quizRows[i].technology !=  quizRows[i-1].technology)){
                 newHTML = newHTML + "<tr style='background-color:#4d6981; color:white'><td colspan='3'>" + technologyOrig + "</td></tr>";
@@ -4674,7 +4674,7 @@ function getLatestScoresHTML(){
             let latestTestTime = "";
 
             let resultForQuiz = latestUserScoresData.filter((obj) => {
-                let qzURL = (obj.quiz).split("/tutorials/");
+                let qzURL = (obj.quiz).split("/topics/");
                 let link = qzURL[1];
                 let dummy1 = link.split("/");
                 return technology.toUpperCase() === dummy1[0].toUpperCase() && itemName.toUpperCase() === dummy1[1].toUpperCase() ; 
@@ -4733,7 +4733,7 @@ function getAllScoresHTML(){
         for (let key in scoresList) {
             let obj = scoresList[key];
 
-            let qzURL = (obj.quiz).split("/tutorials/");
+            let qzURL = (obj.quiz).split("/topics/");
             let link = qzURL[1];
 
             let title = obj.title;
@@ -5817,7 +5817,7 @@ function searchTutorial() {
 
     document.getElementById("tutorialDivId").style.display = "none";
     document.getElementById("tutorialListDivId").style.width = "100%";
-    document.getElementById("homeDivId").style.display = "none";
+    //document.getElementById("homeDivId").style.display = "none";
     populateTutorialList(rows);
     $(".cardsContainerDivClassPadd").css("width", "95%");
 }
@@ -5894,10 +5894,10 @@ function populateTutorialList(rows = "") {
 
         technology = technology.replaceAll(" ", "-");
 
-        //tutorialTitleURL = myUrl + "tutorials/" + technology.toLowerCase() + "/" + subpath.toLowerCase() + "/" + itemName.toLowerCase();
-        tutorialTitleURL = myUrl + "tutorials/" + technology.toLowerCase() + "/" + itemName.toLowerCase();
+        //tutorialTitleURL = myUrl + "topics/" + technology.toLowerCase() + "/" + subpath.toLowerCase() + "/" + itemName.toLowerCase();
+        tutorialTitleURL = myUrl + "topics/" + technology.toLowerCase() + "/" + itemName.toLowerCase();
 
-        technologyUrl = myUrl + "tutorials/" + technologyOrig;
+        technologyUrl = myUrl + "topics/" + technologyOrig;
 
         let itemStr = technology.toLowerCase() + "/" + itemName.toLowerCase();
 
@@ -5980,7 +5980,7 @@ function populateTutorialList(rows = "") {
         if (previousSubpath == currentSubpath) {
             //It is a child tutorial same as previous
             innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+            innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
 
             if (the.smusr) {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -5996,7 +5996,7 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + '</div>';
 
             innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+            innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
 
             if (the.smusr) {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -6007,7 +6007,7 @@ function populateTutorialList(rows = "") {
         } else {
             //It is not a new child tutorial 
             innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink" onclick="getItemAfterURLHistUpd(' + "'" + itemStr + "'" + '); return false;" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+            innerHTML = innerHTML + '<a class="tutorialLink" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
 
             if (the.smusr) {
                 innerHTML = innerHTML + rows[i].titleseq + '. ';
@@ -6042,7 +6042,7 @@ function populateTutorialList(rows = "") {
 
 function getItemAfterURLHistUpd(itemStr) {
     let path = window.location.pathname;
-    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "tutorials/" + itemStr;
+    let myUrl = path.substring(0, path.indexOf('/', path.indexOf(the.hostnm)) + 1) + "topics/" + itemStr;
 
 
     const nextURL = myUrl;
@@ -6488,13 +6488,26 @@ function login() {
                 sessionStorage.setItem("userdata", retstatus.substring(3));
                 localStorage.setItem("userEmail", StrEmail);
                 getStoredProjectList();
-                var myUrl = window.location.protocol + "//" + window.location.host +
-                    window.location.pathname;
+                var path = window.location.pathname;
+                var dummyUrl = path.substring(0, path.indexOf('/', path.indexOf('readernook')) + 1)
 
-                var lastUrl = sessionStorage.getItem("lastUrl");
+                var myUrl = window.location.protocol + "//" + window.location.host +
+                dummyUrl;
+
+                //var lastUrl = sessionStorage.getItem("lastUrl");
+                lastUrl = document.referrer;
 
                 if (lastUrl == null) {
-                    lastUrl = myUrl + "?target=" + "home"
+                    //lastUrl = myUrl + "?target=" + "home"
+                    lastUrl = myUrl + "home";
+                }else{
+                    if (lastUrl.indexOf('readernook') > 0){
+                        if (lastUrl.indexOf('login') > 0){
+                            lastUrl = myUrl + "home";
+                        }
+                    }else{
+                        lastUrl = myUrl + "home";
+                    }
                 }
                 window.open(lastUrl, "_self");
 
