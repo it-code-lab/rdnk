@@ -12,7 +12,7 @@ $tutorialsPageFlag = false;
 
 $isLoggedin = $_SESSION['isLoggedin'];
 
-if (strpos($path, '/topics') !== false) {
+if (strpos($path, 'topics') !== false) {
    $tutorialsPageFlag = true;
 }
 //$rows = $tutorialList;
