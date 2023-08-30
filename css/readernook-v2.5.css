@@ -2706,3 +2706,11 @@ div:has(> .hideParentDiv) {display: none; }
   display: block;
   width: 100%;
 }
+#timeAndStatusDivId{
+  display: flex;
+  flex-direction: row;
+  background-color: steelblue;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+}
