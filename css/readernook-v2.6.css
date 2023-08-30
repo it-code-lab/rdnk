@@ -2134,6 +2134,11 @@ margin-top: 40px !important;
     display: none;
   }
 
+  .ansAddInfo{
+    display: none;
+  }
+
+
   .hdmicls{
     display: none;
   }
@@ -2191,6 +2196,10 @@ margin-top: 40px !important;
 .editDescriptionDiv .qz1-rtans {
   display: block;
 } 
+
+.editDescriptionDiv .ansAddInfo {
+  display: block;
+}
 
 .editDescriptionDiv .hdmicls {
   display: block;
@@ -2705,4 +2714,12 @@ div:has(> .hideParentDiv) {display: none; }
 .alignment-span{
   display: block;
   width: 100%;
+}
+#timeAndStatusDivId{
+  display: flex;
+  flex-direction: row;
+  background-color: steelblue;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
 }
