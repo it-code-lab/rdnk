@@ -232,7 +232,7 @@ function generateWill(){
         }
     }
 
-    willHTML = willHTML + "<div class='stamp'><img class='stampImg' src='/readernook/images/20rupay.png'></div>"
+    // willHTML = willHTML + "<div class='stamp'><img class='stampImg' src='/readernook/images/20rupay.png'></div>"
     willHTML = willHTML + "<div class='willTitle'>" +  outputData[languageCode]["vasiyatPart1"] + "</div>";
 
     willHTML = willHTML +  outputData[languageCode]["vasiyatPart2"] +  document.getElementById("username").value + ", "+ (document.getElementById("relType").value). toLowerCase() + outputData[languageCode]["vasiyatPart2B"] +  document.getElementById("userrelationship").value + "," + outputData[languageCode]["vasiyatPart2C"] +  document.getElementById("userage").value + outputData[languageCode]["vasiyatPart2D"] + ", " + outputData[languageCode]["vasiyatPart2E"] + document.getElementById("useraddress").value + ", " +  outputData[languageCode]["vasiyatPart3"] ;
@@ -247,9 +247,9 @@ function generateWill(){
     willHTML = willHTML + outputData[languageCode]["vasiyatPart12"] + "<br><br><br>";
     willHTML = willHTML + outputData[languageCode]["vasiyatPart13"];
 
-    willHTML = willHTML + '<br><br><button name="Print" class="button4"  onclick="printRegular()">Print on Regular Paper</button>';
+    willHTML = willHTML + '<br><br><button name="Print" class="button4"  onclick="printRegular()">Print</button>';
 
-    willHTML = willHTML + '<button class="button4"  onclick="printStamp()">Print with Margin</button>';
+    // willHTML = willHTML + '<button class="button4"  onclick="printStamp()">Print with Margin</button>';
 
     document.getElementById("willContent").innerHTML = willHTML;
     document.getElementById("willContent").style.display = "block";
