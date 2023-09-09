@@ -2697,6 +2697,10 @@ div:has(> .hideParentDiv) {display: none; }
   .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .topnav, .sbmtqz-div, .topNavDivCls, .bottomNavDivCls, .bottomCommentDivCls, .footerDiv, #tutorialListDivId, #tutorialEditDivId {
     display: none !important;
   }
+
+  #tutorialDivId{
+    border: none;
+  }
 }
 
 .scoresPie{
