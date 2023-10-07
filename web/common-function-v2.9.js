@@ -3650,6 +3650,7 @@ function editItem(btn) {
 
         "<button data-title='Convert selected text to h2 inline' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-h2-inline') >Convert text to h2</button>" +
         "<button data-title='Convert selected text to h3 inline' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-h3-inline') >Convert text to h3</button>" +
+        "<button data-title='Convert selected text to blue h3 inline' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-blue-h3-inline') >Convert text to blue h3</button>" +
 
         "<label class='toolBarlabel'>Alignment</label>" +
         "<button data-title='Left Align selected text' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','left-align') >Left</button>" +
