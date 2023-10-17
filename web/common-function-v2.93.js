@@ -93,7 +93,7 @@ document.onpaste = function (event) {
 
                          let imagename = saveAsName;
                         let randomId = "div-" + Math.floor(Math.random() * 1000000);
-                        let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+                        let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
                         insertImageAtCaret(Str);
                     }
                 };
@@ -3928,6 +3928,41 @@ function deleteCurrentComponent(btn) {
     //btn.parentElement.innerHTML = "";
 }
 
+function deleteCurrentComponentAndRemoveBK(btn){
+
+    // Get the parent div of the button
+    let parentDiv = $(btn).closest('div.image1-desc');
+
+    // Find the image inside the parent div
+    let imageElement = parentDiv.find('img.movieImageCls');
+    
+    // Get the source attribute of the image, which contains the image's name
+    let imageName = imageElement.attr('src').split('/').pop();
+
+    let formData = new FormData();
+    formData.append("saveasname", imageName);
+    formData.append("dir", "img");
+
+    let xhttp = new XMLHttpRequest();
+
+    // Set POST method and ajax file path
+    xhttp.open("POST", the.hosturl + "/php/deletefile.php", true);
+
+    // call on request changes state
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            let response = this.responseText;
+            //console.log(response);
+
+         }
+    };
+
+    // Send request with data
+    xhttp.send(formData);
+    btn.parentElement.remove();
+}
+
 function copyCurrentComponent(btn) {
     var text = btn.parentElement.textContent;
     text = text.substring(1, text.lastIndexOf('Copy'));
@@ -4083,7 +4118,7 @@ function uploadAndInsertFile(event) {
                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                     var imagename = document.getElementById("image-" + itemid).value;
                     var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
                     insertImageAtCaret(Str);
                 }
             };
@@ -4155,7 +4190,7 @@ function SaveImageAndInsertAtCarot(event) {
                         document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                         var imagename = document.getElementById("image-" + itemid).value;
                         var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+                        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
                         insertImageAtCaret(Str);
                     }
                 };
@@ -4400,7 +4435,22 @@ function addComponent(itemid, type) {
           range.deleteContents();
           range.insertNode(h3Element);
         }
-    } else if (type == "left-align") {
+    } else if (type == "convert-to-blue-h3-inline") {
+        let selectedText = window.getSelection().toString();
+      
+        if (selectedText !== '') {
+          // Create an h2 element
+          let h3Element = document.createElement('h3');
+          
+          // Set the text content of the h2 element to the selected text
+          h3Element.textContent = selectedText;
+          h3Element.classList.add('convert-to-blue-h3-inline-cls');
+          // Replace the selected text with the h2 element
+          let range = window.getSelection().getRangeAt(0);
+          range.deleteContents();
+          range.insertNode(h3Element);
+        }
+    }else if (type == "left-align") {
         // let selectedRange = window.getSelection().getRangeAt(0);
 
         // // Create a span element
@@ -4509,7 +4559,7 @@ function addComponent(itemid, type) {
 
     } else if (type == "image4") {
         var imagename = document.getElementById("image-" + itemid).value;
-        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button></div>";
+        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
         insertImageAtCaret(Str);
 
     } else if (type == "warning") {
@@ -4671,12 +4721,9 @@ function showOneQnAtATimeKnowledgeTest(currentQnNbr){
 
     let obj = JSON.parse(document.getElementById("hdmidivid").innerText);
     let keys = Object.keys(obj);
-<<<<<<< HEAD:web/common-function-v2.91.js
 
     $(".ansAddInfo").hide();
 
-=======
->>>>>>> 7f076ca27fe27532e6270b3bfcd5d518a7be6f9c:web/common-function-v2.9.js
     for (i = 0; i < keys.length; i++) {
         let id = keys[i];
         
@@ -4756,7 +4803,6 @@ function checkOneQuestion(){
         sessionStorage.setItem("rtans", rtans);
         sessionStorage.setItem("wans", wans);
         sessionStorage.setItem("currentQnNbr", currentQnNbr);
-<<<<<<< HEAD:web/common-function-v2.91.js
 
 
 
@@ -4773,8 +4819,6 @@ function checkOneQuestion(){
         }
 
 
-=======
->>>>>>> 7f076ca27fe27532e6270b3bfcd5d518a7be6f9c:web/common-function-v2.9.js
         updateQzTimeAndStatus();
 
         document.getElementById("sbmtoneqzdivid").style.display = "none";

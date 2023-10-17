@@ -2128,8 +2128,19 @@ margin-top: 40px !important;
     text-shadow: 0 1px 0 #fff;
     /* top: 5px; */
     display: none;   
+    background-color: chartreuse;
   }
-
+  .deleteDivInnImgBk{
+    color: #cf4242;
+    font: 14px/100% arial, sans-serif;
+    /* position: absolute;
+    right: 5px; */
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    /* top: 5px; */
+    display: none;   
+    background-color: darkorange;
+  }
   .qz1-rtans{
     display: none;
   }
@@ -2142,7 +2153,7 @@ margin-top: 40px !important;
   .hdmicls{
     display: none;
   }
-  .deleteDiv:after, .deleteDivInnImg:after {
+  .deleteDiv:after, .deleteDivInnImg:after, .deleteDivInnImgBk:after {
     content: '×'; /* UTF-8 symbol */
   }
   
@@ -2182,9 +2193,12 @@ margin-top: 40px !important;
 }  
 
 .editDescriptionDiv > *:hover .deleteDivInnImg {
-  color: #F9907A;
+  color: #998108;
 } 
 
+.editDescriptionDiv > *:hover .deleteDivInnImgBk {
+  color: #c52808;
+} 
 .editDescriptionDiv > * .deleteDiv , .deleteDiv:hover{
   display: block;
 } 
@@ -2192,6 +2206,11 @@ margin-top: 40px !important;
 .editDescriptionDiv > * .deleteDivInnImg , .deleteDivInnImg:hover{
   display: block;
 } 
+
+.editDescriptionDiv > * .deleteDivInnImgBk , .deleteDivInnImgBk:hover{
+  display: block;
+} 
+
 
 .editDescriptionDiv .qz1-rtans {
   display: block;
