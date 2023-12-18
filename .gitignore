@@ -7,4 +7,5 @@ assets
 *.png
 *.ico
 .vscode/launch.json
-smtts*
+animationmaker/web/smtts*
+animationmaker/web/smtts0.14.js
