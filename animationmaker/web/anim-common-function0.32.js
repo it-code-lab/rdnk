@@ -1032,7 +1032,7 @@ function getCodeLanguages(codetext) {
 											the.codeLanguageRowId = rows[i].file_type_id;
 											
 											document.getElementById("languageScanResultDivId").style.display = "block";
-											populateLanguages();
+											//populateLanguages();
 											
 											document.getElementById("languageDeterminedDivId").style.display = "block";
 											//document.getElementById("languageNotDeterminedDivId").style.display = "none";
@@ -1054,7 +1054,7 @@ function getCodeLanguages(codetext) {
 											document.getElementById("overrideMsg").innerHTML = "";	
 											document.getElementById("helpDivMessage").style.display = "block";	
 											document.getElementById("helpDivMessage").innerHTML = '<i class="fa fa-info-circle" style="display:none; float: left;  position: absolute; top:35px; left: 10px; color:orange;" ></i>' + cleanWord(msg, '');
-											populateLanguages();
+											//populateLanguages();
 											the.codeLanguage = r_code_language;
 											document.getElementById("languageScanResultDivId").style.display = "none";
 											document.getElementById("helpDetailsDivId").style.display = "none";
