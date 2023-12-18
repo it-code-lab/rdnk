@@ -8,6 +8,4 @@ assets
 *.ico
 .vscode/launch.json
 *smtts*
-*animationmaker/web/smtts0.14.js
-*animationmaker/web/smtts0.14.js
-animationmaker/web/smtts0.14.js
+animationmaker/web/smtts*
