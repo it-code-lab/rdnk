@@ -15,8 +15,7 @@ function playTTS(element){
     let ttsspeed = element.dataset.ttsspeed
 
     //const text = "Hello, this is a sample text to be converted to speech.";
-    const apiKey = "AIzaSyCgXotl6sz1EgxuZnPOf0W2dC-vNklyD3s"; // Replace with your API key
-
+    
     //DND - Backup
     //let language = "en-US"; // Language code (e.g., en-US for English)
     //let voiceName = "en-US-Standard-H";
