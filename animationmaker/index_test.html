@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   <meta name="keywords" content="Software, IT, Tutorials, Code Samples" />
+   <meta name="description"
+      content="Easy to understand tutorials with lots of sample codes in programming languages Java, Python, JavaScript, PHP, HTML, CSS, C++, C#. Also providing feature to scan and help understand the programming code." />
+   <meta name="author" content="Numerouno" />
+   <title>IT Tutorials and Code Scanner</title>
+   <link rel="icon" type="image/x-icon" href="/animationmaker/assets/favicon.ico" />
+   <link href="/animationmaker/css/styles.css" rel="stylesheet" />
+
+
+
+
+   <script src="https://kit.fontawesome.com/2e937192fc.js" crossorigin="anonymous"></script>
+   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+   <link rel="stylesheet" href="/animationmaker/web/common-style.css">
+   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&flags=gated"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.js"
+      integrity="sha256-dPTL2a+npIonoK5i0Tyes0txCMUWZBf8cfKRfACRotc=" crossorigin="anonymous"></script>
+   <!-- Codemirror Modes -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"
+      integrity="sha256-cphnEddX56MtGJsi1PoCPLds+dlnDj1QQkAlCWeJYDo=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"
+      integrity="sha256-7AjEsHnW7cpq2raC/uxnGCP2G4zIKmCdz7OAv6LN00o=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"
+      integrity="sha256-mjhvNBMExwa2AtP0mBlK9NkzJ7sgRSyZdgw9sPhhtb0=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"
+      integrity="sha256-qfS6ZUe6JhPU75/Sc1ftiWzC2N9IxGEjlRwpKB78Ico=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/search/search.js"
+      integrity="sha256-iUnNlgkrU5Jj8oKl2zBBCTmESI2xpXwZrTX+arxSEKc=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/search/searchcursor.min.js"
+      integrity="sha256-y7nxCQ9bT6p4fEq9ylGxWfMQBpL6ingXkav6Nr1AcZ8=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.min.js"
+      integrity="sha256-G+QhvxjUNi5P5cyQqjROwriSUy2lZtCFUQh+8W1o6I0=" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/dialog/dialog.css"
+      integrity="sha256-XfaQ13HxIRg0hWLdKpAGBDOuLt7M0JCKvKpEgLHj5Gg=" crossorigin="anonymous" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   <script src="/animationmaker/js/jquery-resizable-delit.js"></script>
+   <!--REF: https://medium.com/@petehouston/remove-tinymce-warning-notification-on-cloud-api-key-70a4a352b8b0 -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script>
+
+   <!--REF: https://highlightjs.org/usage/ -->
+   <link rel="stylesheet" href="/animationmaker/css/default.min.css">
+
+   <!-- Release js -->
+   <link rel="stylesheet" href="/animationmaker/revealjs-dist/reset.css">
+   <link rel="stylesheet" href="/animationmaker/revealjs-dist/reveal.css">
+   <link rel="stylesheet" href="/animationmaker/revealjs-dist/theme/black.css" id="theme">
+   <link rel="stylesheet" href="/animationmaker/revealjs-dist/theme/black.css">
+   <link rel="stylesheet" href="/animationmaker/revealjs-plugin/highlight/monokai.css">
+
+   <script src="/animationmaker/js/highlight.min.js"></script>
+
+   <script>
+      tinymce.init({
+         selector: '.tiny',
+         menubar: false,
+         plugins: "textcolor, lists, autoresize",
+         toolbar: 'undo redo | styleselect | forecolor backcolor | numlist bullist '
+
+      });
+   </script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+      integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous"></script>
+   <script src="/animationmaker/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
+   <script src="/animationmaker/js/lib/unpackers/urlencode_unpacker.js"></script>
+   <script src="/animationmaker/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
+   <script src="/animationmaker/js/lib/unpackers/myobfuscate_unpacker.js"></script>
+   <!---->
+   <!-- <script src="/animationmaker/web/common-editor-function.js"></script> -->
+   <script src="/animationmaker/web/common-function.js"></script>
+
+
+</head>
+
+<body>
+   <div class="reveal deck1" style="width: 100%; height: 90vh; margin: 10px;">
+      <div class="slides">
+
+         <section>
+            <h3>Default</h3>
+         </section>
+
+         <section>
+            <h3>Default</h3>
+         </section>
+
+         <section data-transition="zoom">
+            <h3>data-transition: zoom</h3>
+         </section>
+
+         <section data-transition="zoom-in fade-out">
+            <h3>data-transition: zoom-in fade-out</h3>
+         </section>
+
+         <section>
+            <h3>Default</h3>
+         </section>
+
+         <section data-transition="convex">
+            <h3>data-transition: convex</h3>
+         </section>
+
+         <section data-transition="convex-in concave-out">
+            <h3>data-transition: convex-in concave-out</h3>
+         </section>
+
+         <section>
+            <section data-transition="zoom">
+               <h3>Default</h3>
+            </section>
+            <section data-transition="concave">
+               <h3>data-transition: concave</h3>
+            </section>
+            <section data-transition="convex-in fade-out">
+               <h3>data-transition: convex-in fade-out</h3>
+            </section>
+            <section>
+               <h3>Default</h3>
+            </section>
+         </section>
+
+         <section data-transition="none">
+            <h3>data-transition: none</h3>
+         </section>
+
+         <section>
+            <h3>Default</h3>
+         </section>
+
+      </div>
+   </div>
+
+   <script src="/animationmaker/revealjs-dist/reveal.js"></script>
+   <script src="/animationmaker/revealjs-plugin/highlight/highlight.js"></script>
+   <script src="/animationmaker/revealjs-plugin/markdown/markdown.js"></script>
+   <script src="/animationmaker/revealjs-plugin/notes/notes.js"></script>
+   <script src="/animationmaker/revealjs-plugin/search/search.js"></script>
+   <script src="/animationmaker/revealjs-plugin/zoom/zoom.js"></script>
+   <script>
+
+      let deck1 = new Reveal(document.querySelector('.deck1'), {
+         embedded: true,
+         progress: false,
+         keyboardCondition: 'focused',
+         plugins: [RevealHighlight]
+      });
+      deck1.on('slidechanged', () => {
+         console.log('Deck 1 slide changed');
+      });
+      deck1.initialize();
+
+   </script>
+
+
+
+</body>
+
+</html>
