@@ -1819,7 +1819,7 @@ function autocomplete(inp, arr) {
                     return false;
                 }
 
-                var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+                var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
 
                 //SM: DO NOT DELETE: options to 3 char
                 if (val.length < 2) {
@@ -2087,7 +2087,7 @@ function getLanguageHelpCodeAndIds() {
 
 function getTutorialList() {
 
-    var tags = sessionStorage.getItem("tutorialList")
+    var tags = sessionStorage.getItem("animTutorialList")
     if (tags != null) {
         if ((tags != "")  && (tags != "null")) {
             populateTutorialsDropDownDisplay();
@@ -2110,7 +2110,7 @@ function getTutorialList() {
 
 			//the.LanguageHelpCodeAndIds_LclJson = response;
 
-            sessionStorage.setItem("tutorialList", JSON.stringify(response));
+            sessionStorage.setItem("animTutorialList", JSON.stringify(response));
             populateTutorialsDropDownDisplay();
         },
         error: function(xhr, status, error) {
@@ -2120,7 +2120,7 @@ function getTutorialList() {
     });
 }
 function populateTutorialsDropDownDisplay(){
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
     var rows = JSON.parse(tf);
     rows = rows.filter(function(entry) {
         return entry.discontinue == "0";
@@ -3509,7 +3509,7 @@ function getTutorial(tutorialStr){
 
             //START: Find the next tutorial to be put at the bottom of the page
 
-		    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+		    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
 
             var nextTutorialTitle = "";
             var nextTutorialTitleURL = "";
@@ -7390,7 +7390,7 @@ function updateItem(itemid, createNewItem) {
                 goToLogin();
             }
 
-            sessionStorage.setItem("tutorialList", null);
+            sessionStorage.setItem("animTutorialList", null);
             //sessionStorage.setItem("itemList", null);
             getTutorialList();
             if (itemid == "") {
@@ -8261,7 +8261,7 @@ function cancelNewProjectAdd() {
 
 function showTechnology(tech){
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
     var rows = JSON.parse(tf);
     var elementId = "menucardparent-" + tech
     elementId = elementId.replaceAll(" ","");
@@ -8281,7 +8281,7 @@ function showTechnology(tech){
 function searchTutorial(){
     var searchText = document.getElementById("tutorial-search-box").value;
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
     var rows = JSON.parse(tf);
 
     if (searchText != ""){
@@ -8297,7 +8297,7 @@ function searchTutorial(){
 function populateTutorialDropDown(fieldId = "tutorial-search-box") {
 
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
     var items = JSON.parse(tf);
 
     //var LHCAI = the.LanguageHelpCodeAndIds_LclJson;
@@ -8324,7 +8324,7 @@ function populateTutorialList(rows = "") {
 
     //console.log(document.getElementById("cardsContainerDivId").innerHTML);
 
-    var tf = JSON.parse(sessionStorage.getItem("tutorialList"));
+    var tf = JSON.parse(sessionStorage.getItem("animTutorialList"));
 
 
     if (rows == ""){
