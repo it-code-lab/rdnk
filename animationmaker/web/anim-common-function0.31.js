@@ -29,6 +29,10 @@ var the = {
     
 };
 
+//DND - For prod 
+//hosturl: '/animationmaker',
+//hostnm: 'animationmaker',
+
 var last_focused_div_id;
 var last_focused_sec_id;
 var previewDim = "width: 95vw; height: 95vh; margin: 10px;" ;
