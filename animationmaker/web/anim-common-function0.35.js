@@ -5749,7 +5749,36 @@ function showFragmentInfo(event){
 
         tempHTML = tempHTML + "List Style:<select class='listType listTypeSelect' onchange='updateListStyle(this)'>"
         + "<option value='list-span'  >list-span</option>"
-        + "<option value='list-span1' >list-span1</option>"
+
+        + "<option value='vert-list changing-bgcolor' >vert-list changing-bgcolor</option>"
+        + "<option value='vert-list changing-bgcolor2' >vert-list changing-bgcolor2</option>"
+        + "<option value='vert-list changing-bgcolor3' >vert-list changing-bgcolor3</option>"
+
+        + "<option value='hor-list-200px-sq changing-bgcolor' >hor-list-200px-sq changing-bgcolor</option>"
+        + "<option value='hor-list-200px-sq changing-bgcolor2' >hor-list-200px-sq changing-bgcolor2</option>"
+        + "<option value='hor-list-200px-sq changing-bgcolor3' >hor-list-200px-sq changing-bgcolor3</option>"
+
+        + "<option value='hor-list-200px-sq-roundborder changing-bgcolor' >hor-list-200px-sq-roundborder changing-bgcolor</option>"
+        + "<option value='hor-list-200px-sq-roundborder changing-bgcolor2' >hor-list-200px-sq-roundborder changing-bgcolor2</option>"
+        + "<option value='hor-list-200px-sq-roundborder changing-bgcolor3' >hor-list-200px-sq-roundborder changing-bgcolor3</option>"
+
+        + "<option value='hor-list-200px-circle changing-bgcolor' >hor-list-200px-circle changing-bgcolor</option>"
+        + "<option value='hor-list-200px-circle changing-bgcolor2' >hor-list-200px-circle changing-bgcolor2</option>"
+        + "<option value='hor-list-200px-circle changing-bgcolor3' >hor-list-200px-circle changing-bgcolor3</option>"
+
+        + "<option value='hor-list-300px-sq changing-bgcolor' >hor-list-300px-sq changing-bgcolor</option>"
+        + "<option value='hor-list-300px-sq changing-bgcolor2' >hor-list-300px-sq changing-bgcolor2</option>"
+        + "<option value='hor-list-300px-sq changing-bgcolor3' >hor-list-300px-sq changing-bgcolor3</option>"
+
+        + "<option value='hor-list-300px-sq-roundborder changing-bgcolor' >hor-list-300px-sq-roundborder changing-bgcolor</option>"
+        + "<option value='hor-list-300px-sq-roundborder changing-bgcolor2' >hor-list-300px-sq-roundborder changing-bgcolor2</option>"
+        + "<option value='hor-list-300px-sq-roundborder changing-bgcolor3' >hor-list-300px-sq-roundborder changing-bgcolor3</option>"
+
+
+        + "<option value='hor-list-300px-circle changing-bgcolor' >hor-list-300px-circle changing-bgcolor</option>"
+        + "<option value='hor-list-300px-circle changing-bgcolor2' >hor-list-300px-circle changing-bgcolor2</option>"
+        + "<option value='hor-list-300px-circle changing-bgcolor3' >hor-list-300px-circle changing-bgcolor3</option>"
+
         + "<option value='list-span2' >list-span2</option>"
         + "<option value='list-span3' >list-span3</option>"
         + "<option value='list-span4' >list-span4</option>"
