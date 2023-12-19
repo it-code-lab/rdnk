@@ -35,7 +35,7 @@ var the = {
 
 var last_focused_div_id;
 var last_focused_sec_id;
-var previewDim = "width: 95vw; height: 95vh; margin: 10px;" ;
+var previewDim = "width: 98vw; height: 110vh; margin: 10px;" ;
 
 let allowedTags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
   'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
@@ -6821,7 +6821,7 @@ function updatePreviewUsingDivs(componentid){
         if (checkBox.checked == true){
             previewDim = "width: 380px; height: 700px; margin: 10px;" ;
         }else {
-            previewDim = "width: 95vw; height: 95vh; margin: 10px;" ;
+            previewDim = "width: 98vw; height: 110vh; margin: 10px;" ;
         }
     }catch(e){
 
