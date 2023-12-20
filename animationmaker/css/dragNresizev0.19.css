@@ -285,7 +285,43 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
+.hor-list-350px-sq  {
+  display: grid;
+  margin: 5px;
+  padding: 5px;
+  float: left;
+  width: 350px;
+  height: 350px;
+  text-align: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
 
+.hor-list-350px-sq-roundborder  {
+display: grid;
+margin: 5px;
+padding: 5px;
+float: left;
+width: 350px;
+height: 350px;
+border-radius: 50px;
+text-align: center;
+align-items: center;
+box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.hor-list-350px-circle  {
+display: grid;
+margin: 5px;
+border-radius: 50%;
+padding: 5px;
+float: left;
+width: 350px;
+height: 350px;
+text-align: center;
+align-items: center;
+box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
 .changing-bgcolor:nth-child(1) {
   background-color: #8d0e0e; /* Red */
 }

@@ -5779,6 +5779,19 @@ function showFragmentInfo(event){
         + "<option value='hor-list-300px-circle changing-bgcolor2' >hor-list-300px-circle changing-bgcolor2</option>"
         + "<option value='hor-list-300px-circle changing-bgcolor3' >hor-list-300px-circle changing-bgcolor3</option>"
 
+        + "<option value='hor-list-350px-sq changing-bgcolor' >hor-list-350px-sq changing-bgcolor</option>"
+        + "<option value='hor-list-350px-sq changing-bgcolor2' >hor-list-350px-sq changing-bgcolor2</option>"
+        + "<option value='hor-list-350px-sq changing-bgcolor3' >hor-list-350px-sq changing-bgcolor3</option>"
+
+        + "<option value='hor-list-350px-sq-roundborder changing-bgcolor' >hor-list-350px-sq-roundborder changing-bgcolor</option>"
+        + "<option value='hor-list-350px-sq-roundborder changing-bgcolor2' >hor-list-350px-sq-roundborder changing-bgcolor2</option>"
+        + "<option value='hor-list-350px-sq-roundborder changing-bgcolor3' >hor-list-350px-sq-roundborder changing-bgcolor3</option>"
+
+
+        + "<option value='hor-list-350px-circle changing-bgcolor' >hor-list-350px-circle changing-bgcolor</option>"
+        + "<option value='hor-list-350px-circle changing-bgcolor2' >hor-list-350px-circle changing-bgcolor2</option>"
+        + "<option value='hor-list-350px-circle changing-bgcolor3' >hor-list-350px-circle changing-bgcolor3</option>"
+                
         + "<option value='list-span2' >list-span2</option>"
         + "<option value='list-span3' >list-span3</option>"
         + "<option value='list-span4' >list-span4</option>"
