@@ -5847,6 +5847,7 @@ function showFragmentInfo(event){
 
     tempHTML = tempHTML + "Text/Value:" + "<br>" + '<textarea id="fragmentTextValue" onchange="updateParentText(this)" >'+ textValue +'</textarea> <br>';
     tempHTML = tempHTML + "<label for='skipSpaceConversion'>Skip space conversion (needed for HTML, wrap):</label>" + "<input type='checkbox' checked id='skipSpaceConversion' ><br>" ;
+    tempHTML = tempHTML + "<label for='saveAsCode'>saveAsCode (to process by Highlight.js):</label>" + "<input type='checkbox' id='saveAsCode' ><br>" ;
 
     tempHTML = tempHTML + "FontSize: <input class='fragmentFontSize' type='text' name='txt' value='" + fontSize + "' onchange='updateParentFontSize(this)'> <br>";
     tempHTML = tempHTML + "Padding: <input class='fragmentPadding' type='text' name='txt' value='" + padding + "' onchange='updateParentPadding(this)'> <br>";
@@ -6094,10 +6095,16 @@ function updateListStartingFragmentNum(btn){
     let listStyle = element.querySelector('.listTypeSelect').value;
     let index = fragmentNum ;
 
-    textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // index = index + 1;
+    // textValue = textValue.replace(/\n/g, function () {
+    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+    //     });
+
+    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
     index = index + 1;
     textValue = textValue.replace(/\n/g, function () {
-        return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
         });
 
     let objs = element.getElementsByClassName("fragmentTextSpanCls");
@@ -6132,10 +6139,16 @@ function updateListType(btn){
     
     let index = fragmentNum ;
 
-    textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // index = index + 1;
+    // textValue = textValue.replace(/\n/g, function () {
+    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+    //     });
+
+    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
     index = index + 1;
     textValue = textValue.replace(/\n/g, function () {
-        return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
         });
 
     let objs = element.getElementsByClassName("fragmentTextSpanCls");
@@ -6170,10 +6183,16 @@ function updateListStyle(btn){
     
     let index = fragmentNum ;
 
-    textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+    // index = index + 1;
+    // textValue = textValue.replace(/\n/g, function () {
+    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+    //     });
+
+    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
     index = index + 1;
     textValue = textValue.replace(/\n/g, function () {
-        return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
         });
 
     let objs = element.getElementsByClassName("fragmentTextSpanCls");
@@ -6434,7 +6453,18 @@ function updateParentText(btn){
 
     let textValue = element.querySelector('#fragmentTextValue').value;
 
+    
+
     if (element.classList.contains("codeDiv")){
+        textValue = "<pre><code>" + textValue + "</code></pre>";
+        setTimeout(function () {
+            hljs.highlightAll();
+        }, 500);
+    }
+    let saveAsCodeChecked = element.querySelector("#saveAsCode");
+    if (saveAsCodeChecked.checked == true){
+
+        element.style.fontSize = "24px";
         textValue = "<pre><code>" + textValue + "</code></pre>";
         setTimeout(function () {
             hljs.highlightAll();
@@ -6447,10 +6477,10 @@ function updateParentText(btn){
         let index = parseInt(element.querySelector('#listStartingFragmentNum').value) ;
         let listStyle = element.querySelector('.listTypeSelect').value;
 
-        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
         index = index + 1;
         textValue = textValue.replace(/\n/g, function () {
-            return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
             });
 
         setTimeout(function () {
