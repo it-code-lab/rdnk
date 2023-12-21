@@ -4740,7 +4740,7 @@ function addComponent(itemid, type){
 
     }else if (type == "insert-draggable-code-div") {
 
-        var htmlToInsert = "<div class='smresizable resizable draggable codeDiv convert-to-span-inline-cls' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><span class='fragmentTextSpanCls'>" +  " </span>" +
+        var htmlToInsert = "<div class='smresizable resizable draggable codeDiv convert-to-span-inline-cls fragment readout' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><span class='fragmentTextSpanCls'>" +  " </span>" +
                            "<button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><button class='copyFragmentBtn' onclick=copyFragment(event)><i style='font-size:14px' class='fa'>&#xf0c5;</i></button><button class='toggleResizeBtn' onclick=toggleResize(event)><i style='font-size:14px' class='fa'>&#xf205;</i></button>" +
                            "<div class='fragmentInfoDiv displayNone'></div></div>" ;
 
@@ -4777,7 +4777,7 @@ function addComponent(itemid, type){
 
     }else if (type == "insert-draggable-list-div") {
 
-        var htmlToInsert = "<div class='smresizable resizable draggable listDiv convert-to-span-inline-cls' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><span class='fragmentTextSpanCls'>" +  " </span>" +
+        var htmlToInsert = "<div class='smresizable resizable draggable listDiv convert-to-span-inline-cls readout' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><span class='fragmentTextSpanCls'>" +  " </span>" +
                            "<button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><button class='copyFragmentBtn' onclick=copyFragment(event)><i style='font-size:14px' class='fa'>&#xf0c5;</i></button><button class='toggleResizeBtn' onclick=toggleResize(event)><i style='font-size:14px' class='fa'>&#xf205;</i></button>" +
                            "<div class='fragmentInfoDiv displayNone'></div></div>" ;
 
