@@ -3843,8 +3843,38 @@ function editItem( btn ){
 
    + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>" ;
 
-   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>TTS</label>"
-   + "Disable TTS: <input type='checkbox' id='disableTTS' >" 
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>TTS</label>";
+
+   const ttsLangOptions = [
+    { language: "en-IN", name: "en-IN-Standard-C", gender: "MALE" },
+    { language: "fr-CA", name: "fr-CA-Standard-A", gender: "FEMALE" },
+    { language: "fr-CA", name: "fr-CA-Standard-B", gender: "MALE" },
+    { language: "fr-CA", name: "fr-CA-Standard-C", gender: "FEMALE" },
+    { language: "fr-CA", name: "fr-CA-Standard-D", gender: "MALE" },
+    { language: "hi-IN", name: "hi-IN-Standard-A", gender: "FEMALE" },
+    { language: "hi-IN", name: "hi-IN-Standard-B", gender: "MALE" },
+    { language: "hi-IN", name: "hi-IN-Standard-C", gender: "MALE" },
+    { language: "hi-IN", name: "hi-IN-Standard-D", gender: "FEMALE" },
+    { language: "en-US", name: "en-US-Standard-H", gender: "FEMALE" },
+    { language: "en-US", name: "en-US-Standard-A", gender: "MALE" },
+    { language: "en-US", name: "en-US-Standard-D", gender: "MALE" },
+    { language: "en-US", name: "en-US-Standard-F", gender: "FEMALE" }
+  ];
+  let ttsHTML = "";
+  ttsLangOptions.forEach(option => {
+    ttsHTML += `<option value="${option.language}^${option.name}^${option.gender}" data-ttslanguage="${option.language}" data-ttsname="${option.name}" data-ttsgender="${option.gender}">${option.language} - ${option.name} - ${option.gender}</option>`;
+  });
+  
+
+  toolbarHTML = toolbarHTML + "Default TTS Language:<select class='defaultttsLanguage' onchange='updateTTSLanguage(this)'>"
++ ttsHTML  + "</select><br>";
+
+toolbarHTML = toolbarHTML + "<br>Default TTS Pitch[-20.0, 20.0]: <input class='defaultTTSPitch' type='text' name='txt' value='" + 0 + "' onchange='updateTTSPitch(this)'> <br>";
+toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='defaultTTSSpeed' type='text' name='txt' value='" + 1 + "' onchange='updateTTSSpeed(this)'> <br>";
+
+
+
+   toolbarHTML = toolbarHTML + "<br>Disable TTS: <input type='checkbox' id='disableTTS' >" ;
 
    //****************IMAGES****************/
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
@@ -5691,6 +5721,37 @@ function showFragmentInfo(event){
     // Get the value of the data-ttstext attribute
     let ttstextValue = fragmentSpan.getAttribute("data-ttstext");
 
+    let ttsCaptionValue = fragmentSpan.getAttribute("data-ttscaption");
+
+    if (ttsCaptionValue == null){
+        ttsCaptionValue = "";
+    }
+
+    let ttsPitchValue = fragmentSpan.getAttribute("data-ttspitch");
+    if (ttsPitchValue == null){
+        ttsPitchValue = "default";
+    }
+
+    let ttsSpeedValue = fragmentSpan.getAttribute("data-ttsspeed");
+    if (ttsSpeedValue == null){
+        ttsSpeedValue = "default";
+    }
+
+    let ttslanguage = fragmentSpan.getAttribute("data-ttslanguage");
+    if (ttslanguage == null){
+        ttslanguage = "default";
+    }
+    let ttsname = fragmentSpan.getAttribute("data-ttsname");
+    if (ttsname == null){
+        ttsname = "default";
+    }
+    let ttsGender = fragmentSpan.getAttribute("data-ttsgender");
+    if (ttsGender == null){
+        ttsGender = "default";
+    }
+
+    let selectedLangValue = ttslanguage + "^" + ttsname + "^" + ttsGender;
+
     let listStartingFragment = fragmentSpan.getAttribute("data-listFragmentSt");
 
     let listStyleType = fragmentSpan.getAttribute("data-listStyle");
@@ -5725,7 +5786,7 @@ function showFragmentInfo(event){
         style = "";
     }
     if (ttstextValue == null){
-        ttstextValue = "";
+        ttstextValue = ""; 
     }
     if (fragmentIndexValue == null){
         fragmentIndexValue = "";
@@ -5991,7 +6052,45 @@ tempHTML = tempHTML + "Font Family:<select class='fontFamily colorSelect' onchan
 
     tempHTML = tempHTML + "<br> class (e.g. fragment, readout, slideFragmentUp600px, slideFragmentUp10px):" + "<br>" + '<textarea id="fragmentClass"  placeholder="e.g. fragment, slideFragmentUp600px, slideFragmentUp10px,  boxShadow5" onchange="updateParentClasses(this)">'+ classes +'</textarea>';
     tempHTML = tempHTML + "<br> data-autoslide (e.g. 1000):" + "<br>" + '<textarea id="fragmentDataAutoslide" placeholder="e.g. 1000" onchange="updateParentAutoSlide(this)">'+ autoslideValue +'</textarea>';
-    tempHTML = tempHTML + "<br> data-ttstext (e.g. add readout class):" + "<br>" + '<textarea id="fragmentDataTttstext"  placeholder="e.g. select the right option"  onchange="updateParentTTSText(this)" >  '+ ttstextValue +'</textarea>';
+    
+    const ttsLangOptions = [
+        { language: "default", name: "default", gender: "default" },
+        { language: "en-IN", name: "en-IN-Standard-C", gender: "MALE" },
+        { language: "fr-CA", name: "fr-CA-Standard-A", gender: "FEMALE" },
+        { language: "fr-CA", name: "fr-CA-Standard-B", gender: "MALE" },
+        { language: "fr-CA", name: "fr-CA-Standard-C", gender: "FEMALE" },
+        { language: "fr-CA", name: "fr-CA-Standard-D", gender: "MALE" },
+        { language: "hi-IN", name: "hi-IN-Standard-A", gender: "FEMALE" },
+        { language: "hi-IN", name: "hi-IN-Standard-B", gender: "MALE" },
+        { language: "hi-IN", name: "hi-IN-Standard-C", gender: "MALE" },
+        { language: "hi-IN", name: "hi-IN-Standard-D", gender: "FEMALE" },
+        { language: "en-US", name: "en-US-Standard-H", gender: "FEMALE" },
+        { language: "en-US", name: "en-US-Standard-A", gender: "MALE" },
+        { language: "en-US", name: "en-US-Standard-D", gender: "MALE" },
+        { language: "en-US", name: "en-US-Standard-F", gender: "FEMALE" }
+      ];
+      let ttsHTML = "";
+      ttsLangOptions.forEach(option => {
+        ttsHTML += `<option value="${option.language}^${option.name}^${option.gender}" data-ttslanguage="${option.language}" data-ttsname="${option.name}" data-ttsgender="${option.gender}">${option.language} - ${option.name} - ${option.gender}</option>`;
+      });
+      
+
+    tempHTML = tempHTML + "<br>TTS Language:<select class='ttsLanguage' onchange='updateTTSLanguage(this)'>"
+    + ttsHTML  + "</select><br>";
+
+    setTimeout(() => {
+        $('.ttsLanguage').val(selectedLangValue);
+    }, 500);
+    
+    
+    tempHTML = tempHTML + "TTS Pitch[-20.0, 20.0]: <input class='TTSPitch' type='text' name='txt' value='" + ttsPitchValue + "' onchange='updateTTSPitch(this)'> <br>";
+    tempHTML = tempHTML + "TTS Speed[0.25, 4.0]: <input class='TTSSpeed' type='text' name='txt' value='" + ttsSpeedValue + "' onchange='updateTTSSpeed(this)'> <br>";
+
+    tempHTML = tempHTML + "<br> data-ttstext (add readout class):" + "<br>" + '<textarea id="fragmentDataTtstext"  placeholder="e.g. select the right option"  onchange="updateParentTTSText(this)" >'+ ttstextValue +'</textarea>';
+    
+    tempHTML = tempHTML + "<br> data-ttscaption (to display during readout):" + "<br>" + '<textarea id="fragmentDataTtsCaption"  placeholder="Caption to display"  onchange="updateParentTTSCaption(this)" >'+ ttsCaptionValue +'</textarea>';
+
+
     tempHTML = tempHTML + "<br> style:" + "<br>" + '<textarea id="fragmentStyle"  placeholder="e.g. " onchange="updateParentStyle(this)" >'+ style.cssText +'</textarea>';
     tempHTML = tempHTML + "<br> audio (e.g. low-pop):" + "<br>" + '<textarea id="fragmentAudio"  placeholder="e.g. low-pop" onchange="updateParentAudio(this)">'+ audioFileName +'</textarea>';
     tempHTML = tempHTML + "<br> data-fragment-index (e.g. 1, 2, 3,..):" + "<br>" + '<textarea id="fragmentDataFragmentIndex"  placeholder="e.g. 1, 2, 3,.."   onchange="updateParentFragmentIndex(this)" >'+ fragmentIndexValue +'</textarea>';
@@ -6529,8 +6628,85 @@ function updateParentTTSText(btn){
         }
     }
 
-    const ttstextValue = element.querySelector('#fragmentDataTttstext').value;
+    const ttstextValue = element.querySelector('#fragmentDataTtstext').value;
     element.setAttribute("data-ttstext", ttstextValue);
+
+}
+
+function updateParentTTSCaption(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    const ttstextValue = element.querySelector('#fragmentDataTtsCaption').value;
+    element.setAttribute("data-ttscaption", ttstextValue);
+
+}
+
+
+function updateTTSPitch(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    const ttstextValue = element.querySelector('.TTSPitch').value;
+    element.setAttribute("data-ttspitch", ttstextValue);
+
+}
+
+function updateTTSSpeed(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    const ttstextValue = element.querySelector('.TTSSpeed').value;
+    element.setAttribute("data-ttsspeed", ttstextValue);
+
+}
+
+function updateTTSLanguage(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = element.querySelector('.ttsLanguage').value;
+    let arr = textValue.split("^")
+    element.setAttribute("data-ttslanguage", arr[0]);
+    element.setAttribute("data-ttsname", arr[1]);
+    element.setAttribute("data-ttsgender", arr[2]);
 
 }
 
@@ -6640,7 +6816,7 @@ function updateFragment(btn){
     // const autoslideValue = element.querySelector('#fragmentDataAutoslide').value;
     // element.setAttribute("data-autoslide", autoslideValue);
 
-    // const ttstextValue = element.querySelector('#fragmentDataTttstext').value;
+    // const ttstextValue = element.querySelector('#fragmentDataTtstext').value;
     // element.setAttribute("data-ttstext", ttstextValue);
 
     const fragmentIndexValue = element.querySelector('#fragmentDataFragmentIndex').value;
@@ -6987,7 +7163,7 @@ function updatePreviewUsingDivs(componentid){
 
         //secText = secText.substring(0, secText.indexOf("#00ffff"));
         //tmprHTML = tmprHTML + "<section data-transition='" + transition + "'  data-background='" + background + "'  >" + secText + "</section>";
-        tmprHTML = tmprHTML + "<section " + secProps + "  >" + secText + "</section>";
+        tmprHTML = tmprHTML + "<section " + secProps + "  >" + secText + "<div class='captionsDiv'></div></section>";
 
     }
 
