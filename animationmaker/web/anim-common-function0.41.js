@@ -227,13 +227,32 @@ document.onpaste = function (event) {
 
                         let imagename = saveAsName;
                         let updateBGCheckBox = document.getElementById("insertBGImage");
+                        let updateDivBGCheckBox = document.getElementById("insertDivBGImage");
 
                         if (updateBGCheckBox.checked == true){
                             updateBGImageOfActiveSlide(imagename);
                         }else{
-                            let randomId = "div-" + Math.floor(Math.random() * 1000000);
-                            let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
-                            insertImageAtCaret(Str);
+                            if (updateDivBGCheckBox.checked){
+                                let element = getElementWithCaret();
+                                if (!element.classList.contains("convert-to-span-inline-cls")){
+                                    element = element.parentElement;
+                                    if (!element.classList.contains("convert-to-span-inline-cls")){
+                                        element = element.parentElement;
+                                        if (!element.classList.contains("convert-to-span-inline-cls")){
+                                            element = element.parentElement;                
+                                        }
+                                    }
+                                }
+
+                                let imageUrl = the.hosturl + "/img/" + imagename;
+                                element.style.backgroundImage = 'url("' + imageUrl + '")';
+
+                            }else {
+                                let randomId = "div-" + Math.floor(Math.random() * 1000000);
+                                let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+                                insertImageAtCaret(Str);
+                            }
+
                         }
                     }
                 };
@@ -297,6 +316,21 @@ function sanitize (html) {
 
 function setLastFocusedSecId(id){
     last_focused_sec_id = id;
+}
+
+function getElementWithCaret() {
+    let selection = document.getSelection();
+    if (selection.rangeCount > 0) {
+        let range = selection.getRangeAt(0);
+        let container = range.commonAncestorContainer;
+
+      // If the container is a text node, get its parent element
+      if (container.nodeType === 3) {
+        container = container.parentNode;
+      }
+      return container;
+    }
+    
 }
 
 //https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
@@ -3747,16 +3781,15 @@ function editItem( btn ){
  
    + "<button title='SemiTransBG' type='button' style='background: url(" + the.hosturl + "/secimages/SemiTransBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG') ></button>" 
 
-   + "<button title='SemiTransBG2' type='button' style='background: url(" + the.hosturl + "/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>" 
+   + "<button title='SemiTransBG2' type='button' style='background: url(" + the.hosturl + "/secimages/SemiTransBG2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','SemiTransBG2') ></button>" ;
 
+   
+
+   toolbarHTML = toolbarHTML + "<div type='button' class='collapsible' style='height:auto; color:white; ' onclick='toggleCollapse(this)'>Toggle-Sections, Code, MCQ</div><div style='display:none;'>"
    + "<label class='toolBarlabel'>Div - Sections - Lists</label>" 
-
    + "<button title='secWithList1' type='button' style='background: url(" + the.hosturl + "/secimages/secWithList1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secWithList1') ></button>" 
-
    + "<button title='titleWithItems1' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems1') ></button>" 
-
    + "<button title='titleWithItems2' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems2.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems2') ></button>" 
-
    + "<button title='titleWithItems3' type='button' style='background: url(" + the.hosturl + "/secimages/titleWithItems3.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','titleWithItems3') ></button>" 
 
    + "<label class='toolBarlabel'>Div - Code Explaination</label>" 
@@ -3771,8 +3804,10 @@ function editItem( btn ){
    + "<button title='quizMCQHalfSSemiTransBtnAnsImg' type='button' style='background: url(" + the.hosturl + "/secimages/quizMCQHalfSSemiTransBtn.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQHalfSSemiTransBtnAnsImg') ></button>" 
 
    + "<button title='quizMCQHalfPgQnBtn' type='button' style='background: url(" + the.hosturl + "/secimages/quizMCQHalfPgQnBtn.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','quizMCQHalfPgQnBtn') ></button>" 
+   + "</div>"; // End collapsible
 
-   + "<label class='toolBarlabel'>HTML Elements/Fragments</label>"
+
+   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>HTML Elements/Fragments</label>"
    + "<button data-title='Insert Rectangle Draggable Div Fragment' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','insert-draggable-rectangle-div') >Insert Draggable Div</button>" 
    + "<button data-title='Insert Draggable Code Div Fragment' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','insert-draggable-code-div') >Insert Draggable Code Div</button>" 
    + "<button data-title='Insert Draggable List Div Fragment' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','insert-draggable-list-div') >Insert Draggable List Div</button>" 
@@ -3793,7 +3828,9 @@ function editItem( btn ){
    + "<label for='insertInner'>Insert component before active Div:</label>" 
    + "<input type='checkbox' id='insertInner' >" ;
    //*************ANIMATION CLASSES************* */
-   toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Animation Classes </label>" 
+   toolbarHTML = toolbarHTML + "<div type='button' class='collapsible' style='height:auto; color:white; ' onclick='toggleCollapse(this)'>Toggle-Animations, sounds</div><div style='display:none;'>"
+
+    + "<label class='toolBarlabel'>Animation Classes </label>" 
     + "<div class='animList'> <b>CSS Style Format-</b> animation: 'property/AnimationName' 'duration' 'transitionTiming e.g. in cubic-bezier' 'optional:delay' 'optional:animation-iteration-count' 'optional:animation-fill-mode:both' 'optional:animation-direction: normal/reverse/alternate'"  
     + "<br><br>Ex. " + escape("<div style='margin:auto; padding-top: 100px; animation-name: roll-in-left; animation-duration: 4s; animation-delay: 1s; animation-iteration-count: 3'>text</div>")
     + "<br><br> <b>To use with fragments add prefix fr-. Eg. animation-name:fr-bounce-right</b>"
@@ -3841,7 +3878,10 @@ function editItem( btn ){
   + "<button title='background7' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background7') >background7</button>" 
   + "<button title='background8' type='button'  class='soundPreviewByTitle btn btn-primary' onmouseover='previewSound(this)' onclick=addComponent('" + itemid + "','background8') >background8</button>" 
 
-   + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>" ;
+   + "<hr>" + "Enable Preview: <input type='checkbox' id='enableSoundPreview' > Enable Loop: <input type='checkbox' id='enableSoundLoop' ><br>" + "<audio id='audioPreview' controls='controls'>  <source id='audioSourceIdMP3' src='' type='audio/mp3'><source id='audioSourceIdWAV' src='' type='audio/wav'></source>Not Supported</audio>" 
+
+   + "</div>"; // End collapsible
+
 
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>TTS</label>";
 
@@ -3883,7 +3923,10 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Images</label>" 
 
    + "<label for='insertBGImage'>Insert image as slide background (Note:will work with unique div ids):</label>" 
-   + "<input type='checkbox' id='insertBGImage' >" +
+   + "<input type='checkbox' id='insertBGImage' >" 
+
+   + "<br><label for='insertDivBGImage'>Insert image as div background :</label>" 
+   + "<input type='checkbox' id='insertDivBGImage' >" +
 
    "<br><br>Max image height/width (px):" +
    "<input type='text' class='imageszCls' id='imagesz-" + itemid + "' style='width:95%; margin:auto;'  value='3000'>" +
@@ -4514,12 +4557,31 @@ function SaveImageAndInsertAtCarot(event) {
                         var imagename = document.getElementById("image-" + itemid).value;
 
                         let updateBGCheckBox = document.getElementById("insertBGImage");
+                        let updateDivBGCheckBox = document.getElementById("insertDivBGImage");
+
                         if (updateBGCheckBox.checked == true){
                             updateBGImageOfActiveSlide(imagename);
                         }else{
-                            var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                            var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
-                            insertImageAtCaret(Str);
+                            if (updateDivBGCheckBox.checked){
+                                let element = getElementWithCaret();
+                                if (!element.classList.contains("convert-to-span-inline-cls")){
+                                    element = element.parentElement;
+                                    if (!element.classList.contains("convert-to-span-inline-cls")){
+                                        element = element.parentElement;
+                                        if (!element.classList.contains("convert-to-span-inline-cls")){
+                                            element = element.parentElement;                
+                                        }
+                                    }
+                                }
+
+                                let imageUrl = the.hosturl + "/img/" + imagename;
+                                element.style.backgroundImage = 'url("' + imageUrl + '")';
+
+                            }else {
+                                var randomId = "div-" + Math.floor(Math.random() * 1000000);
+                                var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+                                insertImageAtCaret(Str);
+                            }
                         }
 
                     }
