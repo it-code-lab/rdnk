@@ -2233,6 +2233,7 @@ margin-top: 40px !important;
     z-index: 200;
     max-height: 200px;
     overflow: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
 
   .displayNone {

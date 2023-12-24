@@ -6054,12 +6054,32 @@ tempHTML = tempHTML + "Font Family:<select class='fontFamily colorSelect' onchan
 + "<option value='Baskerville' style='font-family: Baskerville' >Baskerville</option>"
 + "<option value='Courier New' style='font-family: Courier New' >Courier New</option>"
 
++ "<option value='Aclonica, sans-serif' style='font-family: Aclonica, sans-serif' >Aclonica, sans-serif</option>"
++ "<option value='Amita, cursive' style='font-family: Amita, cursive' >Amita, cursive</option>"
++ "<option value='Brush Script MT' style='font-family: Brush Script MT' >Brush Script MT</option>"
++ "<option value='Comic Sans MS' style='font-family: Comic Sans MS' >Comic Sans MS</option>"
++ "<option value='Courgette, cursive' style='font-family: Courgette, cursive' >Courgette, cursive</option>"
++ "<option value='Engagement, cursive' style='font-family: Engagement, cursive' >Engagement, cursive</option>"
++ "<option value='Georgia' style='font-family: Georgia' >Georgia</option>"
++ "<option value='Great Vibes, cursive' style='font-family: Great Vibes, cursive' >Great Vibes, cursive</option>"
++ "<option value='Helvetica' style='font-family: Helvetica' >Helvetica</option>"
++ "<option value='Knewave, cursive' style='font-family: Knewave, cursive' >Knewave, cursive</option>"
++ "<option value='Lily Script One, cursive' style='font-family: Lily Script One, cursive' >Lily Script One, cursive</option>"
++ "<option value='Lora, serif' style='font-family: Lora, serif' >Lora, serif</option>"
++ "<option value='Niconne, cursive' style='font-family: Niconne, cursive' >Niconne, cursive</option>"
++ "<option value='Pushster, cursive' style='font-family: Pushster, cursive' >Pushster, cursive</option>"
++ "<option value='Risque, cursive' style='font-family: Risque, cursive' >Risque, cursive</option>"
++ "<option value='Simonetta, cursive' style='font-family: Simonetta, cursive' >Simonetta, cursive</option>"
+
 + "<option value='Consolas' style='font-family: Consolas' >Consolas</option>"
 + "<option value='Monaco' style='font-family: Monaco' >Monaco</option>"
 + "<option value='Verdana' style='font-family: Verdana' >Verdana</option>"
 + "<option value='Tahoma' style='font-family: Tahoma' >Tahoma</option>"
 + "<option value='Poppins' style='font-family: Poppins' >Poppins</option>"
 + "<option value='Lato' style='font-family: Lato' >Lato</option>"
+
+
+
 + "<option selected value='" + fontFamily + "' style='font-family: " + fontFamily + "'>" + fontFamily + "</option>"
 
 + "<option value='Raleway' style='font-family: Raleway' >Raleway</option> </select><br>";
