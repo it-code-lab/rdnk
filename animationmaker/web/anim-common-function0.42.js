@@ -4958,6 +4958,7 @@ function addComponent(itemid, type){
 
           spanElement.classList.add('convert-to-span-inline-cls');
           spanElement.classList.add('fragment');
+          spanElement.classList.add('inline_span');
           spanElement.classList.add('readout');
           // Replace the selected text with the span element
           let range = window.getSelection().getRangeAt(0);
