@@ -3906,11 +3906,11 @@ function editItem( btn ){
   });
   
 
-  toolbarHTML = toolbarHTML + "Default TTS Language:<select class='defaultttsLanguage' onchange='updateTTSLanguage(this)'>"
+  toolbarHTML = toolbarHTML + "Default TTS Language:<select class='defaultttsLanguage' onchange='updateDefaultTTSLanguage(this)'>"
 + ttsHTML  + "</select><br>";
 
-toolbarHTML = toolbarHTML + "<br>Default TTS Pitch[-20.0, 20.0]: <input class='defaultTTSPitch' type='text' name='txt' value='" + 0 + "' onchange='updateTTSPitch(this)'> <br>";
-toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='defaultTTSSpeed' type='text' name='txt' value='" + 1 + "' onchange='updateTTSSpeed(this)'> <br>";
+toolbarHTML = toolbarHTML + "<br>Default TTS Pitch[-20.0, 20.0]: <input class='defaultTTSPitch' type='text' name='txt' value='" + 0 + "' onchange='updateDefaultTTSPitch(this)'> <br>";
+toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='defaultTTSSpeed' type='text' name='txt' value='" + 1 + "' onchange='updateDefaultTTSSpeed(this)'> <br>";
 
 
 
@@ -4050,6 +4050,13 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
    document.getElementById("mainContainer").style.width = "100%"; 
    //document.getElementById("tutorialEditDivId").style.width = "20%";
    document.getElementById("tutorialEditDivId").style.width = "600px";
+
+   setTimeout(() => {
+        $('.defaultttsLanguage').val(localStorage.getItem("defaultTTSLanguage"));
+        $('.defaultTTSPitch').val(localStorage.getItem("defaultTTSPitch"));
+        $('.defaultTTSSpeed').val(localStorage.getItem("defaultTTSSpeed"));
+    }, 500);
+
    setTimeout(function() {
     updateDraggables();
 
@@ -6789,6 +6796,33 @@ function updateTTSLanguage(btn){
     element.setAttribute("data-ttslanguage", arr[0]);
     element.setAttribute("data-ttsname", arr[1]);
     element.setAttribute("data-ttsgender", arr[2]);
+
+}
+
+function updateDefaultTTSLanguage(btn){
+
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = btn.value;
+    localStorage.setItem("defaultTTSLanguage", textValue);
+
+}
+
+function updateDefaultTTSPitch(btn){
+
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = btn.value;
+    localStorage.setItem("defaultTTSPitch", textValue);
+
+}
+
+function updateDefaultTTSSpeed(btn){
+
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = btn.value;
+    localStorage.setItem("defaultTTSSpeed", textValue);
 
 }
 
