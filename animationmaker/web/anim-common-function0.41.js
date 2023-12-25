@@ -7317,7 +7317,11 @@ function updatePreviewUsingDivs(componentid){
                 };  
             }
 
-
+            let captionsDivs  = document.querySelectorAll('.captionsDiv');
+            captionsDivs.forEach(function(captionsDiv) {
+                captionsDiv.innerHTML = "";
+                captionsDiv.style.display = 'none';
+              });
 
         });
 
