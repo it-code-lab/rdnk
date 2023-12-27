@@ -30,7 +30,6 @@
 .margin_10px_auto{
     margin: 10px auto;
 }
-
 .margin_20px{
     margin: 20px;
 }
@@ -53,6 +52,10 @@
 
 .marginleft_5px{
     margin-left: 5px;
+}
+
+.marginright_50px{
+    margin-right: 50px;
 }
 
 .margintop_15px{
@@ -254,6 +257,9 @@
 
 }
 
+.curvedBox{
+    border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
+}
 .warningMsg1{
     background-color: #f39c12;
     color: #fff;
@@ -262,9 +268,6 @@
     border: 1px solid #666;
 }
 
-.curvedBox{
-    border-radius: 0px 84px 4px 83px / 0px 85px 0px 85px;
-}
 
 .warningMsg{
     background-color: #E74C3C;
@@ -326,7 +329,6 @@
 .bgcolor_11 {
     background-color:#7b8a8b
 }
-
 .white_bg {
     background-color: #fff !important;
 }
@@ -744,6 +746,7 @@
 .box_shadow6{
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 }
+
 .box_shadow7{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -1117,8 +1120,7 @@
     background: conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
     -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
             mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-  }    
-
+  }  
 
   /* ************TABBED content**************/
  /***** https://codepen.io/DoddBless/pen/BdxPZy */

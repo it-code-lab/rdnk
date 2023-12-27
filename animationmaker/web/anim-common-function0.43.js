@@ -6666,10 +6666,10 @@ function updateParentText(btn){
         let index = parseInt(element.querySelector('#listStartingFragmentNum').value) ;
         let listStyle = element.querySelector('.listTypeSelect').value;
 
-        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
         index = index + 1;
         textValue = textValue.replace(/\n/g, function () {
-            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
             });
 
         setTimeout(function () {
@@ -9925,6 +9925,18 @@ function resizeImage(settings) {
         };
         reader.readAsDataURL(file);
     });
+}
+
+function changeBackgroundColor(elem, newColor){
+    elem.style.backgroundColor = newColor;
+}
+
+function changeBorderColor(elem, newColor){
+    elem.style.borderColor = newColor;
+}
+
+function changeFontColor(elem, newColor){
+    elem.style.color  = newColor;
 }
 
 function onMobileBrowser(){
