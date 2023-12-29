@@ -3916,6 +3916,8 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
 
    toolbarHTML = toolbarHTML + "<br>Disable TTS: <input type='checkbox' id='disableTTS' >" ;
 
+   toolbarHTML = toolbarHTML + "<br>Disable Captions: <input type='checkbox' id='disableCaptions' >" ;
+
    //****************IMAGES****************/
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
    + "<button title='code-snippet' type='button'  class='soundPreviewByTitle btn btn-primary'  onclick=addComponent('" + itemid + "','code-snippet') >code-snippet</button>" 
