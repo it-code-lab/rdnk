@@ -145,7 +145,10 @@ let selectFontColor = "Font Color:<select class='fontColor colorSelect' onchange
 + "<option value='salmon' style='color: salmon'>salmon</option> </select>";
 
 let revealSecColor = "<button onclick='toggleSecPreview(this)'> Toggle Preview </button>" 
-+ selectBGColor
++ "<button onclick='copySecHTML(this)' style='color:white; background-color:blue; cursor:pointer'> Copy Slide HTML </button>"
++ "<button onclick='clearSecHTML(this)' style='color:white; background-color:red; cursor:pointer'> Clear Slide HTML </button>"
++ "<button onclick='addSecHTML(this)' style='color:white; background-color:green; cursor:pointer'> Add HTML </button>"
++ "<br>" + selectBGColor
 +  selectFontColor
 + "Update DataAutoSlide of readout class div (ms): <input type='text' name='txt' value='' onchange='updateParentDataAutoSlide(this)'>";
 
@@ -3913,10 +3916,21 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Pitch[-20.0, 20.0]: <input class='d
 toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='defaultTTSSpeed' type='text' name='txt' value='" + 1 + "' onchange='updateDefaultTTSSpeed(this)'> <br>";
 
 
+  if (localStorage.getItem("disableTTS") == "y"){
+    toolbarHTML = toolbarHTML + "<br>Disable TTS: <input type='checkbox' checked id='disableTTS' onclick='handleDisableTTS(this);' >" ;
 
-   toolbarHTML = toolbarHTML + "<br>Disable TTS: <input type='checkbox' id='disableTTS' >" ;
+  }else {
+    toolbarHTML = toolbarHTML + "<br>Disable TTS: <input type='checkbox' id='disableTTS' onclick='handleDisableTTS(this);' >" ;
 
-   toolbarHTML = toolbarHTML + "<br>Disable Captions: <input type='checkbox' id='disableCaptions' >" ;
+  }
+  if (localStorage.getItem("disableCaption") == "y"){
+    toolbarHTML = toolbarHTML + "<br>Disable Captions: <input type='checkbox' checked id='disableCaptions' onclick='handleDisableCaptions(this);' >" ;
+
+  }else {
+    toolbarHTML = toolbarHTML + "<br>Disable Captions: <input type='checkbox' id='disableCaptions' onclick='handleDisableCaptions(this);' >" ;
+
+  }
+
 
    //****************IMAGES****************/
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Scripts</label>"
@@ -4062,7 +4076,7 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
    setTimeout(function() {
     updateDraggables();
 
-   }, 500);
+   }, 1500);
 
 
 //    setTimeout(function() {
@@ -4089,6 +4103,22 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
 //         }
 //     }, 200);
 
+}
+
+function handleDisableTTS(cb){
+    if (cb.checked){
+        localStorage.setItem("disableTTS", "y");
+    }else {
+        localStorage.setItem("disableTTS", "n");
+    }
+}
+
+function handleDisableCaptions(cb){
+    if (cb.checked){
+        localStorage.setItem("disableCaption", "y");
+    }else {
+        localStorage.setItem("disableCaption", "n");
+    }
 }
 
 function insertClipboardHTMLAtCaret() {
@@ -4290,7 +4320,20 @@ function deleteCurrentComponent(btn){
 
     // Check the user's response
     if (isConfirmed) {
-        btn.parentElement.remove();
+        let parentElm = btn.parentElement;        
+        if ((parentElm.classList.contains("convert-to-span-inline-cls")) || (parentElm.parentElement.classList.contains("convert-to-span-inline-cls"))){
+            let parentSecDiv = parentElm.closest('.secdiv');
+            let childTextArea = parentSecDiv.querySelector('.secDivTextArea');
+            let previewDiv = parentSecDiv.querySelector('.secPreview');
+            let slidesDiv =  previewDiv.querySelector('.slides');
+            parentElm.remove();
+            if (previewDiv.style.display != "none"){               
+                childTextArea.value = slidesDiv.innerHTML;
+            }
+        }else{
+            parentElm.remove();
+        }
+        
     }
     //btn.parentElement.innerHTML = "";
 }
@@ -4334,7 +4377,7 @@ function copyCurrentComponent(btn){
     text = text.substring(1, text.lastIndexOf('Copy'));
 
     navigator.clipboard.writeText(text);
-    console.log(text);
+    //console.log(text);
 }
 
 function showImage(event) {
@@ -4837,7 +4880,7 @@ function addComponent(itemid, type){
         setTimeout(function() {
             updateDraggables();
         
-        }, 500);
+        }, 1500);
 
     }else if (type == "insert-draggable-code-div") {
 
@@ -4874,13 +4917,13 @@ function addComponent(itemid, type){
         setTimeout(function() {
             updateDraggables();
         
-        }, 500);
+        }, 1500);
 
     }else if (type == "insert-draggable-list-div") {
 
-        var htmlToInsert = "<div class='smresizable resizable draggable listDiv convert-to-span-inline-cls readout' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><span class='fragmentTextSpanCls'>" +  " </span>" +
+        var htmlToInsert = "<div class='smresizable resizable draggable listDiv convert-to-span-inline-cls readout' style='width: 800px; height: 300px; background-color:#DFCFBE; color:#000000' id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><div class='fragmentInfoDiv displayNone'></div><span class='fragmentTextSpanCls'>" +  " </span>" +
                            "<button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><button class='copyFragmentBtn' onclick=copyFragment(event)><i style='font-size:14px' class='fa'>&#xf0c5;</i></button><button class='toggleResizeBtn' onclick=toggleResize(event)><i style='font-size:14px' class='fa'>&#xf205;</i></button>" +
-                           "<div class='fragmentInfoDiv displayNone'></div></div>" ;
+                           "</div>" ;
 
         let newDiv = document.createElement('div');
         newDiv.innerHTML = htmlToInsert;
@@ -4911,7 +4954,7 @@ function addComponent(itemid, type){
         setTimeout(function() {
             updateDraggables();
         
-        }, 500);
+        }, 1500);
         
     }else if (type == "convert-to-fragment-inline") {
         let selectedText = window.getSelection().toString();
@@ -5083,7 +5126,7 @@ function addComponent(itemid, type){
           setTimeout(function() {
             updateDraggables();
         
-           }, 500);
+           }, 1500);
         }
     }else if (type == "convert-to-circle-BG-fragment-inline") {
         let selectedText = window.getSelection().toString();
@@ -5755,13 +5798,47 @@ function showFragmentInfo(event){
         }
     }
 
-    let elems = fragmentSpan.getElementsByClassName("fragmentInfoDiv");
-    let fragmentInfoDiv = elems[0];
+    //let elems = fragmentSpan.getElementsByClassName("fragmentInfoDiv");
+  
+    //let fragmentInfoDiv = elems[0];
+
+    let fragmentInfoDiv = fragmentSpan.querySelector('.fragmentInfoDiv');
+    //let fragmentInfoDiv = fragmentSpan.children('.fragmentInfoDiv');
+
     let tempHTML = "";
+    let textValue = "";
+    // Get all elements with class "convert-to-span-inline-cls"
+    let convertElements = fragmentSpan.querySelectorAll('.convert-to-span-inline-cls');
 
-    let objs = fragmentSpan.getElementsByClassName("fragmentTextSpanCls");
+    if (convertElements.length > 0) {
+        // Iterate through each "convert-to-span-inline-cls" element
+        convertElements.forEach(function (convertElement) {
+            // Check if it has child elements with class "fragmentTextSpanCls"
+            let textAreas = convertElement.querySelectorAll('.fragmentTextSpanCls');
+            
+            if (textAreas.length > 0) {
+                // Process each TextArea under the current "convert-to-span-inline-cls"
+                textAreas.forEach(function (textArea) {
+                    if (textValue == ""){
+                        textValue = textArea.textContent;
+                    } else{
+                        textValue = textValue + "\n" + textArea.textContent;
+                    }
+                    //var value = textArea.value;
+                    //console.log(value);
+                    // Perform further actions with the value if needed
+                });
+            } else {
+                //console.log('No child elements with class "fragmentTextSpanCls" found.');
+            }
+        });
+    }else{
+        let objs = fragmentSpan.getElementsByClassName("fragmentTextSpanCls");
+        textValue = objs[0].textContent;
+    }
 
-    let textValue = objs[0].textContent;
+
+
     //SM - TODO-Clean up for draggable list div
 
     // Get classes of the element
@@ -5880,7 +5957,7 @@ function showFragmentInfo(event){
         //tempHTML = tempHTML + "List Starting Fragment Num:" + "<br>" + '<textarea id="listStartingFragmentNum" onchange="updateListStartingFragmentNum(this)" >'+ listStartingFragment +'</textarea> <br>';
         tempHTML = tempHTML + "List Starting Fragment Num: <input id='listStartingFragmentNum' type='text' name='txt' value='" + listStartingFragment + "' onchange='updateListStartingFragmentNum(this)'> <br>";
 
-        tempHTML = tempHTML + "List Style:<select class='listType listTypeSelect' onchange='updateListStyle(this)'>"
+        tempHTML = tempHTML + "List Type:<select class='listType listTypeSelect' onchange='updateListStyle(this)'>"
         + "<option value='list-span'  >list-span</option>"
 
         + "<option value='vert-list changing-bgcolor' >vert-list changing-bgcolor</option>"
@@ -5977,6 +6054,10 @@ function showFragmentInfo(event){
 
         + "<option selected value='" + listStyleType + "' >" + listStyleType + "</option></select> <br>"
     }
+
+    tempHTML = tempHTML + "Inner Div's Padding: <input class='fragmentInnerDivPadding' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivPadding(this)'> <br>";
+    tempHTML = tempHTML + "Inner Div's Margin: <input class='fragmentInnerDivMargin' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivMargin(this)'> <br>";
+
 
     tempHTML = tempHTML + "Text/Value:" + "<br>" + '<textarea id="fragmentTextValue" onchange="updateParentText(this)" >'+ textValue +'</textarea> <br>';
     tempHTML = tempHTML + "<label for='skipSpaceConversion'>Skip space conversion (needed for HTML, wrap):</label>" + "<input type='checkbox' checked id='skipSpaceConversion' ><br>" ;
@@ -6511,6 +6592,64 @@ function updateParentMargin(btn){
     element.style.margin = textValue;
 }
 
+function updateInnerDivPadding(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = element.querySelector('.fragmentInnerDivPadding').value;
+
+    var innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
+
+    // Apply margin and padding to each inner div
+    for (var i = 0; i < innerDivs.length; i++) {
+        var innerDiv = innerDivs[i];
+        
+        // Apply margin
+        //innerDiv.style.margin = textValue ; // Set your desired margin value
+        
+        // Apply padding
+        innerDiv.style.padding = textValue ; // Set your desired padding value
+    }
+}
+
+function updateInnerDivMargin(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = element.querySelector('.fragmentInnerDivMargin').value;
+
+    var innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
+
+    // Apply margin and padding to each inner div
+    for (var i = 0; i < innerDivs.length; i++) {
+        var innerDiv = innerDivs[i];
+        
+        // Apply margin
+        innerDiv.style.margin = textValue ; // Set your desired margin value
+        
+    }
+}
+
 function updateParentPadding(btn){
     let element = btn.parentElement;
 
@@ -6668,10 +6807,10 @@ function updateParentText(btn){
         let index = parseInt(element.querySelector('#listStartingFragmentNum').value) ;
         let listStyle = element.querySelector('.listTypeSelect').value;
 
-        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline ' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
         index = index + 1;
         textValue = textValue.replace(/\n/g, function () {
-            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline " data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
             });
 
         setTimeout(function () {
@@ -7397,7 +7536,127 @@ function hideOtherFragments(elm1){
     }
 
 }
-  
+
+function copySecHTML(element){
+    var parentSecDiv = element.parentElement.parentElement;
+    var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
+    
+    navigator.clipboard.writeText(childTextArea.value);
+
+    let x = document.getElementById("toastsnackbar");
+    if (x) {
+        x.innerHTML = "Slide HTML Copied";
+    }
+    x.classList.add("show");
+    setTimeout(function () {
+        x.classList.remove("show");
+    }, 1000);
+}
+
+
+function clearSecHTML(element){
+    var parentSecDiv = element.parentElement.parentElement;
+    var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+
+    childTextArea.value = "";
+    var secText = childTextArea.value;
+    previewDiv.innerHTML = "<div contenteditable='true' class='revealDummy' style='" + previewDim + "'><div class='slides'>" + secText + "</div></div>";
+
+    if (parentSecDiv.dataset.backgroundvideo == ""){            
+        if (parentSecDiv.dataset.background == ""){
+            //Background color
+            //secProps = secProps + " data-background = '" + parentSecDiv.dataset.bgcolor + "'";
+            previewDiv.style.backgroundColor = parentSecDiv.dataset.bgcolor;
+        }else {
+            //Background image
+            //secProps = secProps + " data-background-image = '/animationmaker/img/" + parentSecDiv.dataset.background + "' ";
+            previewDiv.style.backgroundImage  = "url('" +the.hosturl + "/img/" + parentSecDiv.dataset.background + "')";
+        }
+    }else {
+        //Background video
+        //secProps = secProps + " data-background-video = '/animationmaker/video/" + parentSecDiv.dataset.backgroundvideo + "' ";
+    }
+    let x = document.getElementById("toastsnackbar");
+    if (x) {
+        x.innerHTML = "Slide HTML Cleared";
+    }
+    x.classList.add("show");
+    setTimeout(function () {
+        x.classList.remove("show");
+    }, 1000);
+}
+
+// function applyDragProperties(){
+//     $(".smresizable").on("dblclick", function (e) {
+//         // Check if the element has the "disableResize" class
+//         if ($(this).hasClass('disableResize')) {
+//          return; // Skip function execution
+//        }
+//          if ($(this).find('.resize').length > 0) {
+//            $(this).children(".resize").remove();
+//          } else {
+//            $(this).html($(this).html() + resizeHandles);
+//          }
+//     });
+
+//     $('.smresizable')
+//         .on(mousedownEventType, function(e){
+//         // Check if the element has the "disableResize" class
+//         if ($(this).hasClass('disableResize')) {
+//         return; // Skip function execution
+//         }
+//         if (!e.target.classList.contains("resize") && !resizing) {
+//             currentDragged = $(this);
+//             dragging = true;
+//             sX = e.pageX;
+//             sY = e.pageY;
+//         }
+//     });
+// }
+function addSecHTML(element){
+    var parentSecDiv = element.parentElement.parentElement;
+    var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+
+    navigator.clipboard.readText().then(function(clipboardText) {
+        // Paste the clipboard text into the textarea
+
+        clipboardText = clipboardText.replaceAll("disableResize", "");
+        childTextArea.value = clipboardText + childTextArea.value;
+        var secText = childTextArea.value;
+        previewDiv.innerHTML = "<div contenteditable='true' class='revealDummy' style='" + previewDim + "'><div class='slides'>" + secText + "</div></div>";
+        setTimeout(function() {
+            updateDraggables();    
+        }, 1500);
+        if (parentSecDiv.dataset.backgroundvideo == ""){            
+            if (parentSecDiv.dataset.background == ""){
+                //Background color
+                //secProps = secProps + " data-background = '" + parentSecDiv.dataset.bgcolor + "'";
+                previewDiv.style.backgroundColor = parentSecDiv.dataset.bgcolor;
+            }else {
+                //Background image
+                //secProps = secProps + " data-background-image = '/animationmaker/img/" + parentSecDiv.dataset.background + "' ";
+                previewDiv.style.backgroundImage  = "url('" +the.hosturl + "/img/" + parentSecDiv.dataset.background + "')";
+            }
+        }else {
+            //Background video
+            //secProps = secProps + " data-background-video = '/animationmaker/video/" + parentSecDiv.dataset.backgroundvideo + "' ";
+        }
+        let x = document.getElementById("toastsnackbar");
+        if (x) {
+            x.innerHTML = "HTML Added";
+        }
+        x.classList.add("show");
+        setTimeout(function () {
+            x.classList.remove("show");
+        }, 1000);
+    }).catch(function(err) {
+
+    });
+
+}
+
 function toggleSecPreview(element){
     var parentSecDiv = element.parentElement.parentElement;
     var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
@@ -7413,15 +7672,16 @@ function toggleSecPreview(element){
         return;
     }
     previewDiv.style.display = "block";
+
     childTextArea.style.display = "none";
 
     setTimeout(function() {
         updateDraggables();    
-    }, 500);
+    }, 1500);
 
     setTimeout(function () {
         hljs.highlightAll();
-    }, 1000);
+    }, 2000);
 }
 
 
