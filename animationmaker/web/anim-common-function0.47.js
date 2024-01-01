@@ -273,6 +273,42 @@ document.onpaste = function (event) {
     }
 };
 
+document.addEventListener('keydown', function (event) {
+    
+    // Check if the Ctrl key (Cmd key on macOS) and the 'C' key are pressed simultaneously.
+    if (event.ctrlKey && event.key === 's') {
+        const saveButton = document.getElementById("saveChangesBtnId");
+        // Check if the button is visible
+        if (saveButton) {
+            const computedStyle = window.getComputedStyle(saveButton);
+            const isButtonVisible = computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+            
+            if (isButtonVisible) {
+                saveButton.click();
+                event.preventDefault();
+            } 
+        }
+    }
+    
+    if (event.ctrlKey && event.key === 'm') {
+        //const btns = document.getElementsByClassName("itmSecImg");
+        const newSlideButton = document.getElementById("addSlideDefault");
+        const saveButton = document.getElementById("saveChangesBtnId");
+        // Check if the button is visible
+        if (saveButton) {
+            const computedStyle = window.getComputedStyle(saveButton);
+            const isButtonVisible = computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+            
+            if (isButtonVisible) {
+                newSlideButton.click();
+                event.preventDefault();
+            } 
+        }
+    }
+
+    //return false;
+});
+
 // requirejs.config({
 //     //By default load any module IDs from js/lib
 //     baseUrl: 'js/lib',
@@ -3778,7 +3814,7 @@ function editItem( btn ){
    //Reveal Js Slide - Section - Divs*********************
 
    toolbarHTML = toolbarHTML + "<label class='toolBarlabel'>Div - Sections - Titles</label>" 
-   + "<button title='secTitlePlane1' type='button' style='background: url(" + the.hosturl + "/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>" 
+   + "<button id='addSlideDefault' title='secTitlePlane1(CTRL + m)' data-title='CTRL + m' type='button' style='background: url(" + the.hosturl + "/secimages/secTitlePlane1.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitlePlane1') ></button>" 
 
    + "<button title='secTitleWithBG' type='button' style='background: url(" + the.hosturl + "/secimages/secTitleWithBG.png); background-size: contain;' class='itmSecImg btn btn-primary' onclick=addComponent('" + itemid + "','secTitleWithBG') ></button>" 
  
@@ -4045,7 +4081,7 @@ toolbarHTML = toolbarHTML + "<br>Default TTS Speed[0.25, 4.0]: <input class='def
 
    newHTML = newHTML +
    "<div class = 'saveChangesDivCls'>" + 
-   "<button  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','n') >Save Changes</button><br>" +
+   "<button  id='saveChangesBtnId' data-title='CTRL + s'  type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','n') >Save Changes</button><br>" +
    "<button   type='button' class='itmUpdSaveBtn btn btn-primary' onclick=updateItem('" + itemid + "','y') >Save As New Item</button><br>" +
    "<button   type='button' class='itmUpdSaveBtn btn btn-danger' onclick=refreshPage() >Cancel</button><br>" +
    "</div>" +
@@ -8063,6 +8099,14 @@ function updateItem(itemid, createNewItem) {
 
             } else {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
+
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Updates saved";
+                x.classList.add("show");
+
+                setTimeout(function () {
+                    x.classList.remove("show");
+                }, 1000);
             }
             //displayCart();
 
