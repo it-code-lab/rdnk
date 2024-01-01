@@ -7539,8 +7539,16 @@ function hideOtherFragments(elm1){
 
 function copySecHTML(element){
     var parentSecDiv = element.parentElement.parentElement;
+
+    var previewDiv = parentSecDiv.querySelector('.secPreview');
+    var slidesDiv =  previewDiv.querySelector('.slides');
+
     var childTextArea = parentSecDiv.querySelector('.secDivTextArea');
     
+    if (previewDiv.style.display != "none"){
+        childTextArea.value = slidesDiv.innerHTML;
+    }
+
     navigator.clipboard.writeText(childTextArea.value);
 
     let x = document.getElementById("toastsnackbar");
