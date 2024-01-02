@@ -659,7 +659,9 @@ box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px
   background: #14141387;
   position: absolute;
   left: 50%;
-  width: 70%;
+  width: 98%;
+  max-height: 160px;
+  overflow: auto;
   transform: translateX(-50%);
   top: 700px;
   z-index: 31;
