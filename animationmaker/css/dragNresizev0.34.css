@@ -667,6 +667,8 @@ box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px
   z-index: 31;
   font-size: 30px;
   display: none;
+  white-space: normal;
+  word-wrap:break-word;
 } 
 
 .inline_span{
