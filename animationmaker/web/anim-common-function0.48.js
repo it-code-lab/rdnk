@@ -177,6 +177,7 @@ var mediaSection =  "AutoAnimate: <select class='autoAnimateSelect' onchange='up
 + "BGVideoURL: <input type='text' name='txt' value='' onchange='updateParentBGVideo(this)'>"
 + "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
 
+let defaultAudioHTML = '<audio><source data-src="' + the.hosturl + '"/sounds/low-pop.wav" type="audio/wav"><source data-src="' + the.hosturl + '"/sounds/low-pop.mp3" type="audio/mp3"></audio>';
 document.onpaste = function (event) {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
@@ -6088,11 +6089,15 @@ function showFragmentInfo(event){
 
         + "<option value='upper-roman' >upper-roman</option>"
 
-        + "<option selected value='" + listStyleType + "' >" + listStyleType + "</option></select> <br>"
+        + "<option selected value='" + listStyleType + "' >" + listStyleType + "</option></select> <br>";
+
+
+        tempHTML = tempHTML + "Inner Div's Padding: <input class='fragmentInnerDivPadding' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivPadding(this)'> <br>";
+        tempHTML = tempHTML + "Inner Div's Margin: <input class='fragmentInnerDivMargin' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivMargin(this)'> <br>";
+        tempHTML = tempHTML + "Inner Div's Audio (e.g. low-pop,low-arrow-whoosh,low-bell-ding,low-sand-swish): <input class='fragmentInnerAudio' type='text' name='txt' value='" + "low-pop" + "' onchange='updateInnerDivAudio(this)'> <br>";
+    
     }
 
-    tempHTML = tempHTML + "Inner Div's Padding: <input class='fragmentInnerDivPadding' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivPadding(this)'> <br>";
-    tempHTML = tempHTML + "Inner Div's Margin: <input class='fragmentInnerDivMargin' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivMargin(this)'> <br>";
 
 
     tempHTML = tempHTML + "Text/Value:" + "<br>" + '<textarea id="fragmentTextValue" onchange="updateParentText(this)" >'+ textValue +'</textarea> <br>';
@@ -6301,7 +6306,7 @@ tempHTML = tempHTML + "Font Family:<select class='fontFamily colorSelect' onchan
 
 
     tempHTML = tempHTML + "<br> style:" + "<br>" + '<textarea id="fragmentStyle"  placeholder="e.g. " onchange="updateParentStyle(this)" >'+ style.cssText +'</textarea>';
-    tempHTML = tempHTML + "<br> audio (e.g. low-pop):" + "<br>" + '<textarea id="fragmentAudio"  placeholder="e.g. low-pop" onchange="updateParentAudio(this)">'+ audioFileName +'</textarea>';
+    tempHTML = tempHTML + "<br> audio (e.g. low-pop,low-arrow-whoosh,low-bell-ding,low-sand-swish):" + "<br>" + '<textarea id="fragmentAudio"  placeholder="e.g. low-pop" onchange="updateParentAudio(this)">'+ audioFileName +'</textarea>';
     tempHTML = tempHTML + "<br> data-fragment-index (e.g. 1, 2, 3,..):" + "<br>" + '<textarea id="fragmentDataFragmentIndex"  placeholder="e.g. 1, 2, 3,.."   onchange="updateParentFragmentIndex(this)" >'+ fragmentIndexValue +'</textarea>';
     //tempHTML = tempHTML + "<br> <button class='updateFragmentBtn' onclick='updateFragment(this)'>Update </button>";
     tempHTML = tempHTML + "<button class='closeUpdateFragmentBtn' onclick='closeUpdateFragment(this)'>Close </button>";
@@ -6686,6 +6691,31 @@ function updateInnerDivMargin(btn){
     }
 }
 
+function updateInnerDivAudio(btn){
+    let element = btn.parentElement;
+
+    if (!element.classList.contains("convert-to-span-inline-cls")){
+        element = element.parentElement;
+        if (!element.classList.contains("convert-to-span-inline-cls")){
+            element = element.parentElement;
+            if (!element.classList.contains("convert-to-span-inline-cls")){
+                element = element.parentElement;                
+            }
+        }
+    }
+
+    //let objs = element.getElementsByClassName("fragmentTextSpanCls");
+    let textValue = element.querySelector('.fragmentInnerAudio').value;
+
+    var innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
+
+    // Apply margin and padding to each inner div
+    for (var i = 0; i < innerDivs.length; i++) {
+        var innerDiv = innerDivs[i];        
+        updateElementAudio(innerDiv, textValue);        
+    }
+}
+
 function updateParentPadding(btn){
     let element = btn.parentElement;
 
@@ -6843,10 +6873,10 @@ function updateParentText(btn){
         let index = parseInt(element.querySelector('#listStartingFragmentNum').value) ;
         let listStyle = element.querySelector('.listTypeSelect').value;
 
-        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline ' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline ' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div>"+ defaultAudioHTML +"</div>";
         index = index + 1;
         textValue = textValue.replace(/\n/g, function () {
-            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline " data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div>${defaultAudioHTML}</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline " data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
             });
 
         setTimeout(function () {
@@ -7017,6 +7047,15 @@ function updateParentAudio(btn){
         }
     }
 
+    const audioFileName = element.querySelector('#fragmentAudio').value;
+
+    updateElementAudio(element, audioFileName);
+
+}
+
+function updateElementAudio(elementToUpdate, audioFileName){
+    let element = elementToUpdate;
+
    // Select all <audio> elements within the parent element
    const audioElements = element.querySelectorAll("audio");
 
@@ -7025,37 +7064,27 @@ function updateParentAudio(btn){
        audioElement.remove();
    });
 
-    const audioFileName = element.querySelector('#fragmentAudio').value;
-   // const audioElement = element.querySelector("audio");
-   // const audioSources = audioElement.querySelectorAll("source");
-   // for (const source of audioSources) {
-   //     source.setAttribute("data-src", "/animationmaker/sounds/" + audioFileName + ".mp3");
-   // }
-
-   //parentElement.appendChild(audioElement);
-
-   if (audioFileName != ""){
-       // Create the audio element
-       const audioElement = document.createElement("audio");
-
-       // Create the first source element
-       const sourceWav = document.createElement("source");
-       sourceWav.setAttribute("data-src", the.hosturl + "/sounds/"+ audioFileName +".wav");
-       sourceWav.setAttribute("type", "audio/wav");
-
-       // Create the second source element
-       const sourceMp3 = document.createElement("source");
-       sourceMp3.setAttribute("data-src", the.hosturl + "/sounds/" + audioFileName + ".mp3");
-       sourceMp3.setAttribute("type", "audio/mp3");
-
-       // Add the source elements to the audio element
-       audioElement.appendChild(sourceWav);
-       audioElement.appendChild(sourceMp3);
-
-       // Add the audio element as a child to the parent element
-       element.appendChild(audioElement);
-   }
-
+    if (audioFileName != ""){
+        // Create the audio element
+        const audioElement = document.createElement("audio");
+ 
+        // Create the first source element
+        const sourceWav = document.createElement("source");
+        sourceWav.setAttribute("data-src", the.hosturl + "/sounds/"+ audioFileName +".wav");
+        sourceWav.setAttribute("type", "audio/wav");
+ 
+        // Create the second source element
+        const sourceMp3 = document.createElement("source");
+        sourceMp3.setAttribute("data-src", the.hosturl + "/sounds/" + audioFileName + ".mp3");
+        sourceMp3.setAttribute("type", "audio/mp3");
+ 
+        // Add the source elements to the audio element
+        audioElement.appendChild(sourceWav);
+        audioElement.appendChild(sourceMp3);
+ 
+        // Add the audio element as a child to the parent element
+        element.appendChild(audioElement);
+    }
 }
 
 function updateParentFragmentIndex(btn){
