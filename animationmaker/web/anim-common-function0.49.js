@@ -177,7 +177,7 @@ var mediaSection =  "AutoAnimate: <select class='autoAnimateSelect' onchange='up
 + "BGVideoURL: <input type='text' name='txt' value='' onchange='updateParentBGVideo(this)'>"
 + "<div class='selectedImg'></div><div class='selectedVid'></div>" ;
 
-let defaultAudioHTML = '<audio><source data-src="' + the.hosturl + '"/sounds/low-pop.wav" type="audio/wav"><source data-src="' + the.hosturl + '"/sounds/low-pop.mp3" type="audio/mp3"></audio>';
+let defaultAudioHTML = '<audio><source data-src="' + the.hosturl + '/sounds/low-pop.wav" type="audio/wav"><source data-src="' + the.hosturl + '/sounds/low-pop.mp3" type="audio/mp3"></audio>';
 document.onpaste = function (event) {
 
     if (localStorage.getItem("userLoggedIn") == "n") {
@@ -6093,7 +6093,7 @@ function showFragmentInfo(event){
 
 
         tempHTML = tempHTML + "Inner Div's Padding: <input class='fragmentInnerDivPadding' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivPadding(this)'> <br>";
-        tempHTML = tempHTML + "Inner Div's Margin: <input class='fragmentInnerDivMargin' type='text' name='txt' value='" + "5px" + "' onchange='updateInnerDivMargin(this)'> <br>";
+        tempHTML = tempHTML + "Inner Div's Margin: <input class='fragmentInnerDivMargin' type='text' name='txt' value='" + "5px 50px" + "' onchange='updateInnerDivMargin(this)'> <br>";
         tempHTML = tempHTML + "Inner Div's Audio (e.g. low-pop,low-arrow-whoosh,low-bell-ding,low-sand-swish): <input class='fragmentInnerAudio' type='text' name='txt' value='" + "low-pop" + "' onchange='updateInnerDivAudio(this)'> <br>";
     
     }
@@ -6398,30 +6398,36 @@ function updateListStartingFragmentNum(btn){
         }
     }
 
-    const fragmentNum = parseInt(element.querySelector('#listStartingFragmentNum').value);
+    let fragmentNum = parseInt(element.querySelector('#listStartingFragmentNum').value);
     element.setAttribute("data-listFragmentSt", fragmentNum);
-    //SM - TODO
-    //alert("Auto update is not implemented yet. Update text field to have the fragment numbers updated")
 
-    let textValue = element.querySelector('#fragmentTextValue').value;
-    let listType = element.querySelector('.listStyleSelect').value;
-    let listStyle = element.querySelector('.listTypeSelect').value;
-    let index = fragmentNum ;
 
-    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
-    // index = index + 1;
-    // textValue = textValue.replace(/\n/g, function () {
-    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
-    //     });
+    var innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
 
-    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
-    index = index + 1;
-    textValue = textValue.replace(/\n/g, function () {
-        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
-        });
+    if (innerDivs.length > 0){
 
-    let objs = element.getElementsByClassName("fragmentTextSpanCls");
-    objs[0].innerHTML = textValue;
+        for (var i = 0; i < innerDivs.length; i++) {
+            var innerDiv = innerDivs[i];
+
+            innerDiv.setAttribute("data-fragment-index", fragmentNum);
+            fragmentNum = fragmentNum + 1;
+        }
+    }else{
+        let textValue = element.querySelector('#fragmentTextValue').value;
+        let listType = element.querySelector('.listStyleSelect').value;
+        let listStyle = element.querySelector('.listTypeSelect').value;
+        let index = fragmentNum ;
+    
+    
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        index = index + 1;
+        textValue = textValue.replace(/\n/g, function () {
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            });
+    
+        let objs = element.getElementsByClassName("fragmentTextSpanCls");
+        objs[0].innerHTML = textValue;
+    }
 
     setTimeout(function () {
         hljs.highlightAll();
@@ -6441,32 +6447,35 @@ function updateListType(btn){
         }
     }
 
-    const fragmentNum = parseInt(element.querySelector('#listStartingFragmentNum').value);
+    let fragmentNum = parseInt(element.querySelector('#listStartingFragmentNum').value);
     let listStyle = element.querySelector('.listTypeSelect').value;
     let listType = element.querySelector('.listStyleSelect').value;
     element.setAttribute("data-listStyle", listType);
-    //SM - TODO
-    //alert("Auto update is not implemented yet. Update text field to have the List Style updated")
 
-    let textValue = element.querySelector('#fragmentTextValue').value;
-    
-    let index = fragmentNum ;
+    let innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
 
-    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
-    // index = index + 1;
-    // textValue = textValue.replace(/\n/g, function () {
-    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
-    //     });
+    if (innerDivs.length > 0){
 
-    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
-    index = index + 1;
-    textValue = textValue.replace(/\n/g, function () {
-        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
-        });
+        for (var i = 0; i < innerDivs.length; i++) {
+            var innerDiv = innerDivs[i];
+            innerDiv.style.listStyleType = listType;
+            innerDiv.classList.value = listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px";
+        }
+    }else{
 
-    let objs = element.getElementsByClassName("fragmentTextSpanCls");
-    objs[0].innerHTML = textValue;
+        let textValue = element.querySelector('#fragmentTextValue').value;
+        
+        let index = fragmentNum ;
 
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        index = index + 1;
+        textValue = textValue.replace(/\n/g, function () {
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            });
+
+        let objs = element.getElementsByClassName("fragmentTextSpanCls");
+        objs[0].innerHTML = textValue;
+    }
     setTimeout(function () {
         hljs.highlightAll();
     }, 500);
@@ -6489,28 +6498,32 @@ function updateListStyle(btn){
     let listStyle = element.querySelector('.listTypeSelect').value;
     let listType = element.querySelector('.listStyleSelect').value;
     element.setAttribute("data-listType", listStyle);
-    //SM - TODO
-    //alert("Auto update is not implemented yet. Update text field to have the List Style updated")
 
-    let textValue = element.querySelector('#fragmentTextValue').value;
-    
-    let index = fragmentNum ;
+    let innerDivs = element.getElementsByClassName('convert-to-span-inline-cls');
 
-    // textValue = "<div style='list-style-type:" +listType + "' class='"+ listStyle +" fragment ' fragment-index='"+ index +"' >" + textValue + "</div>";
-    // index = index + 1;
-    // textValue = textValue.replace(/\n/g, function () {
-    //     return `</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment" fragment-index="${index++}">`;
-    //     });
+    if (innerDivs.length > 0){
 
-    textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
-    index = index + 1;
-    textValue = textValue.replace(/\n/g, function () {
-        return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
-        });
+        for (var i = 0; i < innerDivs.length; i++) {
+            var innerDiv = innerDivs[i];
+            innerDiv.style.listStyleType = listType;
+            innerDiv.classList.value = listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px";
+        }
+    }else{
 
-    let objs = element.getElementsByClassName("fragmentTextSpanCls");
-    objs[0].innerHTML = textValue;
+        let textValue = element.querySelector('#fragmentTextValue').value;
+        
+        let index = fragmentNum ;
 
+
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div></div>";
+        index = index + 1;
+        textValue = textValue.replace(/\n/g, function () {
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div></div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            });
+
+        let objs = element.getElementsByClassName("fragmentTextSpanCls");
+        objs[0].innerHTML = textValue;
+    }
     setTimeout(function () {
         hljs.highlightAll();
     }, 500);
@@ -6873,17 +6886,17 @@ function updateParentText(btn){
         let index = parseInt(element.querySelector('#listStartingFragmentNum').value) ;
         let listStyle = element.querySelector('.listTypeSelect').value;
 
-        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline ' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div>"+ defaultAudioHTML +"</div>";
+        textValue = "<div style='list-style-type:" +listType + "' class='" + listStyle + " fragment convert-to-span-inline-cls readout keepInline marginright_50px' data-fragment-index='"+ index +"' ><span class='fragmentTextSpanCls'>" + textValue + "</span><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button><button class='showFragmentBtn' onclick=showFragmentInfo(event)>?</button><div class='fragmentInfoDiv displayNone'></div>"+ defaultAudioHTML +"</div>";
         index = index + 1;
         textValue = textValue.replace(/\n/g, function () {
-            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div>${defaultAudioHTML}</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline " data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
+            return `</span><button class="deleteDiv" onclick=deleteCurrentComponent(this) ></button><button class="showFragmentBtn" onclick=showFragmentInfo(event)>?</button><div class="fragmentInfoDiv displayNone"></div>${defaultAudioHTML}</div><div style="list-style-type:${listType}" class=" ${listStyle} fragment convert-to-span-inline-cls readout keepInline marginright_50px" data-fragment-index="${index++}"><span class="fragmentTextSpanCls">`;
             });
 
         setTimeout(function () {
             hljs.highlightAll();
         }, 500);
     }
-    
+
     var checkBox = element.querySelector("#skipSpaceConversion");
 
     if (checkBox.checked == false){
@@ -6892,6 +6905,9 @@ function updateParentText(btn){
     }
 
     objs[0].innerHTML = textValue;
+    
+    
+
 }
 
 function updateParentAutoSlide(btn){
