@@ -5251,7 +5251,7 @@ function addComponent(itemid, type){
                     +"</div>";
 
         document.getElementById(componentid).innerHTML = partOneHTML 
-            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#ccc' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
+            + "<div id= div-" + randomId + " contenteditable='true' data-bgcolor='#416290' data-transition='zoom' data-autoanimate='' data-background='' data-backgroundiframe = '' data-backgroundvideo = '' class='secdiv' onmousedown=setLastFocusedDivId(this.id) > "
             + "<textarea class='secDivTextArea'  onchange='updatePreviewDiv(this)' >" + htmlPart + "</textarea><div class='secPreview'><div contenteditable='true' class='revealDummy' style='" + previewDim + "'><div class='slides'>" + htmlPartOrig + "</div></div></div>"
             + hdMeDiv 
             + "<button class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button>  </div>" + partTwoHTML;
