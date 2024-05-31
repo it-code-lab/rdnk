@@ -1988,6 +1988,11 @@ input:checked + .slider:after
   background-color: #fff !important;
 }
 
+.adminEditDiv{
+  display: none;
+  background-color: aliceblue;
+}
+
 .srchimages > img {
   max-width: 100%;
   width: 90%;
@@ -2179,6 +2184,10 @@ margin-top: 40px !important;
   box-shadow: rgb(34, 34, 34) 1px 1px 3px;
   padding: 10px;
 }
+
+.editDescriptionDiv  .adminEditDiv {
+  display: block !important;
+} 
 .editDescriptionDiv > * {
   border: 1px solid #fff;
   position: relative;
@@ -2191,6 +2200,8 @@ margin-top: 40px !important;
  .editDescriptionDiv > *:hover .deleteDiv {
   color: #F9907A;
 }  
+
+
 
 .editDescriptionDiv > *:hover .deleteDivInnImg {
   color: #998108;

@@ -1,20 +1,102 @@
+/* ************Copied from styles.css******************* */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn:hover {
+  color: #212529;
+}
+.btn-check:focus + .btn, .btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn-danger:hover {
+  color: #fff;
+  background-color: #bb2d3b;
+  border-color: #b02a37;
+}
+/************** End  ****************************/
+
 #containerNHelpDivId{
 	display: flex;
 	flex-direction: row;
 	background-color: rgb(250, 250, 250);
-  position: relative;
-}
 
-.bgSVG{
-  position: absolute; bottom:0%; height:70%; z-index: 1;
 }
 
 #coffeeBtnXX:hover{
 	background-color: orange;
 }
 
+.revealTemp > * section {
+  border: 2px solid #ccc;
+  margin: 10px;
+  padding: 5px;
+}
 
+.secdiv{
+  min-height: 200px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 3px #222222;
+  position: relative;
+  display: block;
+  overflow: auto;
+  padding-bottom: 250px;
+  /* white-space: pre;
+  white-space: pre-wrap; */
 
+  /**** SM: Removed whitespace prop as it would cause issue with preview ****/
+}
+.hdMeDivCls{
+  position: absolute;
+  bottom: 0;
+  background-color: #ddd;
+}
+.hdMeDivCls > select{
+  padding: 2px;
+  margin: 2px;
+}
+.revealTemp {
+  overflow: scroll;
+}
 /*
 .panel-container > div {
 	 display: table-cell;
@@ -674,23 +756,19 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 /*START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC******/
 /*************************************************************/
 #loginDivId{
-  /* display:none;   */
-  height:90vh; margin:auto; padding: 0px 0px 20px 0px; background-color: #fff;
+  display:none;  height:90vh; margin:auto; padding: 0px 0px 20px 0px; background-color: #fff;
 }
 /*************************************************************/
 /*END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC********/
 /*************************************************************/
 #profileDivId{
-  /* display:none;  */
-  width:100% ; min-height:90vh; margin:auto; padding: 0px 0px 20px 0px; background-color: #fff;
+  display:none; width:100% ; min-height:90vh; margin:auto; padding: 0px 0px 20px 0px; background-color: #fff;
 }
 
 .scorestablecls {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  margin: 10px auto;
-  color: #4c4949;
-  background: #8bc1c3;
+  margin: auto;
 }
 
 .scorestablecls td, .scorestablecls th {
@@ -699,23 +777,22 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 
 }
 
-.scorestablecls tr:nth-child(even){background-color: #8dadc2;}
+.scorestablecls tr:nth-child(even){background-color: #f2f2f2;}
 
-.scorestablecls tr:hover {background-color: #a0a8b5;}
+.scorestablecls tr:hover {background-color: #ddd;}
 
 .scorestablecls th {
   text-align: left;
-  background-color: #708090;
+  background-color: #3b403e;
   color: white;
 }
 
 .scoresheader{
-  background-color: #5f9ea0;
+  background-color: #9A9999;
   color: #fff;
   text-align: center;
   margin: 5px;
   padding: 10px;
-  display: none;
 }
 /*************************************************************/
 /*END -  ********/
@@ -784,7 +861,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 17px 14px;
+  padding: 14px 14px;
   text-decoration: none;
   font-size: 14px;
 }
@@ -805,9 +882,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible
 
 #cardsContainerDivId, #homeCardsContainerDivId{
 	display: table;
-
 }
-
 
 .homeCardImg{
   width:100%; height:300px;
@@ -846,8 +921,7 @@ Refer: https://codepen.io/frippa/pen/JEjzD
 */
 
 #loaderDivId{
-  /* display: none;  */
-  height: 100vh; width: 100vw;  position: absolute; left: 0;  z-index: 100; text-align: center; background-color: #fff;
+  display: none; height: 100vh; width: 100vw;  position: absolute; left: 0;  z-index: 100; text-align: center; background-color: #fff;
 }
 
 .loader {
@@ -983,7 +1057,7 @@ animation-delay: 0.4s;
 	}
 	
     .un {
-    width: 100%;
+    width: 76%;
     color: rgb(38, 50, 56);
     font-weight: 700;
     font-size: 14px;
@@ -1010,7 +1084,7 @@ animation-delay: 0.4s;
 
     
     .pass {
-     width: 100%;
+     width: 76%;
     color: rgb(38, 50, 56);
     font-weight: 700;
     font-size: 14px;
@@ -1037,10 +1111,7 @@ animation-delay: 0.4s;
         
     }
     
-    .btnCenterAlign{
-      margin:0 auto;
-      display:block;
-    }
+
 	/*
 	a.helper {
          width: 150px;
@@ -1162,7 +1233,7 @@ animation-delay: 0.4s;
 }
 
 #contactusDivId, #loginSecDivId , #registerSecDivId, #forgotPasswordSecDivId, #accActivatedDivId, #forgotPWDivId{
-	/* display: block; */
+	display: block;
     margin: 20px auto auto;
 	margin-bottom: 20px;
     padding: 25px;
@@ -1172,8 +1243,6 @@ animation-delay: 0.4s;
 	width: 90%;
 	max-width: 500px;
     min-width: 250px;
-    position: relative;
-    z-index: 10;
 }
 #contactusSecDivId{
 	/*
@@ -1633,8 +1702,6 @@ button.btnNewWindow::before {
   background-color: #095984;
   color: white;
   padding: 2px;
-  z-index: 10;
-  position: relative;
 }
 
 
@@ -1692,13 +1759,6 @@ button.btnNewWindow::before {
   margin-bottom: 5px;
   display: block;
   overflow: auto;
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.technologyHeader:hover {
-  background-color: #1675a8;
-  color:#fff;
 }
 
 .technologyFooter{
@@ -1748,9 +1808,9 @@ button.btnNewWindow::before {
 .cardsContainerDivClassPadd {
 	display: block;
 	/* margin: auto; */
-  margin: 20px ;
+  margin: 10px;
 
-	/* margin-top: 20px; */
+	margin-top: 20px;
 	padding: 0px;
 	padding-top: 0px;
   float: left;
@@ -1765,7 +1825,6 @@ button.btnNewWindow::before {
 	position: relative;
   /* height: 200px; */
   overflow: auto;
-  z-index: 10;
 }
 
 .cardsContainerDivClassPadd::-webkit-scrollbar {
@@ -1893,14 +1952,15 @@ input:checked + .slider:after
   padding: 10px;
 }
 .toolBarlabel{
-  margin: 1px;
-  padding: 1px;
+  margin: 4px;
+  padding: 4px;
   font-size: small;
   width: 100%;
   background-color: grey; 
   border-radius: 5px;
   color: #fff;
   text-align: center;
+  display: block;
 }
 .itmUpdBtn {
   /* padding: 10px !important;
@@ -1920,6 +1980,13 @@ input:checked + .slider:after
   width: 48%; 
 }
 
+.itmSecImg{
+  width: 100px; 
+  height:100px ;
+  background-size: contain;
+  margin: 2px;
+  background-repeat:no-repeat !important;
+}
 .itmUpdBtn:hover{
   background-color: orange;
 }
@@ -1957,11 +2024,11 @@ input:checked + .slider:after
   position: sticky; */
   
   top: 0;
-  right: 20px;
+  right: 10px;
   /* width: 180px; */
-  width: 240px;
+  width: 380px;
   background-color: white;
-  z-index: 15;
+
 }
 .paragraph1-desc{
   /* color: #4d5b7c; */
@@ -1982,6 +2049,11 @@ input:checked + .slider:after
   text-align: justify;
   text-justify: inter-word;
   background-color: #fff !important;
+}
+
+.adminEditDiv{
+  display: none;
+  background-color: aliceblue;
 }
 
 .paragraph2-desc > *{
@@ -2053,17 +2125,18 @@ input:checked + .slider:after
 }
 
 .codescript4-desc {
-  background-color: #f3f3f3; 
- width: 90%;
- /* border-radius: 10px; */
- /* color: #fff; */
- 
- padding: 0px 0px 0px 5px; 
- margin: 10px;
- box-shadow: rgb(34, 34, 34) 1px 1px 3px;
- /* overflow:auto; */
- position: relative
+   background-color: #f3f3f3; 
+  width: 90%;
+  /* border-radius: 10px; */
+  /* color: #fff; */
+  
+  padding: 0px 0px 0px 5px; 
+  margin: 10px;
+  box-shadow: rgb(34, 34, 34) 1px 1px 3px;
+  /* overflow:auto; */
+  position: relative
 }
+
 
 .codescript1{
   font-size: 16px;
@@ -2077,9 +2150,6 @@ margin-top: 40px !important;
 
 .header2-desc{
   margin-top: 30px !important;
-  margin-left: 0px !important;
-  font-size: calc(1.325rem + 0.9vw) !important;
-  font-weight: 500 !important;
 }
 
 .header3-desc{
@@ -2108,6 +2178,74 @@ margin-top: 40px !important;
 	color:rgb(131, 109, 176)
   }
 
+  .convert-to-span-inline-cls{
+    position: relative;
+    display: table-cell;
+  }
+
+  .fragmentTextSpanCls{
+    width: 98% !important;
+    word-wrap: break-word !important;
+  }
+  .copyFragmentBtn{
+    position: absolute;
+    top: 5px;
+    right: -40px;
+    display: none;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .toggleResizeBtn{
+    position: absolute;
+    top: 5px;
+    right: -70px;
+    display: none;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .showFragmentBtn{
+    color: #000;
+    font: 14px/100% arial, sans-serif;
+    position: absolute;
+    right: -15px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    top: 5px;
+    display: none;
+    cursor: pointer;
+    background:#f5a93e7d ;
+    /* border: none; */
+    z-index: 10;
+  }
+
+  #fragmentTextValue, #fragmentClass, #fragmentDataAutoslide, #fragmentDataTtstext, #fragmentStyle, #fragmentAudio, #fragmentDataFragmentIndex{
+    width: 90%;
+  }
+
+  .fragmentInfoDiv{
+    left: 5px;
+    top: 5px;
+    font-size: 12px;
+    max-width: 400px;
+    text-align: initial;
+    display: none;
+    position: fixed;
+    background-color: #000 !important;
+    color: #fff !important;
+    padding: 5px;
+    z-index: 200;
+    max-height: 200px;
+    overflow: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .displayNone {
+    display: none;
+  }
+  
+
   .deleteDiv{
     color: #777;
     font: 14px/100% arial, sans-serif;
@@ -2117,8 +2255,9 @@ margin-top: 40px !important;
     text-shadow: 0 1px 0 #fff;
     top: 5px;
     display: none;
+    cursor: pointer;
+    z-index: 10;
   }
-
   .deleteDivInnImg{
     color: #777;
     font: 14px/100% arial, sans-serif;
@@ -2128,8 +2267,11 @@ margin-top: 40px !important;
     text-shadow: 0 1px 0 #fff;
     /* top: 5px; */
     display: none;   
+    position: absolute;
+    bottom: 200px;
     background-color: chartreuse;
   }
+
   .deleteDivInnImgBk{
     color: #cf4242;
     font: 14px/100% arial, sans-serif;
@@ -2139,22 +2281,21 @@ margin-top: 40px !important;
     text-shadow: 0 1px 0 #fff;
     /* top: 5px; */
     display: none;   
+    position: absolute;
+    bottom: 250px;
     background-color: darkorange;
   }
+
   .qz1-rtans{
     display: none;
   }
 
-  .ansAddInfo{
-    display: none;
-  }
-
-
   .hdmicls{
     display: none;
   }
+
   .deleteDiv:after, .deleteDivInnImg:after, .deleteDivInnImgBk:after {
-    content: '×'; /* UTF-8 symbol */
+    content: "×"; /* UTF-8 symbol */
   }
   
   .copyDiv{
@@ -2178,11 +2319,15 @@ margin-top: 40px !important;
 .editDescriptionDiv{
   box-shadow: rgb(34, 34, 34) 1px 1px 3px;
   padding: 10px;
+  cursor: default;
 }
 .editDescriptionDiv > * {
   border: 1px solid #fff;
   position: relative;
 }
+.editDescriptionDiv .adminEditDiv {
+  display: block !important;
+} 
 
 .editDescriptionDiv > *:hover {
   border: 1px solid grey;
@@ -2192,6 +2337,10 @@ margin-top: 40px !important;
   color: #F9907A;
 }  
 
+/* .editDescriptionDiv > *:hover .showFragmentBtn {
+  color: #F9907A;
+}  */
+
 .editDescriptionDiv > *:hover .deleteDivInnImg {
   color: #998108;
 } 
@@ -2199,7 +2348,27 @@ margin-top: 40px !important;
 .editDescriptionDiv > *:hover .deleteDivInnImgBk {
   color: #c52808;
 } 
+
 .editDescriptionDiv > * .deleteDiv , .deleteDiv:hover{
+  display: block;
+} 
+
+
+.editDescriptionDiv > * .displayNone , .displayNone:hover{
+  display: block;
+} 
+
+
+
+.editDescriptionDiv > * .showFragmentBtn , .showFragmentBtn:hover{
+  display: block;
+} 
+
+.editDescriptionDiv > * .copyFragmentBtn , .copyFragmentBtn:hover{
+  display: block;
+} 
+
+.editDescriptionDiv > * .toggleResizeBtn , .toggleResizeBtn:hover{
   display: block;
 } 
 
@@ -2207,73 +2376,54 @@ margin-top: 40px !important;
   display: block;
 } 
 
+
 .editDescriptionDiv > * .deleteDivInnImgBk , .deleteDivInnImgBk:hover{
   display: block;
 } 
-
 
 .editDescriptionDiv .qz1-rtans {
   display: block;
 } 
 
-.editDescriptionDiv .ansAddInfo {
-  display: block;
-}
-
 .editDescriptionDiv .hdmicls {
   display: block;
 } 
+
+.editDescriptionDiv  .QnImage {
+  border: 1px solid;
+  height: 200px;
+}  
+
+.editDescriptionDiv .ansImage img {
+  display: block !important;
+}  
 
 .qz1-ans{
   padding: 5px;
   margin: 5px;
   border: 2px solid rgb(215, 213, 213);
   border-radius: 5px;
-  cursor: pointer;
 }
-
-.qz1-ans:hover{
-  background-color: rgb(215, 213, 213);;
-}
-
 
 .qzerr-div{
-  color: #fff;
-  margin: 10px;
-  min-height: 35px;
+  color: #CC0000;
+  min-height: 24px;
+  margin: 5px;
 }
-
-#qzerr{
-  display: none;
-  width: 0%;
-  background-color: #f39c12;
-  transition: ease 0.5s;
-  padding: 5px;  
-  border-radius: 5px;
-}
-
-#qzres{
-  display: none;
-  width: 0%;
-  background-color: #d6eaf8;
-  color: #153d58;
-  transition: ease 0.5s;
-  padding: 5px;  
-  border-radius: 5px;
-}
-
 .sbmtqz-div{
   margin: auto;
   text-align: center;
   width: 200px;
   border: 2px solid rgb(215, 213, 213);
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
 
 }
 #retryqzdivid{
   display: none;
 }
+
+
 .subordered-list-desc{
   list-style:lower-alpha !important;
   margin-left: 20px;
@@ -2329,11 +2479,18 @@ ul.unordered-list-arrow li:before{
 }
 
 .image1-desc img {
-  max-width: 90%; 
+  width: 95%; 
   height: auto;
   padding: 10px;
   margin: 10px;
   box-shadow: rgb(34, 34, 34) 1px 1px 3px;
+}
+
+.youTube-image-desc img {
+  width: 90%; 
+  height: auto;
+  padding: 10px;
+  margin: 10px;
 }
 
 .image2-desc img {
@@ -2358,7 +2515,7 @@ ul.unordered-list-arrow li:before{
   resize: horizontal; 
   overflow: hidden; 
   background-color: #fff;  
-  display: block; 
+  display: none; 
   /* height: 100vh;  */
   /* max-height: 90vh; 
   min-height: 88vh;  */
@@ -2368,7 +2525,6 @@ ul.unordered-list-arrow li:before{
   /* box-shadowXX: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
   border-right:  1px solid #c8c8c8;
   border-left:   1px solid  #c8c8c8;
-  z-index: 10;
 }
 
 #tutorialDivId > div:not(.header3-desc){
@@ -2381,19 +2537,19 @@ width: 100%;
 
 
 #tutorialListDivId{
-  display: block;
+  display: none;
   min-width: 350px; 
   background-color: rgb(250, 250, 250);
-  transition: ease 0.5s;
-}
-#tutorialListInnerDivId{
-  padding-bottom: 50px;
 }
 #tutorialEditDivId{
   /* height: 100vh; */
   overflow: auto; 
-  width: 20%;
+  /* width: 20%; */
+  width: 700px;
   background-color: rgb(250, 250, 250);
+  position: fixed;
+  top: 5px;
+  right: -255px;
 }
 
 .showTutorialListDiv{
@@ -2410,47 +2566,13 @@ margin-right: 20px;
 text-align: end;
 }
 
-.searchWrapper {
-  float: none !important;
-  overflow: hidden !important;
-  padding: 8px 8px !important;
-}
-
-form.dummyForm {
-  width: 100%;
-  padding: 2px;
-  background: transparent;
-}
-#itemsearchDivId {
-  float: left;
-  min-width: 200px;
-  max-width: 500px;
-  width: 90%;
-}
-
-/* #tutorial-search-box{
+#tutorial-search-box{
  width: calc(100% - 120px);
  max-width: 500px;
-} */
-
-#tutorial-search-box {
-  min-width: 200px;
-  max-width: 500px;
-  width: 90%;
-  border-radius: 10px;
-  padding: 5px;
 }
 
 #tutorialSearchBtnId{
   width:60px;
-}
-
-#itemsearchBtnId {
-  /* width: 60px; */
-  background: transparent;
-  border: none;
-  color: #b39265;
-  cursor: pointer;
 }
 
 .searchButtonCls {
@@ -2481,7 +2603,6 @@ form.dummyForm {
   text-decoration: none;
   color: white;
   list-style-type: none;
-  z-index: 20;
 }
 
 .footerDiv * {
@@ -2625,131 +2746,36 @@ footer {
   text-decoration: none;
 }
 
-
 .dynamicradio{
   width: 1.4em;
   height: 1.4em;
   vertical-align:text-bottom;
   margin-right: 5px;
-  cursor: pointer;
+}
+#projectscannerLinkId{
+  display: none;
+}
+
+#filescannerLinkId{
+  display: none;
+}
+
+#howtoLinkId{
+  display: none;
 }
 div:has(> .hideParentDiv) {display: none; }
 
-.tutorialTopLinkCls{
-  display: inline-block;
-  padding: 3px 5px;
-  border-radius: 3px;
-  transition: ease 0.5s;
-  text-decoration: none;
-  margin: 2px;
+.fontsize18px{
+  font-size: 18px;
 }
 
-.tutorialTopLinkCls:hover{
-  background: #58bed5;
-  color: #fff;
+.highlightOnHover{
+  text-decoration: underline;
+}
+.highlightOnHover:hover{
+  background-color: #e4c98a;
 }
 
-#slideInDivId{
-  color: #a29e9e; 
-  font-size: 32px; 
-  margin-left: 20px;
-}
-#slideInDivId:hover{
-  color: #000;
-}
-
-.pageinfo-desc{
-  background-color: #D6EAF8;
-    color: #153D58;
-    padding: 10px;
-    margin: 20px auto;
-    border-radius: 10px;
-    font-size: 16px;
-}
-
-.quizTxt{
-  background-color: #b8bfd0;
-  border-radius: 5px;
-  padding: 1px;
-  border: 1px solid grey;
-}
-
-.convert-to-h2-inline-cls{
-  display: inline;
-  margin-left: 0px !important;
-  font-weight: 500 !important;
+.codeDiv{
   font-size: 24px;
-}
-
-.convert-to-h3-inline-cls{
-  display: inline;
-  margin-left: 0px !important;
-  font-weight: 500 !important;
-  font-size: 20px;
-}
-
-.convert-to-blue-h3-inline-cls{
-  display: inline;
-  margin-left: 0px !important;
-  font-weight: 500 !important;
-  font-size: 20px;
-  color: blueviolet;
-}
-.topNavDivCls{
-
-}
-.printBtn{
-  width: 100px;
-  padding: 5px;
-  border: none;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #94c5e4;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  float: right;
-  margin: 5px;
-}
-.printBtn:hover{
-  background-color: #2d424e;
-}
-
-.printBtnDivCls{
-  display: flow-root;
-}
-@media print {
-  .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .topnav, .sbmtqz-div, .topNavDivCls, .bottomNavDivCls, .bottomCommentDivCls, .footerDiv, #tutorialListDivId, #tutorialEditDivId {
-    display: none !important;
-  }
-
-  #tutorialDivId{
-    border: none;
-  }
-}
-
-.scoresPie{
-  display: flex;
-}
-
-.scoreText{
-  color: #7a7978;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #f5f6f9;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  font-size: small;
-}
-.alignment-span{
-  display: block;
-  width: 100%;
-}
-#timeAndStatusDivId{
-  display: flex;
-  flex-direction: row;
-  background-color: steelblue;
-  padding: 5px;
-  border-radius: 5px;
-  color: white;
 }
