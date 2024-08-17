@@ -7334,15 +7334,41 @@ function toggleHideLeftParent(elem) {
     $("#tutorialListDivId").toggle("slide")
 }
 function printStoryBook(){
-    const paragraphs = document.querySelectorAll('p');
+    cleanUpExtraBlankLines();
+    //alignImages();
 
-    paragraphs.forEach(function(paragraph) {
-        if (paragraph.textContent.trim() === '') {
-            paragraph.remove();
-        }
-    });
     document.body.classList.add('apply-print-image-story-book-style');
     window.print();
+}
+
+function alignImages(){
+    const images = document.querySelectorAll('.image1-desc');
+    images.forEach((image, index) => {
+        if (index % 2 === 0) {
+            image.classList.add('image-left');
+        } else {
+            image.classList.add('image-right');
+        }
+    });
+}
+
+function cleanUpExtraBlankLines() {
+    const imageContainers = document.querySelectorAll('.image1-desc');
+    
+    imageContainers.forEach(function(imageContainer) {
+        const prevElement = imageContainer.previousElementSibling;
+        const nextElement = imageContainer.nextElementSibling;
+
+        // Remove empty <p> before the image
+        if (prevElement && prevElement.tagName === 'P' && prevElement.textContent.trim() === '') {
+            prevElement.remove();
+        }
+
+        // Remove empty <p> after the image
+        if (nextElement && nextElement.tagName === 'P' && nextElement.textContent.trim() === '') {
+            nextElement.remove();
+        }
+    });
 }
 
 function onMobileBrowser() {
