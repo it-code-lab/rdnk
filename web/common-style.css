@@ -3,6 +3,13 @@ body {
   color: #333;
 }
 
+@page {
+  margin-top: 1in !important;
+  margin-bottom: 0.5in !important;
+  margin-left: 0.5in !important;
+  margin-right: 1in !important;
+}
+
 img {
   border: 0;
 }

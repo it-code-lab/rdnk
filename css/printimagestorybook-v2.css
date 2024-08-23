@@ -1,9 +1,6 @@
 .apply-print-image-story-book-style {
-  @media print {
 
-    /* .image1-desc:not(:last-child) {
-      page-break-after: always;
-    } */
+  @media print {
 
     body {
       font-family: 'Comic Sans MS', 'Arial', sans-serif !important;
@@ -17,6 +14,8 @@
       margin: 0;
       padding: 0;
       background: #fff;
+
+
     }
 
     /* Ensure <br> elements do not add unnecessary space */
