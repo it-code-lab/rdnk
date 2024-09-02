@@ -7347,8 +7347,12 @@ function copyStoryBookToClipboard(){
     cleanUpExtraBlankLines();
     //alignImages();
 
-    document.body.classList.add('apply-print-image-story-book-style');
-    copyContentWithStyles();
+    document.body.classList.add('copy-image-story-book-style');
+    
+    setTimeout(function() {
+        copyContentWithStyles();
+    }, 3000);
+    
 }
 
 function copyContentWithStyles() {

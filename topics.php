@@ -149,6 +149,7 @@ function populateTutorialHTML($tutData, $database)
         $sessionDesc = $description;
         $newHTML .= '<button class="btn" data-itemid="' . $itemid . '" data-technology="' . $technology . '" data-technologyseq="' . $technologyseq . '" data-subpath="' . $subpath . '" data-subpathseq="' . $subpathseq . '" data-title="' . $title . '" data-titleseq="' . $titleseq . '" data-shortdescription="' . $shortdescription . '"  data-writer="' . $writer . '" data-keywords="' . $keywords . '" data-discontinue="' . $discontinue . '" onclick="editItem(this)">Edit</button>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="printStoryBook()">Print Image Story Book</button></div>';
+        $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>';
 
     }
 

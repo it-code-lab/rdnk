@@ -78,9 +78,7 @@
       display: none;
     }
 
-    .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .topnav, .sbmtqz-div, .topNavDivCls, .bottomNavDivCls, .bottomCommentDivCls, .footerDiv, #tutorialListDivId, #tutorialEditDivId {
-      display: none !important;
-    }
+
     .d-print-inline {
       display: inline !important;
     }
@@ -152,6 +150,10 @@
       display: none;
     }
 
+    .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .topnav, .sbmtqz-div, .topNavDivCls, .bottomNavDivCls, .bottomCommentDivCls, .footerDiv, #tutorialListDivId, #tutorialEditDivId {
+      display: none !important;
+    }
+    
     /* Style to add margin only where needed */
     .paragraph2-desc p:not(:last-child),
     .paragraph1-desc p:not(:last-child) {
