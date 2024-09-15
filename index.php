@@ -279,6 +279,7 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
     // Loop through the rows array
     for ($i = 0; $i < count($rows); $i++) {
         $itemName = replaceSpacesWithHyphen($rows[$i]['title']);
+        $itemimage = $rows[$i]['itemimage'];
         $subpath = $rows[$i]['subpath'];
         $technologyOrig = $rows[$i]['technology'];
         $technology = replaceSpacesWithHyphen($rows[$i]['technology']);
@@ -369,13 +370,33 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
             $innerHTML .= $subPathQzRepl . '</h2></span></a>';
             $innerHTML .= '</div>';
         } else {
-            $innerHTML .= '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="tutorialDiv ' . $discontinuedFlgCls . $technologySqueezed . '">';
-            $innerHTML .= '<a class="tutorialLink"  href="' . $tutorialTitleURL . '"><span class="tutorialTitleSpan"><h2 class="tutorialTitleH2">';
-            if ($_SESSION['smusr']) {
-                $innerHTML .= $rows[$i]['titleseq'] . '. ';
+
+
+            if ($technologySqueezed == "Java") {
+                $innerHTML = $innerHTML . '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' . $discontinuedFlgCls . $technologySqueezed . '">';
+                $innerHTML = $innerHTML . '<div class="position_relative hoverBtnParent cursor_pointer">';
+                $innerHTML = $innerHTML . '<a class="tutorialLink" href ="' . $tutorialTitleURL . '">';
+                $innerHTML = $innerHTML . '<div class="itmImgContainer"><img class="myitemImages" style="display:block" src=';
+            
+                $innerHTML = $innerHTML . $itemimage . '></div> </a></div><div class="itemListView-Header"><div class="shopItemTitle ">';
+            
+                if ($_SESSION['smusr']) {
+                    $innerHTML = $innerHTML . $rows[$i]['titleseq'] . '. ';
+                }
+            
+                $innerHTML = $innerHTML . $subPathQzRepl . '</div></div>';
+            
+                $innerHTML = $innerHTML . '</div>';
+            } else {
+                $innerHTML .= '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="tutorialDiv ' . $discontinuedFlgCls . $technologySqueezed . '">';
+                $innerHTML .= '<a class="tutorialLink"  href="' . $tutorialTitleURL . '"><span class="tutorialTitleSpan"><h2 class="tutorialTitleH2">';
+                if ($_SESSION['smusr']) {
+                    $innerHTML .= $rows[$i]['titleseq'] . '. ';
+                }
+                $innerHTML .= $subPathQzRepl . '</h2></span></a>';
+                $innerHTML .= '</div>';
             }
-            $innerHTML .= $subPathQzRepl . '</h2></span></a>';
-            $innerHTML .= '</div>';
+
         }
 
         if ($i == count($rows) - 1) {

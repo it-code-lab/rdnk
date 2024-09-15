@@ -3347,6 +3347,7 @@ function getTutorial(tutorialStr) {
             var itemid = tags[0].itemid;
             var technology = tags[0].technology;
             var technologyseq = tags[0].technologyseq;
+            var itemimage = tags[0].itemimage;
             var subpath = tags[0].subpath;
             var subpathseq = tags[0].subpathseq;
             var title = tags[0].title;
@@ -3414,7 +3415,7 @@ function getTutorial(tutorialStr) {
 
                 //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + technology + "'," + "'" + technologyseq + "'," + "'" + subpath + "',"+ "'" + subpathseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
 
-                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-itemimage= "' + itemimage + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
                 newHTML = newHTML + '<div class="printBtnDivCls"><button class="printBtn" onclick="printStoryBook()">Print Image Story Book</button></div>'
                 newHTML = newHTML + '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>'
 
@@ -3577,6 +3578,7 @@ function editItem(btn) {
     description = sessionStorage.getItem("data-description");
     writer = btn.dataset.writer;
     keywords = btn.dataset.keywords;
+    itemimage = btn.dataset.itemimage;
     discontinue = btn.dataset.discontinue;
 
     $.ajax({
@@ -3740,6 +3742,9 @@ function editItem(btn) {
         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
         "<textarea id='keywords-" + itemid + "' style='width:95%; margin:auto;' >" + keywords + "</textarea>";
 
+    newHTML = newHTML +
+    "<br><br><div class = 'editFieldHead'>Item Image: </div><br>" +
+    "<textarea id='itemimage-" + itemid + "' style='width:95%; margin:auto;' >" + itemimage + "</textarea>";
 
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Discontinue: </div> <br>" +
@@ -5179,6 +5184,9 @@ function updateItem(itemid, createNewItem) {
         titleseq = document.getElementById("titleseq-" + itemid).value;
         technology = document.getElementById("technology-" + itemid).value;
         technologyseq = document.getElementById("technologyseq-" + itemid).value;
+
+        itemimage = document.getElementById("itemimage-" + itemid).value;
+
         subpath = document.getElementById("subpath-" + itemid).value;
         subpathseq = document.getElementById("subpathseq-" + itemid).value;
         shortdescription = document.getElementById("shortdescription-" + itemid).value;
@@ -5241,6 +5249,7 @@ function updateItem(itemid, createNewItem) {
             titleseq: titleseq,
             technology: technology,
             technologyseq: technologyseq,
+            itemimage: itemimage,
             subpath: subpath,
             subpathseq: subpathseq,
             shortdescription: shortdescription,
@@ -6145,6 +6154,14 @@ function showTechnology(tech) {
     document.getElementById(elementId).style.top = "20px";
     document.getElementById(elementId).style.margin = "auto";
     // document.getElementById(elementId).style.overflow = "expand";
+
+    customizeViewForTechnology(tech);
+
+}
+
+function customizeViewForTechnology(tech){
+
+
 }
 
 function searchTutorial() {
@@ -6230,6 +6247,8 @@ function populateTutorialList(rows = "") {
 
         itemName = rows[i].title;
         itemName = itemName.replaceAll(" ", "-");
+
+        itemimage = rows[i].itemimage;
 
         subpath = rows[i].subpath;
         //subpath = subpath.replaceAll(" ", "-");
@@ -6324,15 +6343,36 @@ function populateTutorialList(rows = "") {
 
         if (previousSubpath == currentSubpath) {
             //It is a child tutorial same as previous
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
+            if (technologySqueezed == "Amazing Short Stories"){
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
+                innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
+                innerHTML = innerHTML + ' <div class="itmImgContainer"><img class="myitemImages" style="display:block" src=';
+
+    
+                innerHTML = innerHTML + itemimage + '></div> </a></div><div class="itemListView-Header"><div class="shopItemTitle ">';
+
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+
+                innerHTML = innerHTML + subPathQzRepl + '</div></div>';
+
+                innerHTML = innerHTML + '</div>';
+
+            }else {
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+    
+                innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
+                innerHTML = innerHTML + '</div>';   
             }
 
-            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
+
         } else if (nextSubPath == currentSubpath) {
             //It is a new child tutorial 
 
@@ -6340,26 +6380,65 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + currentSubpath;
             innerHTML = innerHTML + '</div>';
 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+            if (technologySqueezed == "Amazing Short Stories"){
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
+                innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
+                innerHTML = innerHTML + ' <div class="itmImgContainer"><img class="myitemImages" style="display:block" src=';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
+    
+                innerHTML = innerHTML + itemimage + '></div> </a></div><div class="itemListView-Header"><div class="shopItemTitle ">';
+
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+
+                innerHTML = innerHTML + subPathQzRepl + '</div></div>';
+
+                innerHTML = innerHTML + '</div>';
+
+            }else {
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+
+                innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
+                innerHTML = innerHTML + '</div>';
             }
-
-            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
         } else {
-            //It is not a new child tutorial 
-            innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv ' + discontinuedFlgCls + technologySqueezed + '" >';
-            innerHTML = innerHTML + '<a class="tutorialLink" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+            //It is not a new child tutorial
+            
+            if (technologySqueezed == "Amazing Short Stories"){
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
+                innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
+                innerHTML = innerHTML + ' <div class="itmImgContainer"><img class="myitemImages" style="display:block" src=';
 
-            if (the.smusr) {
-                innerHTML = innerHTML + rows[i].titleseq + '. ';
+    
+                innerHTML = innerHTML + itemimage + '></div> </a></div><div class="itemListView-Header"><div class="shopItemTitle ">';
+
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+
+                innerHTML = innerHTML + subPathQzRepl + '</div></div>';
+
+                innerHTML = innerHTML + '</div>';
+            }else{
+                innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="tutorialDiv ' + discontinuedFlgCls + technologySqueezed + '" >';
+                innerHTML = innerHTML + '<a class="tutorialLink" href ="' + tutorialTitleURL + '"> <span class="tutorialTitleSpan"  > <h2 class="tutorialTitleH2" >';
+    
+                if (the.smusr) {
+                    innerHTML = innerHTML + rows[i].titleseq + '. ';
+                }
+    
+                innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
+                innerHTML = innerHTML + '</div>';
             }
 
-            innerHTML = innerHTML + subPathQzRepl + ' </h2> </span> </a>';
-            innerHTML = innerHTML + '</div>';
         }
 
 

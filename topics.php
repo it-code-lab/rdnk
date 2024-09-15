@@ -86,6 +86,7 @@ function populateTutorialHTML($tutData, $database)
     $tags = $tutData;
 
     $itemid = $tags[0]['itemid'];
+    $itemimage = $tags[0]['itemimage'];
 
     $tutTitleItemId = $itemid;
 
@@ -135,10 +136,18 @@ function populateTutorialHTML($tutData, $database)
     $tutorialUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics";
     $technologyUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics/" . $technology;
 
-    $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
+    if ($technology == "Amazing Short Stories") {
+        $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
+        '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . " > " .
+        '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
+
+    }else {
+        $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
         '<a href="' . $tutorialUrl . '" class="tutorialTopLinkCls">' . "Topics</a>" . " > " .
         '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . " > " .
         '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
+
+    }
     $newHTML .= "<div class='curvedBox bgcolor_11 padding_50px color_white text_align_center'><h1 id='docHeader'>" . $subpath . "</h1></div>";
 
     if (!$_SESSION['isLoggedin']) {
@@ -147,8 +156,9 @@ function populateTutorialHTML($tutData, $database)
         global $sessionDesc;
         $_SESSION["data-description"] = $description;
         $sessionDesc = $description;
-        $newHTML .= '<button class="btn" data-itemid="' . $itemid . '" data-technology="' . $technology . '" data-technologyseq="' . $technologyseq . '" data-subpath="' . $subpath . '" data-subpathseq="' . $subpathseq . '" data-title="' . $title . '" data-titleseq="' . $titleseq . '" data-shortdescription="' . $shortdescription . '"  data-writer="' . $writer . '" data-keywords="' . $keywords . '" data-discontinue="' . $discontinue . '" onclick="editItem(this)">Edit</button>';
+        $newHTML .= '<button class="btn" data-itemid="' . $itemid . '" data-technology="' . $technology . '" data-itemimage="' . $itemimage . '" data-technologyseq="' . $technologyseq . '" data-subpath="' . $subpath . '" data-subpathseq="' . $subpathseq . '" data-title="' . $title . '" data-titleseq="' . $titleseq . '" data-shortdescription="' . $shortdescription . '"  data-writer="' . $writer . '" data-keywords="' . $keywords . '" data-discontinue="' . $discontinue . '" onclick="editItem(this)">Edit</button>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="printStoryBook()">Print Image Story Book</button></div>';
+        $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>';
 
     }
@@ -279,6 +289,10 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
     // Loop through the rows array
     for ($i = 0; $i < count($rows); $i++) {
         $itemName = replaceSpacesWithHyphen($rows[$i]['title']);
+        $itemimage = $rows[$i]['itemimage'];
+        if ($itemimage == ""){
+            $itemimage = '/readernook/images/imagetocome.png';
+        }
         $subpath = $rows[$i]['subpath'];
         $technologyOrig = $rows[$i]['technology'];
         $technology = replaceSpacesWithHyphen($rows[$i]['technology']);
@@ -296,6 +310,7 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
 
         //$technologyMaxCount = (int) sessionStorage . getItem("max-count-" . $technologySqueezed);
 
+        //Display the technology header
         if ($i == 0) {
             if ($technologyFilter != "") {
                 $innerHTML .= '<div id="menucardparent-' . $technologySqueezed . '" style="width:95%; max-width:1200px; float:none; top:20px; margin:auto; overflow:expand" class="cardsContainerDivClassPadd"><a class="technologyHeader" href="' . $technologyUrl . '">';
@@ -349,7 +364,25 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
         $subPathQzRepl = $rows[$i]['subpath'];
         $subPathQzRepl = str_replace('quiz', "<span class='quizTxt'>Quiz</span>", $subPathQzRepl);
 
-        if ($previousSubpath == $currentSubpath) {
+        if ($technologySqueezed == "AmazingShortStories") {
+            $innerHTML = $innerHTML . '<a class="tutorialLink" href ="' . $tutorialTitleURL . '">';
+            $innerHTML = $innerHTML . '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' . $discontinuedFlgCls . $technologySqueezed . '">';
+
+
+            $innerHTML = $innerHTML . '<div class="position_relative hoverBtnParent cursor_pointer">';
+
+            $innerHTML = $innerHTML . '<div class="itmImgContainer"><img class="myitemImages" style="display:block" src=';
+        
+            $innerHTML = $innerHTML . $itemimage . '></div> </div><div class="itemListView-Header"><div class="shopItemTitle ">';
+        
+            if ($_SESSION['smusr']) {
+                $innerHTML = $innerHTML . $rows[$i]['titleseq'] . '. ';
+            }
+        
+            $innerHTML = $innerHTML . $subPathQzRepl . '</div></div>';
+        
+            $innerHTML = $innerHTML . '</div></a>';
+        } else if ($previousSubpath == $currentSubpath) {
             $innerHTML .= '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="tutorialDiv tutorialChild ' . $discontinuedFlgCls . $technologySqueezed . '">';
             $innerHTML .= '<a class="tutorialLink"  href="' . $tutorialTitleURL . '"><span class="tutorialTitleSpan"><h2 class="tutorialTitleH2">';
             if ($_SESSION['smusr']) {
@@ -369,13 +402,13 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
             $innerHTML .= $subPathQzRepl . '</h2></span></a>';
             $innerHTML .= '</div>';
         } else {
-            $innerHTML .= '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="tutorialDiv ' . $discontinuedFlgCls . $technologySqueezed . '">';
-            $innerHTML .= '<a class="tutorialLink"  href="' . $tutorialTitleURL . '"><span class="tutorialTitleSpan"><h2 class="tutorialTitleH2">';
-            if ($_SESSION['smusr']) {
-                $innerHTML .= $rows[$i]['titleseq'] . '. ';
-            }
-            $innerHTML .= $subPathQzRepl . '</h2></span></a>';
-            $innerHTML .= '</div>';
+                $innerHTML .= '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="tutorialDiv ' . $discontinuedFlgCls . $technologySqueezed . '">';
+                $innerHTML .= '<a class="tutorialLink"  href="' . $tutorialTitleURL . '"><span class="tutorialTitleSpan"><h2 class="tutorialTitleH2">';
+                if ($_SESSION['smusr']) {
+                    $innerHTML .= $rows[$i]['titleseq'] . '. ';
+                }
+                $innerHTML .= $subPathQzRepl . '</h2></span></a>';
+                $innerHTML .= '</div>';
         }
 
         if ($i == count($rows) - 1) {
@@ -489,40 +522,49 @@ function isMobileDevice()
 
                 <?php else: ?>
                     
-                    <?php if ($mobileDevice): ?>
-                        <div id="tutorialListDivId" style="width:10%; min-width: 0px;">
-                        <div id="slideInDivId" class="slideIn cursor_pointer" onclick="toggleLeftSideMenu(); return false;" ><i class="fa fa-list" ></i></div>
-
-                        <div id="tutorialListInnerDivId" style="display: none;" >
-                            <?php echo $tutListHTML; ?>
-                        </div>
-                        </div>
-
+                    <?php if ($technology == "Amazing Short Stories"):?>
                         <div id="tutorialDivId">
-                            <?php echo $tutDivHTML; ?>
-                            <hr>&nbsp;&nbsp;&nbsp;&nbsp; <span class="noPrint commentMsg"><b>Leave a Comment</b></span>
-                            <?php include 'sendMsg.html'; ?>
+                                <?php echo $tutDivHTML; ?>
                         </div>
 
-                        <div id="tutorialEditDivId" style="display: block; width: 10%;">
+                        <div id="tutorialEditDivId" style="display: none; width: 10%;">
                         </div>
                     <?php else: ?>
-                        <div id="tutorialListDivId">
-                        <div id="slideInDivId" class="slideIn cursor_pointer" onclick="toggleLeftSideMenu(); return false;" ><i class="fa fa-list" ></i></div>
+                        <?php if ($mobileDevice): ?>
+                            <div id="tutorialListDivId" style="width:10%; min-width: 0px;">
+                            <div id="slideInDivId" class="slideIn cursor_pointer" onclick="toggleLeftSideMenu(); return false;" ><i class="fa fa-list" ></i></div>
 
-                        <div id="tutorialListInnerDivId">                
-                            <?php echo $tutListHTML; ?>
-                        </div>  
-                        </div>
+                            <div id="tutorialListInnerDivId" style="display: none;" >
+                                <?php echo $tutListHTML; ?>
+                            </div>
+                            </div>
 
-                        <div id="tutorialDivId">
-                            <?php echo $tutDivHTML; ?>
-                            <hr>&nbsp;&nbsp;&nbsp;&nbsp;<span class="noPrint commentMsg"><b>Leave a Comment</b></span>
-                            <?php include 'sendMsg.html'; ?>
-                        </div>
+                            <div id="tutorialDivId">
+                                <?php echo $tutDivHTML; ?>
+                                <hr>&nbsp;&nbsp;&nbsp;&nbsp; <span class="noPrint commentMsg"><b>Leave a Comment</b></span>
+                                <?php include 'sendMsg.html'; ?>
+                            </div>
 
-                        <div id="tutorialEditDivId" style="display: block; width: 20%;">
-                        </div>                     
+                            <div id="tutorialEditDivId" style="display: block; width: 10%;">
+                            </div>
+                        <?php else: ?>
+                            <div id="tutorialListDivId">
+                            <div id="slideInDivId" class="slideIn cursor_pointer" onclick="toggleLeftSideMenu(); return false;" ><i class="fa fa-list" ></i></div>
+
+                            <div id="tutorialListInnerDivId">                
+                                <?php echo $tutListHTML; ?>
+                            </div>  
+                            </div>
+
+                            <div id="tutorialDivId">
+                                <?php echo $tutDivHTML; ?>
+                                <hr>&nbsp;&nbsp;&nbsp;&nbsp;<span class="noPrint commentMsg"><b>Leave a Comment</b></span>
+                                <?php include 'sendMsg.html'; ?>
+                            </div>
+
+                            <div id="tutorialEditDivId" style="display: block; width: 20%;">
+                            </div>                     
+                        <?php endif; ?>
                     <?php endif; ?>
 
 
