@@ -278,7 +278,7 @@
     display: none;
   }
 
-  .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .topnav, .sbmtqz-div, .bottomCommentDivCls, #tutorialListDivId, #tutorialEditDivId {
+  .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .sbmtqz-div, .bottomCommentDivCls {
     display: none !important;
   }
   
@@ -330,10 +330,6 @@
     /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
   }
 
-  /* Optional: Remove elements like buttons in the print version */
-  button {
-    display: none;
-  }
 
   .d-print-inline {
     display: inline !important;

@@ -583,6 +583,13 @@ function isMobileDevice()
                 populateTutorialDropDown(fieldId = "tutorial-search-box");
             }, 800);
 
+            if ("<?php echo $technology; ?>" == "Amazing Short Stories"){
+                setTimeout(function () {
+                cleanUpExtraBlankLines();
+                document.body.classList.add('image-story-book-style');
+                }, 800);
+            }
+
             setTimeout(function () {
                 $(".qz1-ans").on("click", function () {
                     $(this).find(".dynamicradio").prop("checked", true);
@@ -593,19 +600,27 @@ function isMobileDevice()
                 setTimeout(function () {
                 var elemId = "tutorialDiv-" + "<?php echo $tutTitleItemId; ?>";
                 document.getElementById(elemId).style.backgroundColor = "orange";
-            }, 100);
+                }, 100);
+            }
 
             if ("<?php echo $tutTitle; ?>" != ""){
                 setTimeout(function () {
                     refreshCaptcha();
                 }, 100);
 
-                sessionStorage.setItem("data-description", <?php echo json_encode($_SESSION["data-description"]) ?> )
-            }
-            
+                <?php if (isset($_SESSION["data-description"])): ?>
+
+                        sessionStorage.setItem("data-description", <?php echo json_encode($_SESSION["data-description"]); ?> );
+
+                <?php else: ?>
+
+                        //console.log("data-description is not set in the session.");
+                        // You can also set a default value in sessionStorage if needed
+                        // sessionStorage.setItem("data-description", "default_value");
+
+                <?php endif; ?>
 
             }
-
 
         </script>
 </body>
