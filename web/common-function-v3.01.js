@@ -7429,10 +7429,36 @@ function copyStoryBookToClipboard(){
     document.body.classList.add('copy-image-story-book-style');
     
     setTimeout(function() {
-        copyContentWithStyles();
-    }, 3000);
+        copyBodyContent();
+    }, 10);
     
 }
+
+function copyBodyContent() {
+    // Create a range object to select the content
+    const range = document.createRange();
+    // Get the body element
+    const body = document.body;
+    // Select all the content within the body
+    range.selectNode(body);
+
+    // Use the selection object to apply the range
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    // Execute the copy command
+    try {
+        document.execCommand('copy');
+        alert('Content copied to clipboard with styles!. Paste in Google docs');
+    } catch (err) {
+        console.error('Failed to copy body content:', err);
+    }
+
+    // Optionally, clear the selection
+    selection.removeAllRanges();
+}
+
 
 function copyContentWithStyles() {
     // Get the content to be copied

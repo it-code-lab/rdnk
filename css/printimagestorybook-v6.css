@@ -278,7 +278,7 @@
     display: none;
   }
 
-  .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .printBtnDivCls, .pageinfo-desc, .chartDiv, .sbmtqz-div, .bottomCommentDivCls {
+  .noPrint, #qzres, #sndmsgdivid, .videoIframeDiv, .pageinfo-desc, .chartDiv, .sbmtqz-div, .bottomCommentDivCls {
     display: none !important;
   }
   
