@@ -3581,6 +3581,8 @@ function editItem(btn) {
     itemimage = btn.dataset.itemimage;
     discontinue = btn.dataset.discontinue;
 
+    document.body.classList.remove('image-story-book-style');
+
     $.ajax({
         url: the.hosturl + '/php/process.php',
         data: { usrfunction: "checksession" },
@@ -7430,6 +7432,7 @@ function copyStoryBookToClipboard(){
     
     setTimeout(function() {
         copyBodyContent();
+        document.body.classList.remove('copy-image-story-book-style');
     }, 10);
     
 }
