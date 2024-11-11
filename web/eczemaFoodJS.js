@@ -5493,3 +5493,11 @@ document.addEventListener("DOMContentLoaded", () => {
     filterRecipes();
 });
 
+setTimeout(() => {
+    $(".printBtnDivCls").hide();
+    $(".curvedBox").hide();
+    $(".printBtnDivCls").hide();
+    $(".commentMsg").hide();
+    $("#tutorialListDivId").hide();
+    $("#tutorialEditDivId").hide();
+}, 100);
