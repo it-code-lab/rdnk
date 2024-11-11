@@ -1,6 +1,15 @@
 <?php
 include_once("php/session.php");
 
+//Saurabh-SM-Change for - PHP 7 to 8 
+ini_set('display_errors', 0); // Disable error display
+ini_set('log_errors', 1);     // Log errors to a file
+error_reporting(E_ALL);       // Report all errors
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start session if it's not already started
+}
+
 $title = "Reader Nook";
 $description = "Explore a wide range of educational tutorials in math, science,
  social studies, computers, and more. Enhance your knowledge and skills with

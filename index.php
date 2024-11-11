@@ -23,6 +23,12 @@ $tutTitleItemId = "";
 $tutDivHTML = "";
 $tutListHTML = "";
 $mobileDevice = isMobileDevice();
+
+//Saurabh-SM-Change for - PHP 7 to 8 
+$_SESSION['smusr'] = $_SESSION['smusr'] ?? null;
+$_SESSION['userlevel'] = $_SESSION['userlevel'] ?? null;
+$_SESSION['isLoggedin'] = $_SESSION['isLoggedin'] ?? false;
+
 $smusr = $_SESSION['smusr'];
 $userlevel = $_SESSION['userlevel'];
 $isLoggedin = $_SESSION['isLoggedin'];
