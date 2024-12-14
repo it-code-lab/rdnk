@@ -152,7 +152,7 @@ function populateTutorialHTML($tutData, $database)
     $tutorialUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics";
     $technologyUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics/" . $technology;
 
-    if ($technology == "Amazing Short Stories") {
+    if ($technology == "Amazing Short Stories" || $technology == "Scary Stories") {
         $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
         '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . " > " .
         '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
@@ -544,7 +544,7 @@ function isMobileDevice()
 
                 <?php else: ?>
                     
-                    <?php if ($technology == "Amazing Short Stories"):?>
+                    <?php if ($technology == "Amazing Short Stories" || $technology == "Scary Stories"):?>
                         <div id="tutorialDivId">
                                 <?php echo $tutDivHTML; ?>
                         </div>
@@ -605,10 +605,17 @@ function isMobileDevice()
                 populateTutorialDropDown(fieldId = "tutorial-search-box");
             }, 800);
 
-            if ("<?php echo $technology; ?>" == "Amazing Short Stories"){
+            if ("<?php echo $technology; ?>" == "Amazing Short Stories" || "<?php echo $technology; ?>" == "Scary Stories"){
                 setTimeout(function () {
                 cleanUpExtraBlankLines();
                 document.body.classList.add('image-story-book-style');
+                }, 800);
+            }
+
+            if ("<?php echo $technology; ?>" == "Products"){
+                setTimeout(function () {
+                document.body.classList.add('product-info-style');
+                toggleLeftSideMenu("hide");
                 }, 800);
             }
 

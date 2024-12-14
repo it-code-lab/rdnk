@@ -6346,7 +6346,7 @@ function populateTutorialList(rows = "") {
         if (previousSubpath == currentSubpath) {
             //It is a child tutorial same as previous
 
-            if (technologySqueezed == "Amazing Short Stories"){
+            if (technologySqueezed == "Amazing Short Stories" || technologySqueezed == "Scary Stories"){
                 innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
                 innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
                 innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
@@ -6382,7 +6382,7 @@ function populateTutorialList(rows = "") {
             innerHTML = innerHTML + currentSubpath;
             innerHTML = innerHTML + '</div>';
 
-            if (technologySqueezed == "Amazing Short Stories"){
+            if (technologySqueezed == "Amazing Short Stories" || technologySqueezed == "Scary Stories"){
                 innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' + discontinuedFlgCls + technologySqueezed + '" >';
                 innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
                 innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
@@ -6413,7 +6413,7 @@ function populateTutorialList(rows = "") {
         } else {
             //It is not a new child tutorial
             
-            if (technologySqueezed == "Amazing Short Stories"){
+            if (technologySqueezed == "Amazing Short Stories" || technologySqueezed == "Scary Stories"){
                 innerHTML = innerHTML + '<div id="tutorialDiv-' + rows[i].itemid + '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container ' + discontinuedFlgCls + technologySqueezed + '" >';
                 innerHTML = innerHTML + '<div class="position_relative hoverBtnParent cursor_pointer">'
                 innerHTML = innerHTML + '<a class="tutorialLink"  href ="' + tutorialTitleURL + '">'
