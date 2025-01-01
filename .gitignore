@@ -5,6 +5,7 @@ assets
 .htaccess
 *.jpg
 *.png
+*.mp3
 *.ico
 .vscode/launch.json
 *smtts*

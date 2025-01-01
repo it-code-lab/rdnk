@@ -353,6 +353,10 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
             $discontinuedFlgCls = " discontinued ";
         }
 
+        if ($rows[$i]['discontinue'] == "3") {
+            $discontinuedFlgCls = " internal ";
+        }
+        
         $subPathQzRepl = $rows[$i]['subpath'];
         $subPathQzRepl = str_replace('quiz', "<span class='quizTxt'>Quiz</span>", $subPathQzRepl);
 

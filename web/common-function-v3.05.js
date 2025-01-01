@@ -91,7 +91,7 @@ document.onpaste = function (event) {
                         //let response = this.responseText;
                         //console.log(response);
 
-                         let imagename = saveAsName;
+                        let imagename = saveAsName;
                         let randomId = "div-" + Math.floor(Math.random() * 1000000);
                         let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
                         insertImageAtCaret(Str);
@@ -3870,7 +3870,62 @@ function loadFreesoundAudio() {
     const audioName = document.getElementById("search-audio").value;
     if (audioName === "") return;
 
-    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&token=elApmIJzS55WKHd8DIe9FepWG5LdKC2YXZX4xy8E`;
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=elApmIJzS55WKHd8DIe9FepWG5LdKC2YXZX4xy8E`;
+
+    const audioDiv = document.querySelector('.srchaudios');
+    audioDiv.innerHTML = "";
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.results || data.results.length === 0) {
+                audioDiv.innerHTML = "No results found.";
+                return;
+            }
+
+            for (let i = 0; i < data.results.length; i++) {
+                const result = data.results[i];
+
+                // Filter for free-to-use sounds
+                if (
+                    result.license.includes("publicdomain") || 
+                    result.license.includes("creativecommons.org/licenses/by/")
+                ) {
+                    // Ensure `previews` exists and contains `preview-hq-mp3`
+                    const previewUrl = result.previews ? (result.previews["preview-hq-mp3"] || result.previews["preview-lq-mp3"]) : null;
+                    if (!previewUrl) continue; // Skip if no preview available
+
+                    const audioElement = document.createElement('div');
+                    audioElement.classList.add('audio-item');
+
+                    const audioPreview = document.createElement('audio');
+                    audioPreview.src = previewUrl;
+                    audioPreview.controls = true;
+
+                    const selectButton = document.createElement('button');
+                    selectButton.innerText = "Select Sound";
+                    selectButton.setAttribute('data-audio-url', previewUrl);
+                    selectButton.setAttribute('data-audio-name', result.name);
+                    selectButton.onclick = SaveAudioAndInsertAtCarot;
+
+                    audioElement.appendChild(audioPreview);
+                    audioElement.appendChild(document.createElement('br'));
+                    audioElement.appendChild(document.createTextNode(result.name));
+                    audioElement.appendChild(selectButton);
+
+                    audioDiv.appendChild(audioElement);
+                }
+            }
+        })
+        .catch(error => console.error('Error fetching sounds:', error));
+}
+
+//WORKING
+function loadFreesoundAudio_Delit() {
+    const audioName = document.getElementById("search-audio").value;
+    if (audioName === "") return;
+
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=elApmIJzS55WKHd8DIe9FepWG5LdKC2YXZX4xy8E`;
 
     const audioDiv = document.querySelector('.srchaudios');
     audioDiv.innerHTML = "";
@@ -3882,7 +3937,7 @@ function loadFreesoundAudio() {
                 audioDiv.innerHTML = "No results found.";
                 return;
             }
-
+            console.log(data.results);
             for (let i = 0; i < data.results.length; i++) {
                 const audioElement = document.createElement('div');
                 audioElement.classList.add('audio-item');
@@ -3910,7 +3965,12 @@ function loadFreesoundAudio() {
 
 function SaveAudioAndInsertAtCarot(event) {
     const audioUrl = event.target.getAttribute('data-audio-url');
-    const audioName = event.target.getAttribute('data-audio-name');
+    let audioName = event.target.getAttribute('data-audio-name');
+    //const audioName = "abcd";
+    const localAudioUrl = the.hosturl + "/audio/" + audioName + ".mp3";
+
+    // Replace invalid characters with blanks in the filename
+    audioName = audioName.replace(/[/\\?%*:|"<>]/g, '');
 
     fetch(audioUrl)
         .then(response => response.blob())
@@ -3920,45 +3980,140 @@ function SaveAudioAndInsertAtCarot(event) {
             formData.append("saveasname", audioName + ".mp3");
             formData.append("dir", "audio");
 
-            return fetch("php/upload.php", {
-                method: "POST",
-                body: formData,
-            });
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log(result);
+            // return fetch("php/upload.php", {
+            //     method: "POST",
+            //     body: formData,
+            // });
 
-            const randomId = "div-" + Math.floor(Math.random() * 1000000);
-            const soundElementHTML = `
-                <div id="${randomId}" onmousedown="setLastFocusedDivId(this.id)" class="audio-desc">
-                    <span>${audioName}</span>
-                    <audio controls src="${audioUrl}"></audio>
-                    <button title="Remove sound" onclick="deleteCurrentComponent(this)">Remove</button>
-                </div>
-            `;
-            //insertAudioAtCaret(soundElementHTML);
-            insertImageAtCaret(soundElementHTML);
+
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    let response = this.responseText;
+                    //console.log(response);
+
+                    addAudioElement(audioName, localAudioUrl)
+
+                    // const randomId = "div-" + Math.floor(Math.random() * 1000000);
+                    // const soundElementHTML = `
+                    //     <div id="${randomId}" onmousedown="setLastFocusedDivId(this.id)" class="audio-desc">
+                    //         <span>${audioName}</span>
+                    //         <audio controls src="${localAudioUrl}"></audio>
+                    //         <button title="Remove sound" onclick="deleteCurrentComponent(this)">Remove</button>
+                    //     </div>
+                    // `;
+                    // insertImageAtCaret(soundElementHTML);
+                }
+            };
+
+            xhttp.send(formData);
+
+
         })
         .catch(error => console.error('Error uploading sound:', error));
 }
 
-function insertAudioAtCaret(html) {
-    const editor = document.activeElement; // Replace this with your contenteditable div
-    const range = window.getSelection().getRangeAt(0);
-    range.deleteContents();
+function addAudioElement(audioName, audioUrl) {
+    const randomId = "audio-" + Math.floor(Math.random() * 1000000);
+    //const audioContainer = document.getElementById("audio-container");
 
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = html;
-    const frag = document.createDocumentFragment();
+    // Create the main audio element
+    const audioDiv = document.createElement("div");
+    audioDiv.classList.add("audio-desc");
+    //audioDiv.setAttribute("onclick", `toggleAudioDetails('${randomId}')`);
 
-    let node;
-    while ((node = tempDiv.firstChild)) {
-        frag.appendChild(node);
-    }
+    // Display the audio name
+    const audioNameElement = document.createElement("span");
+    audioNameElement.setAttribute("onclick", `toggleParentDetails(this)`);
+    audioNameElement.textContent = audioName;
 
-    range.insertNode(frag);
+    // Create the hidden details section
+    const detailsDiv = document.createElement("div");
+    detailsDiv.id = randomId;
+    detailsDiv.classList.add("audio-details");
+
+    // Editable fields for sound effect details
+    detailsDiv.innerHTML = `
+        <label>Start Time (seconds):</label>
+        <div contenteditable="true" id="${randomId}-start">0</div>
+        <label>Duration (seconds):</label>
+        <div contenteditable="true" id="${randomId}-duration">1</div>
+        <label>Volume % (eg. 50, 200):</label>
+        <div contenteditable="true" id="${randomId}-volume">100</div>
+        <label>Overlap with spoken text:</label>
+        <select id="${randomId}-overlap">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+        <label>Preview Sound:</label>
+        <audio controls src="${audioUrl}"></audio>
+        <button title="Remove sound" onclick="deleteAudioComponent(this)">Remove</button>
+    `;
+
+    // Append elements to the main div
+    audioDiv.appendChild(audioNameElement);
+    audioDiv.appendChild(detailsDiv);
+
+    // Add to container
+    //audioContainer.appendChild(audioDiv);
+    insertImageAtCaret(audioDiv.outerHTML);
 }
+
+function deleteAudioComponent(element){
+    deleteCurrentComponent(element.parentElement);
+}
+// Function to toggle the details section
+function toggleParentDetails(spanElement) {
+    // Find the 'div.audio-details' element within the parent element of spanElement
+    const parentDiv = spanElement.parentNode;
+    const detailsDiv = spanElement.parentElement.querySelector('div.audio-details');
+    
+    if (detailsDiv) { // Ensure detailsDiv exists
+        // Toggle display style
+        if (detailsDiv.style.display === "none" || detailsDiv.style.display === "") {
+            detailsDiv.style.display = "block";
+            parentDiv.style.display = "block";
+            parentDiv.style.border = "1px solid #ccc";
+        } else {
+            detailsDiv.style.display = "none";
+            parentDiv.style.display = "inline";
+            parentDiv.style.border = "none";
+        }
+    } else {
+        console.error("No element with class 'audio-details' found within the parent element.");
+    }
+}
+
+
+function toggleAudioDetails(detailsId) {
+    const detailsDiv = document.getElementById(detailsId);
+    if (detailsDiv.style.display === "none" || detailsDiv.style.display === "") {
+        detailsDiv.style.display = "block";
+    } else {
+        detailsDiv.style.display = "none";
+    }
+}
+
+// function insertAudioAtCaret(html) {
+//     const editor = document.activeElement; // Replace this with your contenteditable div
+//     const range = window.getSelection().getRangeAt(0);
+//     range.deleteContents();
+
+//     const tempDiv = document.createElement("div");
+//     tempDiv.innerHTML = html;
+//     const frag = document.createDocumentFragment();
+
+//     let node;
+//     while ((node = tempDiv.firstChild)) {
+//         frag.appendChild(node);
+//     }
+
+//     range.insertNode(frag);
+// }
 
 function loadPexImg(itemid) {
     popolatenewImageName(itemid)
@@ -5245,6 +5400,10 @@ function updateItem(itemid, createNewItem) {
         //document.getElementById("result").innerHTML = "Gender: "+ele[i].value;
     }
 
+    $('div.audio-details').css('display', 'none');
+    $('div.audio-desc').css('display', 'inline');
+    $('div.audio-desc').css('border', 'none');
+
     var elem = document.getElementsByClassName('qz1-rtans');
     var kys = {};
     var ki = "";
@@ -6437,6 +6596,10 @@ function populateTutorialList(rows = "") {
 
         if (rows[i].discontinue == "1") {
             discontinuedFlgCls = " discontinued ";
+        }
+
+        if (rows[i].discontinue == "3") {
+            discontinuedFlgCls = " internal ";
         }
 
         let subPathQzRepl = rows[i].subpath;
