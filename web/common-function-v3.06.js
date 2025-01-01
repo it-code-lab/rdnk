@@ -142,26 +142,45 @@ function setLastFocusedDivId(id) {
 //https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
 function insertImageAtCaret(html) {
     if (html == "") {
-        text = "<b>Dummy Text</b>";
+        html = "<b>Dummy Text</b>";
     }
 
-    var sel, range;
+    let sel, range;
+
     if (window.getSelection) {
-        // IE9 and non-IE
+        // Modern browsers (IE9+ and non-IE)
         sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
+        if (sel.rangeCount) {
             range = sel.getRangeAt(0);
+
+            // Traverse up the DOM tree to find a parent with class "editDescriptionDiv"
+            let parentElement = range.commonAncestorContainer;
+            let isInsideEditableDiv = false;
+
+            while (parentElement) {
+                if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                    isInsideEditableDiv = true;
+                    break;
+                }
+                parentElement = parentElement.parentNode;
+            }
+
+            if (!isInsideEditableDiv) {
+                alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+                return;
+            }
+
             range.deleteContents();
 
-            // Range.createContextualFragment() would be useful here but is
-            // only relatively recently standardized and is not supported in
-            // some browsers (IE9, for one)
-            var el = document.createElement("div");
+            const el = document.createElement("div");
             el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
-            while ((node = el.firstChild)) {
-                lastNode = frag.appendChild(node);
+
+            const frag = document.createDocumentFragment();
+            let lastNode;
+            while (el.firstChild) {
+                lastNode = frag.appendChild(el.firstChild);
             }
+
             range.insertNode(frag);
 
             // Preserve the selection
@@ -173,9 +192,27 @@ function insertImageAtCaret(html) {
                 sel.addRange(range);
             }
         }
-    } else if (document.selection && document.selection.type != "Control") {
+    } else if (document.selection && document.selection.type !== "Control") {
         // IE < 9
-        document.selection.createRange().pasteHTML(html);
+        range = document.selection.createRange();
+        let parentElement = range.parentElement();
+        let isInsideEditableDiv = false;
+
+        // Traverse up the DOM tree to find a parent with class "editDescriptionDiv"
+        while (parentElement) {
+            if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                isInsideEditableDiv = true;
+                break;
+            }
+            parentElement = parentElement.parentNode;
+        }
+
+        if (!isInsideEditableDiv) {
+            alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+            return;
+        }
+
+        range.pasteHTML(html);
     }
 }
 
@@ -3889,7 +3926,7 @@ function loadFreesoundAudio() {
     const audioName = document.getElementById("search-audio").value;
     if (audioName === "") return;
 
-    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=elApmIJzS55WKHd8DIe9FepWG5LdKC2YXZX4xy8E`;
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=apikey`;
 
     const audioDiv = document.querySelector('.srchaudios');
     audioDiv.innerHTML = "";
