@@ -27,7 +27,7 @@ var the = {
     hosturl: '/readernook',
     hostnm: 'readernook',
 };
-
+let soundApiKey;
 let timerInterval;
 var last_focused_div_id;
 // Record the start time
@@ -3922,25 +3922,29 @@ function loadUNSPLImg(itemid) {
         });
 }
 
+async function loadConfig() {
+    try {
+        const response = await fetch('/readernook/config.json'); // Ensure this path is correct
+        if (!response.ok) {
+            throw new Error(`Failed to fetch config.json: ${response.statusText}`);
+        }
+        const config = await response.json();
+        soundApiKey = config.FREESOUND_API_KEY;
+        console.log("API Key Loaded:", soundApiKey);
+    } catch (error) {
+        console.error("Error loading config.json:", error);
+    }
+}
+
+// Call the function to load the config on page load
+loadConfig();
+
 function loadFreesoundAudio() {
     const audioName = document.getElementById("search-audio").value;
     if (audioName === "") return;
 
-    const fs = require('fs');
-
-    // Path to config.json
-    const configPath = './config.json';
-
-    // Check if config file exists
-    if (fs.existsSync(configPath)) {
-        const config = require(configPath);
-        const apiKey = config.FREESOUND_API_KEY;
-        console.log("API Key Loaded: ", apiKey);
-    } else {
-        console.error("Error: config.json not found. Please create one with the required API key.");
-        process.exit(1); // Exit if config is missing
-    }
-    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=${apiKey}`;
+ 
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=${soundApiKey}`;
 
     const audioDiv = document.querySelector('.srchaudios');
     audioDiv.innerHTML = "";
