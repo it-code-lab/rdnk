@@ -3638,6 +3638,7 @@ function editItem(btn) {
     discontinue = btn.dataset.discontinue;
 
     document.body.classList.remove('image-story-book-style');
+    document.body.classList.add('image-story-book-edit-style');
 
     $.ajax({
         url: the.hosturl + '/php/process.php',
@@ -3659,6 +3660,9 @@ function editItem(btn) {
     newHTML = newHTML + " ";
 
 
+    setTimeout(() => {
+        addImageFrames();
+    }, 2000);
 
     newHTML = newHTML +
         "<div class = 'editFieldHead'>Title(URL-Path): </div><br>"
@@ -3841,6 +3845,7 @@ function editItem(btn) {
     document.getElementById("tutorialListDivId").style.display = "none";
     document.getElementById("tutorialDivId").style.width = "80%";
 
+
 }
 
 function toggleToolBarView() {
@@ -3930,7 +3935,7 @@ async function loadConfig() {
         }
         const config = await response.json();
         soundApiKey = config.FREESOUND_API_KEY;
-        console.log("API Key Loaded:", soundApiKey);
+        //console.log("API Key Loaded:", soundApiKey);
     } catch (error) {
         console.error("Error loading config.json:", error);
     }
@@ -7902,114 +7907,134 @@ function getCookie(c_name) {
     return c_value;
 }
 
-document.querySelectorAll('.image1-desc').forEach((container) => {
-    // Check if a frame already exists
-    if (container.querySelector('.camera-frame')) return;
-  
-    // Create the camera frame
-    const storyImageFrame = document.createElement('div');
-    storyImageFrame.classList.add('camera-frame');
-  
-    // Create the resize handle
-    const storyImageResizeHandle = document.createElement('div');
-    storyImageResizeHandle.classList.add('story-image-resize-handle');
-  
-    // Append the resize handle to the frame
-    storyImageFrame.appendChild(storyImageResizeHandle);
-  
-    // Append the frame to the container
-    container.appendChild(storyImageFrame);
-  
-    // Initialize the frame size to match the image size
-    const storyImage = container.querySelector('.movieImageCls');
-    storyImage.addEventListener('load', () => {
-      const imageWidth = storyImage.offsetWidth;
-      const imageHeight = (imageWidth / 16) * 9; // Maintain 16:9 aspect ratio
-  
-      storyImageFrame.style.width = `${imageWidth}px`;
-      storyImageFrame.style.height = `${imageHeight}px`;
-  
-      console.log(`Frame initialized: width=${imageWidth}px, height=${imageHeight}px`);
-    });
-  
-    let isFrameDragging = false;
-    let isFrameResizing = false;
-    let initialMouseX, initialMouseY, initialFrameX, initialFrameY;
-    let initialWidth, initialHeight;
-  
-    // Dragging functionality
-    storyImageFrame.addEventListener('mousedown', (event) => {
-      if (event.target === storyImageResizeHandle) return; // Avoid dragging when resizing
-  
-      isFrameDragging = true;
-      initialMouseX = event.clientX;
-      initialMouseY = event.clientY;
-      initialFrameX = storyImageFrame.offsetLeft;
-      initialFrameY = storyImageFrame.offsetTop;
-    });
-  
-    // Resizing functionality
-    storyImageResizeHandle.addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      isFrameResizing = true;
-      initialMouseX = event.clientX;
-      initialMouseY = event.clientY;
-      initialWidth = storyImageFrame.offsetWidth;
-      initialHeight = storyImageFrame.offsetHeight;
-    });
-  
-    document.addEventListener('mousemove', (event) => {
-      const storyImageContainerRect = container.getBoundingClientRect();
-  
-      // Handle dragging
-      if (isFrameDragging) {
-        const deltaX = event.clientX - initialMouseX;
-        const deltaY = event.clientY - initialMouseY;
-  
-        // Constrain within container
-        const newLeft = Math.max(
-          0,
-          Math.min(storyImageContainerRect.width - storyImageFrame.offsetWidth, initialFrameX + deltaX)
-        );
-        const newTop = Math.max(
-          0,
-          Math.min(storyImageContainerRect.height - storyImageFrame.offsetHeight, initialFrameY + deltaY)
-        );
-  
-        storyImageFrame.style.left = `${newLeft}px`;
-        storyImageFrame.style.top = `${newTop}px`;
-      }
-  
-      // Handle resizing
-      if (isFrameResizing) {
-        const deltaX = event.clientX - initialMouseX;
-  
-        // Adjust width and maintain 16:9 aspect ratio
-        let newWidth = initialWidth + deltaX;
-        let newHeight = (newWidth / 16) * 9;
-  
-        // Constrain within container
-        if (storyImageFrame.offsetLeft + newWidth > storyImageContainerRect.width) {
-          newWidth = storyImageContainerRect.width - storyImageFrame.offsetLeft;
-          newHeight = (newWidth / 16) * 9;
+function addImageFrames() {
+    document.querySelectorAll(".image1-desc").forEach((container) => {
+        // Check if a frame already exists
+        let storyImageFrame = container.querySelector(".camera-frame")
+        let storyImageResizeHandle = null;
+
+        if (storyImageFrame) {
+            storyImageResizeHandle = storyImageFrame.querySelector(".story-image-resize-handle");
         }
-        if (storyImageFrame.offsetTop + newHeight > storyImageContainerRect.height) {
-          newHeight = storyImageContainerRect.height - storyImageFrame.offsetTop;
-          newWidth = (newHeight / 9) * 16;
+        else {
+            // Create the camera frame
+            storyImageFrame = document.createElement("div");
+            storyImageFrame.classList.add("camera-frame");
+
+            // Create the resize handle
+            storyImageResizeHandle = document.createElement("div");
+            storyImageResizeHandle.classList.add("story-image-resize-handle");
+
+            // Append the resize handle to the frame
+            storyImageFrame.appendChild(storyImageResizeHandle);
+
+            // Append the frame to the container
+            container.appendChild(storyImageFrame);
+
+
+            // Initialize frame size to match the parent container
+            const parentWidth = container.offsetWidth * 0.99;
+            storyImageFrame.style.width = `${parentWidth}px`;
+            storyImageFrame.style.height = `${(parentWidth / 16) * 9}px`;
         }
-  
-        storyImageFrame.style.width = `${newWidth}px`;
-        storyImageFrame.style.height = `${newHeight}px`;
-      }
+
+
+        let isFrameDragging = false;
+        let isFrameResizing = false;
+        let initialMouseX, initialMouseY, initialFrameX, initialFrameY;
+        let initialWidth, initialHeight;
+
+        // Dragging functionality
+        storyImageFrame.addEventListener("mousedown", (event) => {
+            if (event.target === storyImageResizeHandle) return; // Avoid dragging when resizing
+
+            isFrameDragging = true;
+            initialMouseX = event.clientX;
+            initialMouseY = event.clientY;
+            initialFrameX = storyImageFrame.offsetLeft;
+            initialFrameY = storyImageFrame.offsetTop;
+        });
+
+        // Resizing functionality
+        storyImageResizeHandle.addEventListener("mousedown", (event) => {
+            event.preventDefault();
+            isFrameResizing = true;
+            initialMouseX = event.clientX;
+            initialMouseY = event.clientY;
+            initialWidth = storyImageFrame.offsetWidth;
+            initialHeight = storyImageFrame.offsetHeight;
+        });
+
+        document.addEventListener("mousemove", (event) => {
+            const storyImageContainerRect = container.getBoundingClientRect();
+
+            // Handle dragging
+            if (isFrameDragging) {
+                const deltaX = event.clientX - initialMouseX;
+                const deltaY = event.clientY - initialMouseY;
+
+                // Constrain within container
+                const newLeft = Math.max(
+                    0,
+                    Math.min(
+                        storyImageContainerRect.width - storyImageFrame.offsetWidth,
+                        initialFrameX + deltaX
+                    )
+                );
+                const newTop = Math.max(
+                    0,
+                    Math.min(
+                        storyImageContainerRect.height - storyImageFrame.offsetHeight,
+                        initialFrameY + deltaY
+                    )
+                );
+
+                storyImageFrame.style.left = `${newLeft}px`;
+                storyImageFrame.style.top = `${newTop}px`;
+            }
+
+            // Handle resizing
+            if (isFrameResizing) {
+                const deltaX = event.clientX - initialMouseX;
+
+                // Adjust width and maintain 16:9 aspect ratio
+                let newWidth = initialWidth + deltaX;
+                let newHeight = (newWidth / 16) * 9;
+
+                // Constrain within container
+                if (
+                    storyImageFrame.offsetLeft + newWidth >
+                    storyImageContainerRect.width
+                ) {
+                    newWidth =
+                        storyImageContainerRect.width - storyImageFrame.offsetLeft;
+                    newHeight = (newWidth / 16) * 9;
+                }
+                if (
+                    storyImageFrame.offsetTop + newHeight >
+                    storyImageContainerRect.height
+                ) {
+                    newHeight =
+                        storyImageContainerRect.height - storyImageFrame.offsetTop;
+                    newWidth = (newHeight / 9) * 16;
+                }
+
+                storyImageFrame.style.width = `${newWidth}px`;
+                storyImageFrame.style.height = `${newHeight}px`;
+            }
+        });
+
+        // Stop dragging or resizing on mouseup
+        document.addEventListener("mouseup", () => {
+            isFrameDragging = false;
+            isFrameResizing = false;
+        });
     });
-  
-    // Stop dragging or resizing on mouseup
-    document.addEventListener('mouseup', () => {
-      isFrameDragging = false;
-      isFrameResizing = false;
-    });
-  });
-  
+}
+
+setTimeout(() => {
+    addImageFrames()
+}, 2000);
 function logCommon(msg) {
     //console.log("At " + new Date().toLocaleString() + " from common-functions.js " + msg )
 }
