@@ -3662,6 +3662,7 @@ function editItem(btn) {
 
     setTimeout(() => {
         addImageFrames();
+        addCopyButtons();
     }, 2000);
 
     newHTML = newHTML +
@@ -8032,9 +8033,58 @@ function addImageFrames() {
     });
 }
 
-setTimeout(() => {
-    addImageFrames()
-}, 2000);
+// Function to copy HTML with modified ID to the clipboard
+function copyDivHtml(button) {
+    const parentDiv = button.parentElement;
+    if (parentDiv) {
+        // Clone the div
+        const clonedDiv = parentDiv.cloneNode(true);
+
+        // Generate a random number and update the ID
+        const randomId = `div-${Math.floor(Math.random() * 1_000_000_000)}`;
+        clonedDiv.id = randomId;
+
+        // Copy the cloned HTML to the clipboard
+        const tempElement = document.createElement('textarea');
+        tempElement.value = clonedDiv.outerHTML;
+        document.body.appendChild(tempElement);
+        tempElement.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempElement);
+
+        alert(`HTML copied with new ID: ${randomId}`);
+    }
+}
+
+// Add the "Copy" button to each matching element
+function addCopyButtons() {
+    const elements = document.querySelectorAll('div.image1-desc');
+    elements.forEach(element => {
+        // Check if a "Copy" button already exists
+        const existingButton = element.querySelector('.copyHtmlButton');
+        if (!existingButton) {
+            // Create the button
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copy HTML';
+            copyButton.className = 'copyHtmlButton';
+            copyButton.style.marginLeft = '5px';
+            copyButton.onclick = function () {
+                copyDivHtml(this);
+            };
+
+            // Append the button to the element
+            element.appendChild(copyButton);
+        }else{
+            existingButton.onclick = function () {
+                copyDivHtml(this);
+            };
+        }
+    });
+}
+//DND - Not required but working
+// setTimeout(() => {
+//     addImageFrames()
+// }, 2000);
 function logCommon(msg) {
     //console.log("At " + new Date().toLocaleString() + " from common-functions.js " + msg )
 }
