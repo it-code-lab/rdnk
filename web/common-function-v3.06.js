@@ -3926,7 +3926,21 @@ function loadFreesoundAudio() {
     const audioName = document.getElementById("search-audio").value;
     if (audioName === "") return;
 
-    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=apikey`;
+    const fs = require('fs');
+
+    // Path to config.json
+    const configPath = './config.json';
+
+    // Check if config file exists
+    if (fs.existsSync(configPath)) {
+        const config = require(configPath);
+        const apiKey = config.FREESOUND_API_KEY;
+        console.log("API Key Loaded: ", apiKey);
+    } else {
+        console.error("Error: config.json not found. Please create one with the required API key.");
+        process.exit(1); // Exit if config is missing
+    }
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=${apiKey}`;
 
     const audioDiv = document.querySelector('.srchaudios');
     audioDiv.innerHTML = "";
@@ -3981,7 +3995,7 @@ function loadFreesoundAudio_Delit() {
     const audioName = document.getElementById("search-audio").value;
     if (audioName === "") return;
 
-    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=elApmIJzS55WKHd8DIe9FepWG5LdKC2YXZX4xy8E`;
+    const url = `https://freesound.org/apiv2/search/text/?query=${audioName}&fields=id,name,tags,previews,license,username&token=apiKEy`;
 
     const audioDiv = document.querySelector('.srchaudios');
     audioDiv.innerHTML = "";
