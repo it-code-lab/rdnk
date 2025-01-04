@@ -61,7 +61,20 @@ document.addEventListener('keydown', function (event) {
             } 
         }
     }
-    
+
+    if (event.ctrlKey && event.key === 'b') {
+        const insertHTMLButton = document.getElementById("insertHTMLbtnId");
+        // Check if the button is visible
+        if (insertHTMLButton) {
+            const computedStyle = window.getComputedStyle(insertHTMLButton);
+            const isButtonVisible = computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+            
+            if (isButtonVisible) {
+                insertHTMLButton.click();
+                event.preventDefault();
+            } 
+        }
+    }
     //return false;
 });
 
@@ -219,7 +232,7 @@ function insertImageAtCaret(html) {
 function insertClipboardHTMLAtCaret() {
 
     
-    let htmlData = document.getElementById("htmlDataInsert").value;;
+    let htmlData = document.getElementById("htmlDataInsert").value;
 
 
     var sel, range;
@@ -3754,7 +3767,7 @@ function editItem(btn) {
         "<button data-title='Submit Quiz Button' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','sbmtqz') >SbmtQz</button>" +
 
         "<label class='toolBarlabel'>Insert Clipboard HTML</label>" +
-        "<button data-title='insertClipboardHTMLAtCaret'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=insertClipboardHTMLAtCaret() >insertClipboardHTMLAtCaret</button>" +
+        "<button id='insertHTMLbtnId' data-title='CTRL + b' type='button' class='itmUpdBtnSmallX btn btn-primary' onclick=insertClipboardHTMLAtCaret() >insertClipboardHTMLAtCaret</button>" +
         "<input type='text' id='htmlDataInsert' value='<div>Insert HTML</div>' placeholder='HTML to insert'>" +
 
         "<label for='insertInner'>Insert component before active Div:</label>" +
@@ -8047,12 +8060,15 @@ function copyDivHtml(button) {
         // Copy the cloned HTML to the clipboard
         const tempElement = document.createElement('textarea');
         tempElement.value = clonedDiv.outerHTML;
+        document.getElementById("htmlDataInsert").value = tempElement.value;
+
         document.body.appendChild(tempElement);
         tempElement.select();
         document.execCommand('copy');
         document.body.removeChild(tempElement);
+        
 
-        alert(`HTML copied with new ID: ${randomId}`);
+        //alert(`HTML copied with new ID: ${randomId}`);
     }
 }
 
