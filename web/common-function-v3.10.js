@@ -4134,7 +4134,7 @@ function addAudioElement(audioName, audioUrl) {
         <label>Start Time (seconds):</label>
         <div contenteditable="true" id="${randomId}-start">0</div>
         <label>Duration (seconds):</label>
-        <div contenteditable="true" id="${randomId}-duration">1</div>
+        <div contenteditable="true" id="${randomId}-duration">3</div>
         <label>Volume % (eg. 50, 200):</label>
         <div contenteditable="true" id="${randomId}-volume">100</div>
         <label>Overlap with spoken text:</label>
