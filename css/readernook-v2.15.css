@@ -2791,13 +2791,13 @@ div:has(> .hideParentDiv) {display: none; }
   display: none; /* Hidden by default */
   margin-top: 10px;
 }
-.image-props .imgPropsInput {
+.image-props input {
   margin: 5px 0;
   width: 100%;
   border: 1px solid rgb(225, 132, 19); 
 }
 
-.image-props input {
+.image-props .imgPropsInput {
   margin: 5px 0;
   width: 100%;
   border: 1px solid rgb(225, 132, 19); 
