@@ -4458,7 +4458,16 @@ function uploadAndInsertFile(event) {
                     document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                     var imagename = document.getElementById("image-" + itemid).value;
                     var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " 
+                
+                    + "<div class='imageButtonsDiv'>"
+                    + "<button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this.parentElement) ></button>" 
+                    + "<button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this.parentElement) ></button>" 
+                    + "<button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>"
+                    + "<button class='imagePropButton' style='margin-left: 5px;'>Toggle Properties</button>"
+                    + "</div>"
+
+                    + "</div>";
                     insertImageAtCaret(Str);
                 }
             };
@@ -4530,7 +4539,16 @@ function SaveImageAndInsertAtCarot(event) {
                         document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                         var imagename = document.getElementById("image-" + itemid).value;
                         var randomId = "div-" + Math.floor(Math.random() * 1000000);
-                        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+                        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> "  
+                    
+                        + "<div class='imageButtonsDiv'>"
+                        + "<button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this.parentElement) ></button>" 
+                        + "<button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this.parentElement) ></button>" 
+                        + "<button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>"
+                        + "<button class='imagePropButton' style='margin-left: 5px;'>Toggle Properties</button>"
+                        + "</div>"
+
+                        + "</div>";
                         insertImageAtCaret(Str);
                     }
                 };
@@ -4899,7 +4917,16 @@ function addComponent(itemid, type) {
 
     } else if (type == "image4") {
         var imagename = document.getElementById("image-" + itemid).value;
-        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+        var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " 
+        
+        + "<div class='imageButtonsDiv'>"
+        + "<button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this.parentElement) ></button>" 
+        + "<button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this.parentElement) ></button>" 
+        + "<button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>"
+        + "<button class='imagePropButton' style='margin-left: 5px;'>Toggle Properties</button>"
+        + "</div>"
+
+        + "</div>";
         insertImageAtCaret(Str);
 
     } else if (type == "warning") {
