@@ -2792,6 +2792,7 @@ div:has(> .hideParentDiv) {display: none; }
   top: 100%; /* Positions the popup below the button */
   left: 0; /* Aligns it with the parent div */
   width: max-content; /* Ensures it fits the content */
+  max-width: 300px;
   background: white; /* Makes it visible */
   border: 1px solid #ccc; /* Adds a border for styling */
   padding: 10px;
