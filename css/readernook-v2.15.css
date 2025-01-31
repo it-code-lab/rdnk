@@ -2788,9 +2788,18 @@ div:has(> .hideParentDiv) {display: none; }
 }
 
 .image-props {
-  display: none; /* Hidden by default */
-  margin-top: 10px;
+  position: absolute; /* Positioned relative to the nearest positioned ancestor */
+  top: 100%; /* Positions the popup below the button */
+  left: 0; /* Aligns it with the parent div */
+  width: max-content; /* Ensures it fits the content */
+  background: white; /* Makes it visible */
+  border: 1px solid #ccc; /* Adds a border for styling */
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow for better visibility */
+  z-index: 1000; /* Ensures it appears above other elements */
+  display: none; /* Initially hidden */
 }
+
 .image-props input {
   margin: 5px 0;
   width: 100%;

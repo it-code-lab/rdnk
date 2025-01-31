@@ -8076,21 +8076,6 @@ function addCopyButtons() {
             };
         }
 
-        let imagePropsDiv = element.querySelector('.image-props');
-        if (!imagePropsDiv) {
-            imagePropsDiv = document.createElement("div");
-            imagePropsDiv.classList.add("image-props");
-            const randomId = "img-" + Math.floor(Math.random() * 1000000);
-
-            imagePropsDiv.innerHTML = `
-            <label>Animation(Clear if no animation needed):</label>
-            <div class="imgPropsInput" contenteditable="true" id="${randomId}-imganimation">Zoom In</div>
-            <label>Duration (seconds. Enter if image show duration is to be fixed instead of the preceding text TTS duration):</label>
-            <div class="imgPropsInput" contenteditable="true" id="${randomId}-imgduration">0</div>
-            `;
-            element.appendChild(imagePropsDiv);
-        }
-
         let propButton = element.querySelector('.imagePropButton');
         if (!propButton) {
             // Create the button
@@ -8110,6 +8095,20 @@ function addCopyButtons() {
             };
         }
 
+        let imagePropsDiv = element.querySelector('.image-props');
+        if (!imagePropsDiv) {
+            imagePropsDiv = document.createElement("div");
+            imagePropsDiv.classList.add("image-props");
+            const randomId = "img-" + Math.floor(Math.random() * 1000000);
+
+            imagePropsDiv.innerHTML = `
+            <label>Animation(Clear if no animation needed):</label>
+            <div class="imgPropsInput" contenteditable="true" id="${randomId}-imganimation">Zoom In</div>
+            <label>Duration (seconds. Enter if image show duration is to be fixed instead of the preceding text TTS duration):</label>
+            <div class="imgPropsInput" contenteditable="true" id="${randomId}-imgduration">0</div>
+            `;
+            element.appendChild(imagePropsDiv);
+        }
 
 
     });
