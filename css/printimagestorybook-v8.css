@@ -454,4 +454,8 @@
   .copyHtmlButton{
     display: block;
   }
+
+  .imagePropButton{
+    display: block;
+  }
 }

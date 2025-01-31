@@ -126,7 +126,16 @@ document.onpaste = function (event) {
 
                          let imagename = saveAsName;
                         let randomId = "div-" + Math.floor(Math.random() * 1000000);
-                        let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " + " <button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this) ></button><button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this) ></button></div>";
+                        let Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> " 
+                          + "<div class='imageButtonsDiv'>"
+                          + "<button title='clear image without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this.parentElement) ></button>" 
+                          + "<button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentComponentAndRemoveBK(this.parentElement) ></button>" 
+                          + "<button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>"
+                          + "<button class='imagePropButton' style='margin-left: 5px;'>Toggle Properties</button>"
+                          + "</div>"
+                          + "</div>";
+
+
                         insertImageAtCaret(Str);
                     }
                 };
@@ -8026,7 +8035,9 @@ function addImageFrames() {
 
 // Function to copy HTML with modified ID to the clipboard
 function copyDivHtml(button) {
-    const parentDiv = button.parentElement;
+    //const parentDiv = button.parentElement;
+    const parentDiv = button.closest(".image1-desc"); // Finds nearest parent with class 'image1-desc'
+
     if (parentDiv) {
         // Clone the div
         const clonedDiv = parentDiv.cloneNode(true);
@@ -8116,8 +8127,8 @@ function addCopyButtons() {
 
 function toggleImageProps(spanElement) {
     // Find the 'div.audio-details' element within the parent element of spanElement
-    const parentDiv = spanElement.parentNode;
-    const detailsDiv = spanElement.parentElement.querySelector('div.image-props');
+    const parentDiv = spanElement.closest(".image1-desc");;
+    const detailsDiv = parentDiv.querySelector('div.image-props');
     
     if (detailsDiv) { // Ensure detailsDiv exists
         // Toggle display style

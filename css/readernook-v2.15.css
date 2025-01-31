@@ -2813,6 +2813,10 @@ div:has(> .hideParentDiv) {display: none; }
   border: 1px solid rgb(225, 132, 19); 
 }
 
+.imageButtonsDiv{
+  display: flex;
+}
+
 .internal{
   background-color: rgb(0, 255, 247);
 }
@@ -2826,5 +2830,9 @@ div:has(> .hideParentDiv) {display: none; }
 }
 
 .copyHtmlButton{
+  display: none;
+}
+
+.imagePropButton{
   display: none;
 }
