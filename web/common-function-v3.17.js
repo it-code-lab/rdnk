@@ -8144,6 +8144,8 @@ function addCopyButtons() {
             <div class="imgPropsInput" contenteditable="true" id="${randomId}-imganimation">Zoom In</div>
             <label>Duration (seconds. Enter if image show duration is to be fixed instead of the preceding text TTS duration):</label>
             <div class="imgPropsInput" contenteditable="true" id="${randomId}-imgduration">0</div>
+            <label>Show Avatar for the preceding text duration (y/n):</label>
+            <div class="avatarFlgInput" contenteditable="true" id="${randomId}-avatarflag">n</div>
             `;
             element.appendChild(imagePropsDiv);
         }
