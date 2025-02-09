@@ -75,6 +75,17 @@
       /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
     }
 
+    .video1-desc video {
+      width: 98% !important;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 20px;
+      padding: 0px;
+      /*DO NOT DELETE below shadows - May be used in future - */
+      /* box-shadow: 0 0 35px 4px rgba(5, 5, 0, 0.8); */
+      /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
+    }
+
     /* Optional: Remove elements like buttons in the print version */
     button {
       display: none;
@@ -197,6 +208,16 @@
     }
 
     .image1-desc img {
+      width: 98% !important;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 20px;
+      padding: 0px;
+      /* box-shadow: 0 0 35px 4px rgba(5, 5, 0, 0.8); */
+      /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
+    }
+
+    .video1-desc video {
       width: 98% !important;
       max-width: 400px;
       margin: auto;
@@ -338,6 +359,17 @@
     /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
   }
 
+  .video1-desc video {
+    width: 100% !important;
+    max-width: 400px;
+    margin: auto;
+    height: auto;
+    /* border-radius: 20px; */
+    padding: 0px;
+    /* box-shadow: 0 0 35px 4px rgba(5, 5, 0, 0.8); */
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
+  }
+
 
   .d-print-inline {
     display: inline !important;
@@ -427,6 +459,17 @@
       /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
     }
 
+    .video1-desc video {
+      width: 100% !important;
+      max-width: 400px;
+      margin: auto;
+      height: auto;
+      /* border-radius: 20px; */
+      padding: 0px;
+      /* box-shadow: 0 0 35px 4px rgba(5, 5, 0, 0.8); */
+      /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.05), 0 0 40px rgba(0, 0, 0, 0.05), 0 0 50px rgba(0, 0, 0, 0.02);*/
+    }
+
     .camera-frame {
       position: absolute;
       top: 0;
@@ -456,6 +499,9 @@
   }
 
   .imagePropButton{
+    display: block;
+  }
+  .videoPropButton{
     display: block;
   }
 }

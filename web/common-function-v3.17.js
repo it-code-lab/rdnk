@@ -136,7 +136,7 @@ document.onpaste = function (event) {
                           + "</div>";
 
 
-                        insertImageAtCaret(Str);
+                          insertContentAtCaret(Str);
                     }
                 };
 
@@ -3803,12 +3803,24 @@ function editItem(btn) {
         +
         "<button data-title='Upload And Insert At Carot' class='itmUpdBtnSmall btn btn-primary' type='button' value='Upload And Insert At Carot' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadAndInsertFile(event);'  >UploadNInsert</button>"
         + "<button data-title='Upload New Image' class='itmUpdBtnSmall btn btn-primary' type='button' value='Upload New Image' data-errormsgelementid='image-ererrormsg-' data-saveasnameelementid='image-' data-fileelementid='image-replace-' data-itemid = '" + itemid + "' onclick='uploadFile(event);'  >Upload</button><br>"
+
+        + "<label class='toolBarlabel'>Image Search</label>" 
         + "<input class = 'itmUpdBtnSmall' type='text' id='search-img' value='' placeholder = 'image to search'> "
         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUNSPLImg('" + itemid + "')>Search Unsplash</button>"
         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabImg('" + itemid + "')>Search Pixabay</button>"
         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexImg('" + itemid + "')>Search Pexel</button><br>"
         + "<div class='srchimages'></div>"
 
+
+
+        + "<label class='toolBarlabel'>Video Search</label>" 
+        + "<input class = 'itmUpdBtnSmall' type='text' id='search-vid' value='' placeholder = 'video to search'> "
+        // + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadUnsplashVid('" + itemid + "')>Search Unsplash</button>"
+        + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPixabayVid('" + itemid + "')>Search Pixabay</button>"
+        + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadPexVid('" + itemid + "')>Search Pexel</button><br>"
+        + "<div class='srchvideos'></div>"
+
+        + "<label class='toolBarlabel'>Audio Search</label>" 
         + "<input class = 'itmUpdBtnSmall' type='text' id='search-audio' value='' placeholder = 'audio to search'> "
         + "<button title='Image-Smallest' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=loadFreesoundAudio('" + itemid + "')>Search Audio</button>"
         + "<div class='srchaudios'></div>"
@@ -3914,6 +3926,11 @@ function toggleLeftSideMenu(hideFlag = "") {
 function popolatenewImageName(itemid) {
     document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
 }
+
+function popolatenewVideoName(itemid){
+    document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".mp4";
+}
+
 function loadUNSPLImg(itemid) {
     popolatenewImageName(itemid);
     var imageName = document.getElementById("search-img").value;
@@ -4064,12 +4081,6 @@ function SaveAudioAndInsertAtCarot(event) {
             formData.append("saveasname", audioName + ".mp3");
             formData.append("dir", "audio");
 
-            // return fetch("php/upload.php", {
-            //     method: "POST",
-            //     body: formData,
-            // });
-
-
             let xhttp = new XMLHttpRequest();
 
             xhttp.open("POST", the.hosturl + "/php/upload.php", true);
@@ -4144,7 +4155,7 @@ function addAudioElement(audioName, audioUrl) {
 
     // Add to container
     //audioContainer.appendChild(audioDiv);
-    insertImageAtCaret(audioDiv.outerHTML);
+    insertContentAtCaret(audioDiv.outerHTML);
 }
 
 function deleteAudioComponent(element){
@@ -4219,6 +4230,142 @@ function loadPexImg(itemid) {
             }
         });
 }
+
+function loadPexVid(itemid) {
+    popolatenewVideoName(itemid)
+    // Get the search term from the input field
+    var videoName = document.getElementById("search-vid").value;
+    if (videoName == "") {
+        return;
+    }
+    
+    // Select the container for displaying videos
+    const videoDiv = document.querySelector('.srchvideos');
+    videoDiv.innerHTML = ""; // Clear previous results
+    
+    // Fetch videos from Pexels API
+    fetch("https://api.pexels.com/videos/search?per_page=20&query=" + videoName, {
+        headers: {
+            Authorization: "r133XPzHPTKK18x6bcaM5AInbsTp88RC4W4nemUhS4ktwBxMpnDpFT41" // Replace with your Pexels API key
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        const videos = data.videos; // Array of videos
+        
+        // Iterate over the video array
+        for (let i = 0; i < videos.length; i++) {
+            let videoElement = document.createElement('video');
+            videoElement.src = videos[i].video_files[0].link; // Use the first video file link
+            videoElement.controls = true; // Add video controls
+            videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
+            videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
+            videoElement.setAttribute('data-errormsgelementid', 'image-errormsg-');
+            videoElement.setAttribute('data-saveasnameelementid', 'image-');
+            videoElement.setAttribute('data-fileelementid', 'video-replace-');
+            videoElement.setAttribute('data-itemid', itemid);
+            videoElement.setAttribute('data-videourl', videos[i].video_files[0].link); // Store video URL as data attribute
+            
+            // Append the video element to the container
+            videoDiv.append(videoElement);
+        }
+    })
+    .catch(error => {
+        console.error("Error loading videos:", error);
+    });
+}
+
+function loadPixabayVid(itemid) { 
+    popolatenewVideoName(itemid)
+    // Get the search term from the input field
+    var videoName = document.getElementById("search-vid").value;
+    if (videoName == "") {
+        return;
+    }
+    
+    // Select the container for displaying videos
+    const videoDiv = document.querySelector('.srchvideos');
+    videoDiv.innerHTML = ""; // Clear previous results
+    
+    // Fetch videos from Pixabay API
+    fetch("https://pixabay.com/api/videos/?key=33936925-b94dd0e302df74f271d1b84c5&per_page=20&q=" + encodeURIComponent(videoName), { // Replace `xyz` with your Pixabay API key
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        const videos = data.hits; // Array of videos
+        
+        // Iterate over the video array
+        for (let i = 0; i < videos.length; i++) {
+            let videoElement = document.createElement('video');
+            videoElement.src = videos[i].videos.medium.url; // Use the medium quality video link
+            videoElement.controls = true; // Add video controls
+            videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
+            videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
+            videoElement.setAttribute('data-errormsgelementid', 'image-errormsg-');
+            videoElement.setAttribute('data-saveasnameelementid', 'image-');
+            videoElement.setAttribute('data-fileelementid', 'video-replace-');
+            videoElement.setAttribute('data-itemid', itemid);
+            videoElement.setAttribute('data-videourl', videos[i].videos.medium.url); // Store video URL as data attribute
+            
+            // Append the video element to the container
+            videoDiv.append(videoElement);
+        }
+    })
+    .catch(error => {
+        console.error("Error loading videos:", error);
+    });
+}
+
+function loadUnsplashVid(itemid) { 
+    popolatenewVideoName(itemid)
+    // Get the search term from the input field
+    var videoName = document.getElementById("search-vid").value;
+    if (videoName == "") {
+        return;
+    }
+    
+    // Select the container for displaying videos
+    const videoDiv = document.querySelector('.srchvideos');
+    videoDiv.innerHTML = ""; // Clear previous results
+    
+    // Fetch videos from Unsplash (via search API for images and videos)
+    fetch("https://api.unsplash.com/search/videos?query=" + videoName + "&per_page=20", {
+        headers: {
+            Authorization: "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k" // Replace with your Unsplash API key
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        const videos = data.results; // Array of videos
+        
+        // Iterate over the video array
+        for (let i = 0; i < videos.length; i++) {
+            let videoElement = document.createElement('video');
+            videoElement.src = videos[i].urls.regular; // Use the regular video link
+            videoElement.controls = true; // Add video controls
+            videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
+            videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
+            videoElement.setAttribute('data-errormsgelementid', 'image-errormsg-');
+            videoElement.setAttribute('data-saveasnameelementid', 'image-');
+            videoElement.setAttribute('data-fileelementid', 'video-replace-');
+            videoElement.setAttribute('data-itemid', itemid);
+            videoElement.setAttribute('data-videourl', videos[i].urls.regular); // Store video URL as data attribute
+            
+            // Append the video element to the container
+            videoDiv.append(videoElement);
+        }
+    })
+    .catch(error => {
+        console.error("Error loading videos:", error);
+    });
+}
+
 
 function loadPixabImg(itemid) {
     popolatenewImageName(itemid)
@@ -4302,6 +4449,42 @@ function deleteCurrentComponentAndRemoveBK(btn){
     xhttp.send(formData);
     btn.parentElement.remove();
 }
+
+function deleteCurrentVideoComponentAndRemoveBK(btn){
+
+    // Get the parent div of the button
+    let parentDiv = $(btn).closest('div.video1-desc');
+
+    // Find the video inside the parent div
+    let videoElement = parentDiv.find('video.movieVideoCls');
+    
+    // Get the source attribute of the video, which contains the video's name
+    let videoName = videoElement.attr('src').split('/').pop();
+
+    let formData = new FormData();
+    formData.append("saveasname", videoName);
+    formData.append("dir", "videos");
+
+    let xhttp = new XMLHttpRequest();
+
+    // Set POST method and ajax file path
+    xhttp.open("POST", the.hosturl + "/php/deletefile.php", true);
+
+    // call on request changes state
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            let response = this.responseText;
+            console.log(response);
+
+         }
+    };
+
+    // Send request with data
+    xhttp.send(formData);
+    btn.parentElement.remove();
+}
+
 
 function copyCurrentComponent(btn) {
     var text = btn.parentElement.textContent;
@@ -4468,7 +4651,7 @@ function uploadAndInsertFile(event) {
                     + "</div>"
 
                     + "</div>";
-                    insertImageAtCaret(Str);
+                    insertContentAtCaret(Str);
                 }
             };
 
@@ -4549,7 +4732,7 @@ function SaveImageAndInsertAtCarot(event) {
                         + "</div>"
 
                         + "</div>";
-                        insertImageAtCaret(Str);
+                        insertContentAtCaret(Str);
                     }
                 };
 
@@ -4561,6 +4744,300 @@ function SaveImageAndInsertAtCarot(event) {
 
 
 }
+
+function SaveVideoAndInsertAtCarot(event) {
+
+    if (localStorage.getItem("userLoggedIn") == "n") {
+        error_message = "Not authorized";
+        return;
+    } else if (localStorage.getItem("userLvl") != "9") {
+        error_message = "Not authorized";
+        return;
+    }
+
+    var elem = event.target;
+    var fileelementid = elem.dataset.fileelementid;
+    var saveasnameelementid = elem.dataset.saveasnameelementid;
+    var itemid = elem.dataset.itemid;
+
+    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    //let saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) ;
+
+    saveasname = saveasname.trim();
+    saveasname = saveasname.toLowerCase();
+
+    var errormsgelementid = elem.dataset.errormsgelementid;
+
+    if (saveasname.includes(".png")) {
+        saveasname = saveasname.replace(".png", ".mp4");
+    } else if (!saveasname.includes(".mp4")) {
+        saveasname = saveasname + ".mp4";
+    }
+
+    const url = elem.dataset.videourl;
+    const fileName = 'tempVideo.mp4';
+
+    fetch(url)
+        .then(async response => {
+            const contentType = response.headers.get('content-type');
+            const blob = await response.blob();
+            const filefromUrl = new File([blob], fileName, { contentType });
+
+            var formData = new FormData();
+            formData.append("file", filefromUrl);
+            formData.append("saveasname", saveasname);
+            formData.append("dir", "videos");
+
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST", the.hosturl + "/php/upload.php", true);
+
+            // Handle response from server
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = this.responseText;
+
+                    // document.getElementById(errormsgelementid + itemid).innerHTML =
+                    //     "<font color = #0000>" + response + "</font> ";
+                    
+                    var videoname = document.getElementById("image-" + itemid).value;
+                    var randomId = "div-" + Math.floor(Math.random() * 1000000);
+                    var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id) class='video1-desc'>" +
+                        "<video class='movieVideoCls' controls src='" + the.hosturl + "/videos/" + videoname + "'></video>" +
+                        "<div class='videoButtonsDiv'>" +
+                        "<button title='Clear video without deleting from backend' class='deleteDivInnImg' onclick=deleteCurrentComponent(this.parentElement) ></button>" +
+                        "<button title='Remove video and delete from backend' class='deleteDivInnImgBk' onclick=deleteCurrentVideoComponentAndRemoveBK(this.parentElement) ></button>" +
+                        "<button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>" +
+                        "<button class='videoPropButton' style='margin-left: 5px;'>Toggle Properties</button>" +
+                        "</div>" +
+                        "</div>";
+
+                    insertContentAtCaret(Str);
+                }
+            };
+
+            xhttp.send(formData);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
+
+function SaveFileLocallyAndShow(event, isImage = true) {
+    const elem = event.target;
+    const url = isImage ? elem.dataset.imageurl : elem.dataset.videourl;
+    const saveasnameelementid = elem.dataset.saveasnameelementid;
+    const itemid = elem.dataset.itemid;
+
+    let saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    //let saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) ;
+    saveasname = saveasname.trim();
+    saveasname = saveasname.toLowerCase();
+
+    if (isImage) {
+        if (!saveasname.includes(".png")) {
+            saveasname = saveasname + ".png";
+        }
+    } else {
+        if (saveasname.includes(".png")) {
+            saveasname = saveasname.replace(".png", ".mp4");
+        } else if (!saveasname.includes(".mp4")) {
+            saveasname = saveasname + ".mp4";
+        }
+    }
+
+    const fileName = saveasname;
+
+    fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a download link
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Generate the HTML for insertion at caret
+            const randomId = "div-" + Math.floor(Math.random() * 1000000);
+            let htmlToInsert;
+
+            if (isImage) {
+                htmlToInsert = `
+                    <div id='${randomId}' onmousedown='setLastFocusedDivId(this.id)' class='image1-desc'>
+                        <img class='movieImageCls' alt='' src='${URL.createObjectURL(blob)}'>
+                        <div class='imageButtonsDiv'>
+                            <button title='Clear image without deleting from backend' class='deleteDivInnImg' onclick='deleteCurrentComponent(this.parentElement)'></button>
+                            <button title='Remove image and delete from backend' class='deleteDivInnImgBk' onclick='deleteCurrentComponentAndRemoveBK(this.parentElement)'></button>
+                            <button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>
+                            <button class='imagePropButton' style='margin-left: 5px;'>Toggle Properties</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                htmlToInsert = `
+                    <div id='${randomId}' onmousedown='setLastFocusedDivId(this.id)' class='video1-desc'>
+                        <video class='movieVideoCls' controls src='${URL.createObjectURL(blob)}' style='max-width: 300px;'></video>
+                        <div class='videoButtonsDiv'>
+                            <button title='Clear video without deleting from backend' class='deleteDivInnVid' onclick='deleteCurrentComponent(this.parentElement)'></button>
+                            <button title='Remove video and delete from backend' class='deleteDivInnVidBk' onclick='deleteCurrentVideoComponentAndRemoveBK(this.parentElement)'></button>
+                            <button class='copyHtmlButton' style='margin-left: 5px;'>Copy HTML</button>
+                            <button class='videoPropButton' style='margin-left: 5px;'>Toggle Properties</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Insert the HTML at caret position
+            insertContentAtCaret(htmlToInsert);
+        })
+        .catch(error => console.error('Error saving file locally:', error));
+}
+
+function insertContentAtCaret(html) {
+    if (!html) {
+        html = "<b>Dummy Content</b>";
+    }
+
+    let sel, range;
+
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+
+            // Check if the caret is inside an editable div
+            let parentElement = range.commonAncestorContainer;
+            let isInsideEditableDiv = false;
+
+            while (parentElement) {
+                if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                    isInsideEditableDiv = true;
+                    break;
+                }
+                parentElement = parentElement.parentNode;
+            }
+
+            if (!isInsideEditableDiv) {
+                alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+                return;
+            }
+
+            range.deleteContents();
+
+            const el = document.createElement("div");
+            el.innerHTML = html;
+
+            const frag = document.createDocumentFragment();
+            let lastNode;
+            while (el.firstChild) {
+                lastNode = frag.appendChild(el.firstChild);
+            }
+
+            range.insertNode(frag);
+
+            if (lastNode) {
+                range = range.cloneRange();
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+    } else if (document.selection && document.selection.type !== "Control") {
+        range = document.selection.createRange();
+        let parentElement = range.parentElement();
+        let isInsideEditableDiv = false;
+
+        while (parentElement) {
+            if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                isInsideEditableDiv = true;
+                break;
+            }
+            parentElement = parentElement.parentNode;
+        }
+
+        if (!isInsideEditableDiv) {
+            alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+            return;
+        }
+
+        range.pasteHTML(html);
+    }
+}
+
+function insertVideoAtCaret(html) {
+    if (html == "") {
+        html = "<b>Dummy Text</b>";
+    }
+
+    let sel, range;
+
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+
+            let parentElement = range.commonAncestorContainer;
+            let isInsideEditableDiv = false;
+
+            while (parentElement) {
+                if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                    isInsideEditableDiv = true;
+                    break;
+                }
+                parentElement = parentElement.parentNode;
+            }
+
+            if (!isInsideEditableDiv) {
+                alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+                return;
+            }
+
+            range.deleteContents();
+
+            const el = document.createElement("div");
+            el.innerHTML = html;
+
+            const frag = document.createDocumentFragment();
+            let lastNode;
+            while (el.firstChild) {
+                lastNode = frag.appendChild(el.firstChild);
+            }
+
+            range.insertNode(frag);
+
+            if (lastNode) {
+                range = range.cloneRange();
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+    } else if (document.selection && document.selection.type !== "Control") {
+        range = document.selection.createRange();
+        let parentElement = range.parentElement();
+        let isInsideEditableDiv = false;
+
+        while (parentElement) {
+            if (parentElement.nodeType === 1 && parentElement.classList.contains("editDescriptionDiv")) {
+                isInsideEditableDiv = true;
+                break;
+            }
+            parentElement = parentElement.parentNode;
+        }
+
+        if (!isInsideEditableDiv) {
+            alert("Please place the cursor inside an editable div with class 'editDescriptionDiv' to insert content.");
+            return;
+        }
+
+        range.pasteHTML(html);
+    }
+}
+
 
 function resizeImage(settings) {
     let file = settings.file;
@@ -4927,7 +5404,7 @@ function addComponent(itemid, type) {
         + "</div>"
 
         + "</div>";
-        insertImageAtCaret(Str);
+        insertContentAtCaret(Str);
 
     } else if (type == "warning") {
         document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'warning-desc'> TODO Edit - warning <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>" + partTwoHTML;

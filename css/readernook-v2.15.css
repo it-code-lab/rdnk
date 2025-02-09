@@ -2339,6 +2339,15 @@ ul.unordered-list-arrow li:before{
 	width: calc(95% - 6px);
 }
 
+.video1-desc video {
+  max-width: 90%; 
+  height: auto;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: rgb(34, 34, 34) 1px 1px 3px;
+}
+
+
 .image1-desc img {
   max-width: 90%; 
   height: auto;
@@ -2834,5 +2843,9 @@ div:has(> .hideParentDiv) {display: none; }
 }
 
 .imagePropButton{
+  display: none;
+}
+
+.videoPropButton{
   display: none;
 }
