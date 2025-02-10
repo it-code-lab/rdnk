@@ -447,7 +447,16 @@
       display: inline-block;
       width: fit-content;
     }
-  
+
+    .video1-desc {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+    }
+
     .image1-desc img {
       width: 100% !important;
       max-width: 400px;

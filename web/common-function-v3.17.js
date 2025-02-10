@@ -8567,6 +8567,32 @@ function copyDivHtml(button) {
     }
 }
 
+function copyVideoDivHtml(button) {
+    //const parentDiv = button.parentElement;
+    const parentDiv = button.closest(".video1-desc"); // Finds nearest parent with class 'image1-desc'
+
+    if (parentDiv) {
+        // Clone the div
+        const clonedDiv = parentDiv.cloneNode(true);
+
+        // Generate a random number and update the ID
+        const randomId = `div-${Math.floor(Math.random() * 1_000_000_000)}`;
+        clonedDiv.id = randomId;
+
+        // Copy the cloned HTML to the clipboard
+        const tempElement = document.createElement('textarea');
+        tempElement.value = clonedDiv.outerHTML;
+        document.getElementById("htmlDataInsert").value = tempElement.value;
+        
+        document.body.appendChild(tempElement);
+        tempElement.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempElement);       
+
+        //alert(`HTML copied with new ID: ${randomId}`);
+
+    }
+}
 // Add the "Copy" button to each matching element
 function addCopyButtons() {
     const elements = document.querySelectorAll('div.image1-desc');
@@ -8629,6 +8655,67 @@ function addCopyButtons() {
 
 
     });
+
+
+    //Add buttons for Videos
+    const vidEelements = document.querySelectorAll('div.video1-desc');
+    vidEelements.forEach(element => {
+        // Check if a "Copy" button already exists
+        const existingButton = element.querySelector('.copyHtmlButton');
+        if (!existingButton) {
+            // Create the button
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copy HTML';
+            copyButton.className = 'copyHtmlButton';
+            copyButton.style.marginLeft = '5px';
+            copyButton.onclick = function () {
+                copyVideoDivHtml(this);
+            };
+
+            // Append the button to the element
+            element.appendChild(copyButton);
+        }else{
+            existingButton.onclick = function () {
+                copyVideoDivHtml(this);
+            };
+        }
+
+        let propButton = element.querySelector('.videoPropButton');
+        if (!propButton) {
+            // Create the button
+            propButton = document.createElement('button');
+            propButton.textContent = 'Toggle Properties';
+            propButton.className = 'videoPropButton';
+            propButton.style.marginLeft = '5px';
+            propButton.onclick = function () {
+                toggleVideoProps(this);
+            };
+
+            // Append the button to the element
+            element.appendChild(propButton);
+        }else{
+            propButton.onclick = function () {
+                toggleVideoProps(this);
+            };
+        }
+
+        let videoPropsDiv = element.querySelector('.video-props');
+        if (!videoPropsDiv) {
+            videoPropsDiv = document.createElement("div");
+            videoPropsDiv.classList.add("video-props");
+            const randomId = "img-" + Math.floor(Math.random() * 1000000);
+
+            videoPropsDiv.innerHTML = `
+            <label>Duration (seconds. Enter if image show duration is to be fixed instead of the preceding text TTS duration):</label>
+            <div class="imgPropsInput" contenteditable="true" id="${randomId}-vidduration">0</div>
+            <label>Show Avatar for the preceding text duration (y/n):</label>
+            <div class="avatarFlgInput" contenteditable="true" id="${randomId}-avatarflag">n</div>
+            `;
+            element.appendChild(videoPropsDiv);
+        }
+
+
+    });
 }
 
 function toggleImageProps(spanElement) {
@@ -8649,6 +8736,27 @@ function toggleImageProps(spanElement) {
         }
     } else {
         console.error("No element with class 'image-props' found within the parent element.");
+    }
+}
+
+function toggleVideoProps(spanElement) {
+    // Find the 'div.audio-details' element within the parent element of spanElement
+    const parentDiv = spanElement.closest(".video1-desc");;
+    const detailsDiv = parentDiv.querySelector('div.video-props');
+    
+    if (detailsDiv) { // Ensure detailsDiv exists
+        // Toggle display style
+        if (detailsDiv.style.display === "none" || detailsDiv.style.display === "") {
+            detailsDiv.style.display = "block";
+            //parentDiv.style.display = "block";
+            //parentDiv.style.border = "1px solid #ccc";
+        } else {
+            detailsDiv.style.display = "none";
+            //parentDiv.style.display = "inline";
+            //parentDiv.style.border = "none";
+        }
+    } else {
+        console.error("No element with class 'video-props' found within the parent element.");
     }
 }
 

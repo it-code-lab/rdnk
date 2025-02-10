@@ -2810,7 +2810,27 @@ div:has(> .hideParentDiv) {display: none; }
   display: none; /* Initially hidden */
 }
 
+.video-props {
+  position: absolute; /* Positioned relative to the nearest positioned ancestor */
+  /*top: 100%;  Positions the popup below the button */
+  left: 0; /* Aligns it with the parent div */
+  width: max-content; /* Ensures it fits the content */
+  max-width: 300px;
+  background: white; /* Makes it visible */
+  border: 1px solid #ccc; /* Adds a border for styling */
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow for better visibility */
+  z-index: 1000; /* Ensures it appears above other elements */
+  display: none; /* Initially hidden */
+}
+
 .image-props input {
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid rgb(225, 132, 19); 
+}
+
+.video-props input {
   margin: 5px 0;
   width: 100%;
   border: 1px solid rgb(225, 132, 19); 
@@ -2822,7 +2842,31 @@ div:has(> .hideParentDiv) {display: none; }
   border: 1px solid rgb(225, 132, 19); 
 }
 
+.image-props .avatarFlgInput {
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid rgb(225, 132, 19); 
+}
+
+
+
+.video-props .imgPropsInput {
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid rgb(225, 132, 19); 
+}
+
+.video-props .avatarFlgInput {
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid rgb(225, 132, 19); 
+}
+
 .imageButtonsDiv{
+  display: flex;
+}
+
+.videoButtonsDiv{
   display: flex;
 }
 
