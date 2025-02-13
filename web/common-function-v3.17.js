@@ -4801,6 +4801,14 @@ function SaveVideoAndInsertAtCarot(event) {
                     //     "<font color = #0000>" + response + "</font> ";
                     
                     var videoname = document.getElementById("image-" + itemid).value;
+                    videoname = videoname.trim();
+                    videoname = videoname.toLowerCase();
+                    if (videoname.includes(".png")) {
+                        videoname = videoname.replace(".png", ".mp4");
+                    } else if (!videoname.includes(".mp4")) {
+                        videoname = videoname + ".mp4";
+                    }
+
                     var randomId = "div-" + Math.floor(Math.random() * 1000000);
                     var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id) class='video1-desc'>" +
                         "<video class='movieVideoCls' controls src='" + the.hosturl + "/videos/" + videoname + "'></video>" +
