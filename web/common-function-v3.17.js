@@ -4244,7 +4244,7 @@ function loadPexVid(itemid) {
     videoDiv.innerHTML = ""; // Clear previous results
     
     // Fetch videos from Pexels API
-    fetch("https://api.pexels.com/videos/search?per_page=20&query=" + videoName, {
+    fetch("https://api.pexels.com/videos/search?per_page=100&query=" + videoName, {
         headers: {
             Authorization: "r133XPzHPTKK18x6bcaM5AInbsTp88RC4W4nemUhS4ktwBxMpnDpFT41" // Replace with your Pexels API key
         }
@@ -4253,7 +4253,12 @@ function loadPexVid(itemid) {
         return response.json();
     })
     .then(data => {
-        const videos = data.videos; // Array of videos
+
+        const hdVideos = data.videos.filter(video => 
+            video.video_files.some(file => file.width >= 1920 && file.height >= 1080)
+        );
+
+        const videos = hdVideos; // Array of videos
         
         // Iterate over the video array
         for (let i = 0; i < videos.length; i++) {
@@ -4290,14 +4295,20 @@ function loadPixabayVid(itemid) {
     videoDiv.innerHTML = ""; // Clear previous results
     
     // Fetch videos from Pixabay API
-    fetch("https://pixabay.com/api/videos/?key=33936925-b94dd0e302df74f271d1b84c5&per_page=20&q=" + encodeURIComponent(videoName), { // Replace `xyz` with your Pixabay API key
+    fetch("https://pixabay.com/api/videos/?key=33936925-b94dd0e302df74f271d1b84c5&per_page=100&q=" + encodeURIComponent(videoName), { // Replace `xyz` with your Pixabay API key
     })
     .then(response => {
         return response.json();
     })
     .then(data => {
-        const videos = data.hits; // Array of videos
-        
+        const allVideos = data.hits; // Array of videos
+        // Filter videos to include only HD quality (minimum 1920x1080)
+        const videos = allVideos.filter(video => 
+            video.videos.large && 
+            video.videos.large.width >= 1920 && 
+            video.videos.large.height >= 1080
+        );   
+
         // Iterate over the video array
         for (let i = 0; i < videos.length; i++) {
             let videoElement = document.createElement('video');
@@ -4333,7 +4344,7 @@ function loadUnsplashVid(itemid) {
     videoDiv.innerHTML = ""; // Clear previous results
     
     // Fetch videos from Unsplash (via search API for images and videos)
-    fetch("https://api.unsplash.com/search/videos?query=" + videoName + "&per_page=20", {
+    fetch("https://api.unsplash.com/search/videos?query=" + videoName + "&per_page=80", {
         headers: {
             Authorization: "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k" // Replace with your Unsplash API key
         }
