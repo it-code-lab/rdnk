@@ -4202,7 +4202,7 @@ function loadPexImg(itemid) {
     }
     const imageDiv = document.querySelector('.srchimages');
     imageDiv.innerHTML = "";
-    fetch("https://api.pexels.com/v1/search?per_page=80&query=" + imageName, {
+    fetch("https://api.pexels.com/v1/search?per_page=100&query=" + imageName, {
         headers: {
             Authorization: "r133XPzHPTKK18x6bcaM5AInbsTp88RC4W4nemUhS4ktwBxMpnDpFT41"
         }
@@ -4262,19 +4262,24 @@ function loadPexVid(itemid) {
         
         // Iterate over the video array
         for (let i = 0; i < videos.length; i++) {
-            let videoElement = document.createElement('video');
-            videoElement.src = videos[i].video_files[0].link; // Use the first video file link
-            videoElement.controls = true; // Add video controls
-            videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
-            videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
-            videoElement.setAttribute('data-errormsgelementid', 'image-errormsg-');
-            videoElement.setAttribute('data-saveasnameelementid', 'image-');
-            videoElement.setAttribute('data-fileelementid', 'video-replace-');
-            videoElement.setAttribute('data-itemid', itemid);
-            videoElement.setAttribute('data-videourl', videos[i].video_files[0].link); // Store video URL as data attribute
-            
-            // Append the video element to the container
-            videoDiv.append(videoElement);
+            let hdFile = videos[i].video_files.find(file => file.width >= 1920 && file.height >= 1080);
+
+            if (hdFile) { // Ensure an HD file is found
+
+                let videoElement = document.createElement('video');
+                videoElement.src = hdFile.link; // Use the first video file link
+                videoElement.controls = true; // Add video controls
+                videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
+                videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
+                videoElement.setAttribute('data-errormsgelementid', 'image-errormsg-');
+                videoElement.setAttribute('data-saveasnameelementid', 'image-');
+                videoElement.setAttribute('data-fileelementid', 'video-replace-');
+                videoElement.setAttribute('data-itemid', itemid);
+                videoElement.setAttribute('data-videourl', hdFile.link); // Store video URL as data attribute
+                
+                // Append the video element to the container
+                videoDiv.append(videoElement);
+            }
         }
     })
     .catch(error => {
@@ -4312,7 +4317,7 @@ function loadPixabayVid(itemid) {
         // Iterate over the video array
         for (let i = 0; i < videos.length; i++) {
             let videoElement = document.createElement('video');
-            videoElement.src = videos[i].videos.medium.url; // Use the medium quality video link
+            videoElement.src = videos[i].videos.large.url; // Use the medium quality video link
             videoElement.controls = true; // Add video controls
             videoElement.setAttribute('width', '300'); // Set a fixed width (optional)
             videoElement.setAttribute('onclick', 'SaveVideoAndInsertAtCarot(event)'); // Custom onclick handler
@@ -4344,7 +4349,7 @@ function loadUnsplashVid(itemid) {
     videoDiv.innerHTML = ""; // Clear previous results
     
     // Fetch videos from Unsplash (via search API for images and videos)
-    fetch("https://api.unsplash.com/search/videos?query=" + videoName + "&per_page=80", {
+    fetch("https://api.unsplash.com/search/videos?query=" + videoName + "&per_page=100", {
         headers: {
             Authorization: "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k" // Replace with your Unsplash API key
         }
