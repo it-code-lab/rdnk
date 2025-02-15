@@ -3924,11 +3924,15 @@ function toggleLeftSideMenu(hideFlag = "") {
 }
 
 function popolatenewImageName(itemid) {
-    document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    let name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".png";
+    sessionStorage.setItem("saveasname", name);
+    document.getElementById("image-" + itemid).value = name;
 }
 
 function popolatenewVideoName(itemid){
-    document.getElementById("image-" + itemid).value = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".mp4";
+    let name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) + ".mp4";
+    sessionStorage.setItem("saveasname", name);
+    document.getElementById("image-" + itemid).value = name;
 }
 
 function loadUNSPLImg(itemid) {
@@ -4776,7 +4780,9 @@ function SaveVideoAndInsertAtCarot(event) {
     var saveasnameelementid = elem.dataset.saveasnameelementid;
     var itemid = elem.dataset.itemid;
 
-    var saveasname = document.getElementById(saveasnameelementid + itemid).value;
+    let saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 1000000) + 1) + ".mp4";
+    sessionStorage.setItem("saveasname", saveasname);
+
     //let saveasname = window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "-" + (Math.floor(Math.random() * 10000) + 1) ;
 
     saveasname = saveasname.trim();
@@ -4816,7 +4822,8 @@ function SaveVideoAndInsertAtCarot(event) {
                     // document.getElementById(errormsgelementid + itemid).innerHTML =
                     //     "<font color = #0000>" + response + "</font> ";
                     
-                    var videoname = document.getElementById("image-" + itemid).value;
+                    //var videoname = document.getElementById("image-" + itemid).value;
+                    let videoname = sessionStorage.getItem("saveasname");
                     videoname = videoname.trim();
                     videoname = videoname.toLowerCase();
                     if (videoname.includes(".png")) {
