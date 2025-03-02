@@ -13,7 +13,7 @@ body {
   max-width: 700px;
   margin: 30px auto;
   background: #fff;
-  padding: 20px 30px;
+  /* padding: 20px 30px; */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -197,7 +197,7 @@ body {
 
   #certificatequizContainer {
     width: 100%;
-    padding: 10px;
+    padding: 0px;
     border-radius: 5px;
   }
 
