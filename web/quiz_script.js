@@ -498,7 +498,7 @@ function shareCertificate(name, age, score, rank, percentile, duration, category
   Can you beat my score? Try now!`;
 
     const encodedText = encodeURIComponent(shareText);
-    const url = encodeURIComponent("http://readernook/topics/quiz/mathquiz"); // Update with actual site URL
+    const url = encodeURIComponent("https://readernook.com/topics/quiz-master/home"); // Update with actual site URL
 
     const facebookShare = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
     const twitterShare = `https://twitter.com/intent/tweet?text=${encodedText}&url=${url}`;
@@ -611,8 +611,8 @@ function captureCertificate(certificatecd, name, age, score, rank, percentile, d
     }
 
     // ✅ URLs
-    const testUrl = "http://readernook/topics/quiz/mathquiz"; // Test-taking URL
-    const certificateShareUrl = `http://readernook/certificate/${certificatecd}`; // Certificate view URL
+    const testUrl = "https://readernook.com/topics/quiz-master/home"; // Test-taking URL
+    const certificateShareUrl = `https://readernook.com/certificate/${certificatecd}`; // Certificate view URL
 
     // ✅ Share message with clickable links
     const shareText = `🎉 I scored ${score} in my Math Practice Test (Age Group: ${age})! 🏆
