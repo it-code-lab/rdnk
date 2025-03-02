@@ -671,7 +671,7 @@ function downloadCertificate_XX() {
 function calculateCorrectAnswers() {
     let correctCount = 0;
     questions.forEach(q => {
-        if (q.selectedAnswer === q.correctAnswer) {
+        if (q.selectedAnswer === q.correct_answer) {
             correctCount++;
         }
     });
@@ -683,7 +683,7 @@ function calculateScore() {
     let pointsPerQuestion = 1; // Assuming total score is out of 100
 
     questions.forEach(q => {
-        if (q.selectedAnswer === q.correctAnswer) {
+        if (q.selectedAnswer === q.correct_answer) {
             totalScore += pointsPerQuestion;
         }
     });
