@@ -697,15 +697,15 @@ function calculateCategoryScores() {
 
     // Initialize category scores
     questions.forEach(q => {
-        if (!categoryScores[q.subcategory]) {
-            categoryScores[q.subcategory] = 0;
+        if (!categoryScores[q.subcategory_name]) {
+            categoryScores[q.subcategory_name] = 0;
         }
     });
 
     // Count correct answers per category
     questions.forEach(q => {
-        if (q.selectedAnswer === q.correctAnswer) {
-            categoryScores[q.subcategory] += 1;
+        if (q.selectedAnswer === q.correct_answer) {
+            categoryScores[q.subcategory_name] += 1;
         }
     });
 
