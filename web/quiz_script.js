@@ -617,8 +617,8 @@ function captureCertificate(certificatecd, name, age, score, rank, percentile, d
     // ✅ Share message with clickable links
     const shareText = `🎉 I scored ${score} in my Math Practice Test (Age Group: ${age})! 🏆
 
-📜 **View my certificate:** [${certificateShareUrl}](${certificateShareUrl})  
-📝 **Take the test here:** [${testUrl}](${testUrl})`;
+📜 **View my certificate:** ${certificateShareUrl}  
+📝 **Take the test here:** ${testUrl}`;
 
     // ✅ URL Encoding for sharing
     const encodedText = encodeURIComponent(shareText);
