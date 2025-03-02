@@ -1,0 +1,176 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz App</title>
+<!-- <link rel="stylesheet" href="quiz_style.css" /> -->
+<!-- Using Google Fonts for a modern look -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;display=swap"
+  rel="stylesheet"
+/>
+
+<div id="quiz_loadingIndicator"></div>
+
+<div class="quizContainer">
+  <!-- Setup quizScreen -->
+  <div id="setupquizScreen" class="quizScreen">
+    <h1>Quiz Master</h1>
+
+    <form id="setupForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="userName" name="userName" required="" />
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age group:</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          min="5"
+          max="100"
+          required=""
+          oninput="fetchCategories()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Select Category:</label>
+        <select id="category" name="category" onchange="fetchSubcategories()">
+          <option value="">-- Select a Category --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <p>Select Subcategories:</p>
+        <div id="subcategoryContainer" class ="quiz-checkbox-group"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Test Duration (minutes, 1-60):</label>
+        <input
+          type="number"
+          id="duration"
+          name="duration"
+          min="1"
+          max="60"
+          required=""
+        />
+      </div>
+
+      <!-- <div class="form-group">
+        <p>Select Question Types:</p>
+
+        <div class="quiz-checkbox-group">
+          <label
+            ><input type="checkbox" name="qType" value="addition" checked="" />
+            Addition</label
+          >
+          <label
+            ><input
+              type="checkbox"
+              name="qType"
+              value="subtraction"
+              checked=""
+            />
+            Subtraction</label
+          >
+          <label
+            ><input
+              type="checkbox"
+              name="qType"
+              value="multiplication"
+              checked=""
+            />
+            Multiplication</label
+          >
+          <label
+            ><input type="checkbox" name="qType" value="logical" checked="" />
+            Logical Reasoning</label
+          >
+        </div>
+      </div> -->
+
+      <div class="form-group center">
+        <button type="submit" class="btn">Start Test</button>
+        <!-- <button onclick="startQuiz(event);" class="btn">Start Test</button> -->
+      </div>
+    </form>
+  </div>
+
+  <!-- Test quizScreen -->
+  <div id="testquizScreen" class="quizScreen quizHidden">
+    <div class="top-bar">
+      <div class="quiz-timer" id="quiz-timerDisplay">Time Remaining: 0m 9s</div>
+
+      <!-- Moved Submit Test button to top right -->
+      <button id="submitBtn" class="btn quiz-submit-btn" onclick="finishTest()">
+        Submit Test
+      </button>
+    </div>
+
+    <div class="question-quizContainer" id="questionquizContainer"></div>
+
+    <div class="quiz-navigation">
+      <button id="prevBtn" class="btn" onclick="gotoPrevQuestion()">
+        Previous
+      </button>
+      <button id="nextBtn" class="btn" onclick="gotoNextQuestion()">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <div id="certificatequizContainer"></div>
+
+  <div id="shareLinks"></div>
+
+  <!-- quiz-results quizScreen -->
+  <div id="quiz-resultsquizScreen" class="quizScreen quizHidden">
+    <h1>Test results</h1>
+
+    <div id="scoreDisplay"></div>
+
+    <div id="quiz-resultsList"></div>
+
+    <div class="signup-track-progress" id="signupdiv">
+      <h2>📊 Track Your Progress & Improve Your Scores!</h2>
+      <p>
+        Want to keep track of your test scores, monitor your improvements, and
+        earn achievements?
+        <strong>Login/Sign up now</strong> to save your progress and unlock
+        exclusive features.
+      </p>
+      <div class="signup-buttons">
+        <a href="/login" class="btn-login">🔑 Login/Sign up</a>
+      </div>
+    </div>
+
+    <div class="center">
+      <button onclick="location.reload()" class="btn">Restart Test</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="leaderboardquizContainer"></div>
+
+<div id="achievementsquizContainer"></div> -->
+
+<!-- <p id="rankDisplay"></p>
+
+<p id="percentileDisplay"></p> -->
+
+<!-- SM-DND-Add this script to the page to access this HTML -->
+
+<!-- 
+
+<div id="quizpage"></div>
+
+<script>
+    fetch("/readernook/quiz_page.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("quizpage").innerHTML = data);
+</script>
+<script src="/readernook/web/quiz_script.js"></script> 
+
+-->

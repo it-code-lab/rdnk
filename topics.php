@@ -510,7 +510,7 @@ function isMobileDevice()
          "thumbnailUrl": "https://readernook.com/images/banner.png"
        }
        </script>
-
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -601,7 +601,7 @@ function isMobileDevice()
 
         </div>
     </div>
-    
+    <div id="toastsnackbar" class="shadow_1"></div>
 </div>
        <?php include 'footer.html'; ?>
 

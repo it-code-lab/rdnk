@@ -29,6 +29,9 @@ var the = {
 };
 let soundApiKey;
 let timerInterval;
+
+const API_URL = the.hosturl + '/php/process.php'; // Change to your actual API URL
+
 var last_focused_div_id;
 // Record the start time
 const startTime = new Date().getTime();
@@ -3888,7 +3891,7 @@ function editItem(btn) {
 }
 
 function toggleToolBarView() {
-    console.log(document.getElementById("toolBarId").clientHeight);
+    //console.log(document.getElementById("toolBarId").clientHeight);
 
     if (document.getElementById("toolBarId").clientHeight > 50) {
         document.getElementById("toolBarId").style.height = "50px";
@@ -6232,6 +6235,13 @@ function updateItem(itemid, createNewItem) {
 
             } else {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Processed successfully" + "</font> ";
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Saved Successfully";
+                x.classList.add("show");
+
+                setTimeout(function () {
+                    x.classList.remove("show");
+                }, 3000);
             }
             //displayCart();
 
@@ -6239,6 +6249,14 @@ function updateItem(itemid, createNewItem) {
         error: function (xhr, status, error) {
             if (!itemid == "") {
                 document.getElementById("updateitemerrormsg-" + itemid).innerHTML = "<font color = #cc0000>" + "Failed to update" + "</font> ";
+
+                let x = document.getElementById("toastsnackbar");
+                x.innerHTML = "Failed to update";
+                x.classList.add("show");
+
+                setTimeout(function () {
+                    x.classList.remove("show");
+                }, 3000);
             }
             //alert(xhr);
 

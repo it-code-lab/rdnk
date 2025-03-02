@@ -1,0 +1,303 @@
+/* Reset default styles */
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f4f7f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* quizContainer for centering the app */
+.quizContainer {
+  max-width: 700px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* quizScreen sections */
+.quizScreen {
+  padding: 20px;
+}
+
+.quizHidden {
+  display: none;
+}
+
+/* Headings */
+.quizContainer h1,
+.quizContainer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.quizContainer .form-group {
+  margin-bottom: 15px;
+}
+
+.quizContainer .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.quizContainer .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Adjust checkbox alignment */
+.quiz-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.quiz-checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* Button styles */
+.quizContainer .btn {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.quizContainer .btn:hover {
+  background: #2980b9;
+}
+
+.quizContainer .center {
+  text-align: center;
+}
+
+/* Top bar in test quizScreen */
+.quizContainer .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quizContainer .quiz-timer {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+/* Submit button on top bar */
+.quizContainer .quiz-submit-btn {
+  background: #e67e22;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* Question quizContainer styling */
+.question-quizContainer {
+  background: #ecf0f1;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.question-quizContainer h2 {
+  margin-bottom: 10px;
+}
+
+/* quiz_options styling */
+.quiz_options {
+  list-style: none;
+  padding: 0;
+}
+
+.quiz_options li {
+  margin-bottom: 10px;
+}
+
+/* quiz-navigation button group */
+.quiz-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* quiz-results */
+.quiz-result {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.quiz-correct {
+  background-color: #c8f7c5;
+}
+
+.quiz-incorrect {
+  background-color: #f7c5c5;
+}
+
+#leaderboardquizContainer,
+#achievementsquizContainer {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#certificatequizContainer {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  /* border: 3px solid gold; */
+  border-radius: 10px;
+  background: #fff;
+}
+
+.quizContainer button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.quizContainer button:hover {
+  background: #2980b9;
+}
+
+@media Screen and (max-width: 600px) {
+  body {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  #certificatequizContainer {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  #shareLinks a {
+    display: block;
+    margin-top: 5px;
+  }
+}
+
+.quiz-loading {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3498db;
+  margin: 20px 0;
+  animation: fadeIn 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#signupdiv {
+  display: none;
+}
+
+.signup-track-progress {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-track-progress h2 {
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.signup-track-progress p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.signup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-signup,
+.btn-login {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-signup {
+  background: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.btn-login {
+  background: white;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+}
+
+.btn-signup:hover {
+  background: white;
+  color: #4CAF50;
+}
+
+.btn-login:hover {
+  background: #4CAF50;
+  color: white;
+}
+
+.small-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+}
