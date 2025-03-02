@@ -244,7 +244,7 @@ function gotoNextQuestion_old() {
 
 function gotoNextQuestion() {
     currentIndex++;
-    if (dbFetchedQuestionIndex < dbFetchedQuestions.length - 1) {
+    if (dbFetchedQuestionIndex < dbFetchedQuestions.length) {
         loadQuestion(currentIndex);
     } else {
         fetchMoreQuestions();
