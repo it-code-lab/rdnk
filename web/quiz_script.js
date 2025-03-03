@@ -173,14 +173,27 @@ function setup_startQuiz() {
         const checkboxes = document.querySelectorAll('input[name="qType"]:checked');
         checkboxes.forEach(cb => selectedTypes.push(cb.value));
 
-        // Hide setup, show test quizScreen
-        document.getElementById("setupquizScreen").classList.add("quizHidden");
-        document.getElementById("testquizScreen").classList.remove("quizHidden");
+
 
         let name = document.getElementById("userName").value;
 
         let subcategories = Array.from(document.querySelectorAll('input[name="subcategories"]:checked'))
             .map(cb => cb.value);
+
+        if (subcategories.length === 0) {
+            let x = document.getElementById("toastsnackbar");
+            x.innerHTML = "Please select atleast one subcategory";
+            x.classList.add("show");
+
+            setTimeout(function () {
+                x.classList.remove("show");
+            }, 3000);            
+            return;
+        }
+
+        // Hide setup, show test quizScreen
+        document.getElementById("setupquizScreen").classList.add("quizHidden");
+        document.getElementById("testquizScreen").classList.remove("quizHidden");
 
         let category = document.getElementById("category").value;
 
@@ -309,9 +322,10 @@ function finishTest() {
     let correctAnswers = calculateCorrectAnswers(); // Function to count correct answers
     let wrongAnswers = totalQuestions - correctAnswers;
     let categoryScores = calculateCategoryScores(); // Function to count per-category scores
+    let subcategories = getSortedSubcategories();
     if (localStorage.getItem("userLoggedIn") == "y") {
         showquiz_results();
-        submitTestResults(name, age, globalScore, category, duration, totalQuestions, correctAnswers, wrongAnswers, categoryScores);
+        submitTestResults(name, age, globalScore, category, duration, totalQuestions, correctAnswers, wrongAnswers, categoryScores, subcategories);
 
     } else {
         document.getElementById("certificatequizContainer").style.display = "none";
@@ -712,6 +726,16 @@ function calculateCategoryScores() {
     return categoryScores;
 }
 
+function getSortedSubcategories() {
+    // Extract unique subcategories
+    let subcategories = [...new Set(questions.map(q => q.subcategory_name))];
+
+    // Sort alphabetically
+    subcategories.sort();
+
+    // Return as a comma-separated string
+    return subcategories.join(", ");
+}
 
 
 // Function to show loading animation
@@ -725,7 +749,7 @@ function hideLoading() {
 }
 
 // Function to submit test results with animation
-function submitTestResults(name, age, score, category, duration, totalQuestions, correctAnswers, wrongAnswers, categoryScores) {
+function submitTestResults(name, age, score, category, duration, totalQuestions, correctAnswers, wrongAnswers, categoryScores, subcategories) {
     showLoading("Submitting your test...");
     fetch(API_URL, {
         method: "POST",
@@ -740,7 +764,8 @@ function submitTestResults(name, age, score, category, duration, totalQuestions,
             totalQuestions: totalQuestions,
             correctAnswers: correctAnswers,
             wrongAnswers: wrongAnswers,
-            categoryScores: JSON.stringify(categoryScores)
+            categoryScores: JSON.stringify(categoryScores),
+            subcategories: subcategories
         })
     })
         .then(response => {
@@ -902,6 +927,10 @@ function fetchCategories() {
     let age = document.getElementById("age").value;
     if (!age) return;
 
+    if (age < 5) return;
+
+    if (age > 200) return;
+
     fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -914,7 +943,7 @@ function fetchCategories() {
             try {
                 let data = JSON.parse(text); // 🔹 Manually parse JSON
                 //console.log("Parsed JSON:", data); // ✅ Print parsed JSON
-
+                document.getElementById("categoryDiv").style.display = "block";
                 let categoryDropdown = document.getElementById("category");
                 categoryDropdown.innerHTML = '<option value="">-- Select a Category --</option>';
                 data.forEach(cat => {
@@ -944,6 +973,8 @@ function fetchSubcategories() {
     })
         .then(response => response.json())
         .then(data => {
+            document.getElementById("subCategoryDiv").style.display = "block";
+            document.getElementById("durationDiv").style.display = "block";
             let subcategoryContainer = document.getElementById("subcategoryContainer");
             subcategoryContainer.innerHTML = "";
             data.forEach(sub => {
@@ -1050,6 +1081,7 @@ function fetchAllCategories() {
     })
         .then(response => response.json())
         .then(data => {
+            document.getElementById("categoryDiv").style.display = "block";
             let dropdown = document.getElementById("categorySelect");
             data.forEach(category => {
                 dropdown.innerHTML += `<option value="${category.id}">${category.name}</option>`;

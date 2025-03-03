@@ -70,7 +70,7 @@ for ($i = 0; $i < count($rows); $i++) {
       <?php if ($isLoggedin): ?>
          <a id="loginLinkId" style="display:none" href="/readernook/login">LOG IN</a>
          <a id="logoutLinkId"  href="javascript:Logout()">LOGOUT</a>
-         <a id="profileLinkId" href="/readernook/profile"">PROFILE</a>
+         <a id="profileLinkId" href="/readernook/scores.php">MY SCORES</a>
       <?php else: ?>
          <a id="loginLinkId" href="/readernook/login">LOG IN</a>
          <a id="logoutLinkId"  style="display:none" href="javascript:Logout()">LOGOUT</a>

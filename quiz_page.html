@@ -34,19 +34,19 @@
         />
       </div>
 
-      <div class="form-group">
+      <div id="categoryDiv" class="form-group">
         <label for="category">Select Category:</label>
         <select id="category" name="category" onchange="fetchSubcategories()">
           <option value="">-- Select a Category --</option>
         </select>
       </div>
 
-      <div class="form-group">
+      <div id="subCategoryDiv" class="form-group">
         <p>Select Subcategories:</p>
         <div id="subcategoryContainer" class ="quiz-checkbox-group"></div>
       </div>
 
-      <div class="form-group">
+      <div id="durationDiv" class="form-group">
         <label for="duration">Test Duration (minutes, 1-60):</label>
         <input
           type="number"
@@ -134,7 +134,7 @@
     <div id="quiz-resultsList"></div>
 
     <div class="signup-track-progress" id="signupdiv">
-      <h2>📊 Track Your Progress & Improve Your Scores!</h2>
+      <h3>📊 Track Your Progress & Improve Your Scores!</h3>
       <p>
         Want to keep track of your test scores, monitor your improvements, and
         earn achievements?

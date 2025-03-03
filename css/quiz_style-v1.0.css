@@ -10,12 +10,12 @@ body {
 
 /* quizContainer for centering the app */
 .quizContainer {
-  max-width: 700px;
+  width: 700px;
   margin: 30px auto;
-  background: #fff;
-  /* padding: 20px 30px; */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f7f9fc;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
 }
 
 /* quizScreen sections */
@@ -32,6 +32,8 @@ body {
 .quizContainer h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #333;
+  font-family: fantasy;
 }
 
 /* Form styles */
@@ -82,6 +84,7 @@ body {
   cursor: pointer;
   font-size: 16px;
   transition: background 0.3s ease;
+  /* width: 100%; */
 }
 
 .quizContainer .btn:hover {
@@ -173,7 +176,7 @@ body {
   padding: 20px;
   /* border: 3px solid gold; */
   border-radius: 10px;
-  background: #fff;
+  /* background: #fff; */
 }
 
 .quizContainer button {
@@ -201,7 +204,7 @@ body {
     border-radius: 5px;
   }
 
-  button {
+  .quizContainer button {
     width: 100%;
     margin: 5px 0;
   }
@@ -300,4 +303,51 @@ body {
   font-size: 14px;
   color: #666;
   margin-top: 15px;
+}
+
+form#setupForm {
+  background: #f7f9fc;
+}
+/****************************************************************/
+/****************************************************************/
+/* Quiz Container */
+
+
+/* Input Fields & Select */
+.setupquizScreen input,
+.quizContainer select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+  background: #fff;
+}
+
+.setupquizScreen input:focus,
+.quizContainer select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+
+
+.quiz-checkbox-group input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .quizContainer {
+      width: 95%;
+  }
+}
+
+#categoryDiv, #subCategoryDiv, #durationDiv{
+  display: none;
 }

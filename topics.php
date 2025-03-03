@@ -156,13 +156,13 @@ function populateTutorialHTML($tutData, $database)
 
     if ($technology == "Amazing Short Stories" || $technology == "Scary Stories") {
         $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
-        '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . " > " .
+        '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . "<span>&gt;</span>" .
         '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
 
     }else {
         $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
-        '<a href="' . $tutorialUrl . '" class="tutorialTopLinkCls">' . "Topics</a>" . " > " .
-        '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . " > " .
+        '<a href="' . $tutorialUrl . '" class="tutorialTopLinkCls">' . "Topics</a>" . "<span>&gt;</span>" .
+        '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . "<span>&gt;</span>" .
         '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
 
     }

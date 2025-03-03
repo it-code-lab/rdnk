@@ -1,0 +1,167 @@
+/*************************************************************/
+/*START - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC******/
+/*************************************************************/
+ #loginDivId {
+    height: 90vh;
+    margin: auto;
+    padding: 0px 0px 20px 0px;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+#contactusDivId {
+    margin: auto;
+    padding: 0px 0px 20px 0px;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+#loginSecDivId label , #contactusDivId label{
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+#SubloginSecDivId,
+#SubregisterSecDivId {
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 20px;
+    background-color: #58D68D;
+    width: 95%;
+    max-width: 600px;
+    box-shadow: 1px 1px 3px #222222;
+    background-image: linear-gradient(to bottom right, #32C9F7, #836DB0);
+
+}
+
+#loginSecDivId input, #registerSecDivId input , #forgotPasswordSecDivId input , #contactusDivId input{
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+#loginSecDivId input:focus, #registerSecDivId input:focus, #forgotPasswordSecDivId input:focus, #contactusDivId input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.un {
+    width: 100%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+
+
+    outline: none;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+
+.pass {
+    width: 100%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+
+    padding: 10px;
+    margin-bottom: 20px;
+
+}
+
+
+.un:focus,
+.pass:focus {
+    border: 1px solid rgba(0, 0, 0, 0.18) !important;
+
+}
+
+.btnCenterAlign {
+    margin: 0 auto;
+    display: block;
+} 
+    
+
+#contactusDivId, #loginSecDivId , #registerSecDivId, #forgotPasswordSecDivId, #accActivatedDivId, #forgotPWDivId{
+     margin: 20px auto auto; 
+	margin-bottom: 20px;
+    padding: 25px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+	/* width: 90%; */
+	max-width: 500px;
+    min-width: 250px;
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Input Fields */
+#contactusSecDivId input,
+#contactusSecDivId textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+    background: #fff;
+}
+
+#contactusSecDivId input:focus,
+#contactusSecDivId textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* CAPTCHA Box */
+.captchaList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#captcha {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#enteredCaptchaText {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/*************************************************************/
+/*END - LOGIN, REGISTER, FORGOT PASSWORD, ACTIVATE ACC********/
+/*************************************************************/
+

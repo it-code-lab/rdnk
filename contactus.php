@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+   session_start(); // Start session if it's not already started
+}
 include_once("php/session.php");
 
 $title = "Reader Nook";
