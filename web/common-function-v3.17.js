@@ -6421,26 +6421,30 @@ function setPassword() {
 }
 
 function refreshCaptcha() {
+    try{
+        let captchaText = document.querySelector('#captcha');
+        var ctx = captchaText.getContext("2d");
+        ctx.font = "50px Roboto";
+        ctx.fillStyle = "#000";
+    
+        ctx.clearRect(0, 0, captchaText.width, captchaText.height);
+    
+    
+        let alphaNums = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9'];
+        let emptyArr = [];
+    
+        // This loop generates a random string of 7 characters using alphaNums
+        // Further this string is displayed as a CAPTCHA
+        for (let i = 1; i <= 7; i++) {
+            emptyArr.push(alphaNums[Math.floor(Math.random() * alphaNums.length)]);
+        }
+        var c = emptyArr.join('');
+        ctx.fillText(emptyArr.join(''), captchaText.width / 10, captchaText.height / 1.8);
+        the.captcha = c;
+    }catch(e){
 
-    let captchaText = document.querySelector('#captcha');
-    var ctx = captchaText.getContext("2d");
-    ctx.font = "50px Roboto";
-    ctx.fillStyle = "#000";
-
-    ctx.clearRect(0, 0, captchaText.width, captchaText.height);
-
-
-    let alphaNums = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9'];
-    let emptyArr = [];
-
-    // This loop generates a random string of 7 characters using alphaNums
-    // Further this string is displayed as a CAPTCHA
-    for (let i = 1; i <= 7; i++) {
-        emptyArr.push(alphaNums[Math.floor(Math.random() * alphaNums.length)]);
     }
-    var c = emptyArr.join('');
-    ctx.fillText(emptyArr.join(''), captchaText.width / 10, captchaText.height / 1.8);
-    the.captcha = c;
+
 }
 
 function refreshCaptchatwo() {
