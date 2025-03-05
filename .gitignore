@@ -13,3 +13,4 @@ animationmaker/web/smtts*
 config.json
 videos
 
+php/cache*

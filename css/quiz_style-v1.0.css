@@ -351,3 +351,58 @@ form#setupForm {
 #categoryDiv, #subCategoryDiv, #durationDiv{
   display: none;
 }
+
+/* .quiz-report-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.quiz-report-btn:hover {
+  background: #c82333;
+} */
+
+
+
+.quiz-report-btn {
+  background: transparent !important;
+  color: #dc3545 !important;
+  border: none;
+  padding: 3px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.quiz-report-btn:hover {
+  color: #b52b3b !important;
+  text-decoration: underline !important;
+}
+.quiz-report-btn i {
+  font-size: 16px !important;
+  color: #dc3545 !important;
+}
+
+
+.modal-header {
+  background: #dc3545;
+  color: white;
+}
+.modal-content {
+  border-radius: 10px;
+}
+.modal-footer button {
+  border-radius: 5px;
+}
+
+.modal {
+  z-index: 1050; /* Ensures it appears above everything */
+}
+.modal-backdrop {
+  z-index: 1040; /* Ensures backdrop is behind modal */
+}

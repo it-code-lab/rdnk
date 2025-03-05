@@ -24,7 +24,7 @@ let globalScore = 0;
 let dynamicCategories = [];
 let testDuration;
 //let testQuestions = [];
-
+let reportData = {};
 
 setTimeout(() => {
     $(".printBtnDivCls").hide();
@@ -497,7 +497,11 @@ function showquiz_results() {
         qDiv.classList.add(isquiz_correct ? "quiz-correct" : "quiz-incorrect");
         qDiv.innerHTML = `<strong>Question ${index + 1}:</strong> ${q.question}<br>
       <strong>Your answer:</strong> ${userAnswer}<br>
-      <strong>correct answer:</strong> ${q.correct_answer}`;
+      <strong>correct answer:</strong> ${q.correct_answer}
+    <button class="quiz-report-btn"
+        onclick='openReportModal(${q.id}, ${JSON.stringify(q.question)}, ${JSON.stringify(userAnswer)}, ${JSON.stringify(q.correct_answer)})'>
+        <i class="fas fa-exclamation-triangle"></i> Report Issue
+    </button>`;
         quiz_resultsDiv.appendChild(qDiv);
     });
     globalScore = score;
@@ -949,6 +953,8 @@ function fetchCategories() {
                 data.forEach(cat => {
                     categoryDropdown.innerHTML += `<option value="${cat.category_name}">${cat.category_name}</option>`;
                 });
+                document.getElementById("subCategoryDiv").style.display = "none";
+                document.getElementById("durationDiv").style.display = "none";
             } catch (error) {
                 console.error("JSON Parse Error:", error);
                 console.error("Response was not valid JSON:", text);
@@ -1156,4 +1162,55 @@ function getCertificate_Not_in_use(certificatecd) {
           <div id="certificateContent">${decodedCertificate}</div>
       `;
         });
+}
+
+
+
+function openReportModal(questionId, question, userAnswer, correctAnswer) {
+    reportData = { questionId, question, userAnswer, correctAnswer };
+
+    document.getElementById("reportQuestion").innerText = question || "N/A";
+    document.getElementById("reportUserAnswer").innerText = userAnswer || "N/A";
+    document.getElementById("reportCorrectAnswer").innerText = correctAnswer || "N/A";
+
+    // Properly initialize and show the modal
+    let reportModal = new bootstrap.Modal(document.getElementById('reportModal'), { keyboard: true, backdrop: 'static' });
+    reportModal.show();
+    $('.modal-backdrop').hide();
+}
+
+function submitReport() {
+    let issueType = document.getElementById("issueType").value;
+    let additionalInfo = document.getElementById("additionalInfo").value;
+
+    fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+            usrfunction: "reportQuizIssue",
+            questionId: reportData.questionId,
+            question: reportData.question,
+            userAnswer: reportData.userAnswer,
+            correctAnswer: reportData.correctAnswer,
+            issueType: issueType,
+            additionalInfo: additionalInfo
+        })
+    }).then(response => {
+        console.log("🔄 Raw Response:", response);
+        return response.json();
+    })
+    .then(data => {
+        //alert("Report submitted successfully! Thank you for your feedback.");
+        let reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
+        reportModal.hide();
+
+        let x = document.getElementById("toastsnackbar");
+        x.innerHTML = "Thank you for your feedback.";
+        x.classList.add("show");
+
+        setTimeout(function () {
+            x.classList.remove("show");
+        }, 3000);  
+    })
+    .catch(error => console.error("Error submitting report:", error));
 }
