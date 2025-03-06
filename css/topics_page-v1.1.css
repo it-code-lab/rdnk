@@ -1,0 +1,122 @@
+.tutorialDiv {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    /*max-width: 300px;
+    margin: auto;*/
+    text-align: center;
+  
+    font-family: arial;
+    /* width: 95%; */
+    /* float: left; */
+    padding: 0px;
+     /* margin: 5px;  */
+     margin-bottom: 5px;
+     /* border-radius: 10px; */
+     border: 1px solid rgba(0, 0, 0, 0.2);
+     word-wrap: break-word;
+     /* min-width: 300px; */
+    
+     height: auto;
+     background-color: #fff;
+  }
+  .tutorialDiv:hover{
+    background-color: orange;
+  }
+  
+  
+  #tutorialDivId{
+    resize: horizontal; 
+    overflow: hidden; 
+    background-color: #fff;  
+    display: block; 
+    /* height: 100vh;  */
+    /* max-height: 90vh; 
+    min-height: 88vh;  */
+    overflow: auto; 
+    /* border-rightXX: 0.4px solid #9A9999;  */
+    /* padding: 20px;  */
+    /* box-shadowXX: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+    border-right:  1px solid #c8c8c8;
+    border-left:   1px solid  #c8c8c8;
+    z-index: 10;
+  }
+  
+  #tutorialDivId > div:not(.header3-desc){
+    margin: 20px;
+  }
+  
+  #tutorialDivId{
+  width: 100%;
+  }
+  
+  
+  #tutorialListDivId{
+    display: block;
+    min-width: 350px; 
+    background-color: rgb(250, 250, 250);
+    transition: ease 0.5s;
+  }
+  #tutorialListInnerDivId{
+    padding-bottom: 50px;
+  }
+
+
+#tutorialListDivId {
+    font-family: 'Arial', sans-serif;
+    /* width: 100%; */
+    max-width: 1400px;
+    /* margin: auto; */
+    padding: 20px;
+}
+
+
+
+/* Cards Container */
+.cardsContainerDivClassPadd {
+    background-color: white;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.cardsContainerDivClassPadd:hover {
+    transform: scale(1.02);
+}
+
+.technologyHeader{
+    border-radius: 8px;
+}
+/* Individual Tutorials */
+.tutorialDiv {
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 12px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.tutorialDiv:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tutorial Links */
+.tutorialLink {
+    text-decoration: none;
+    color: #0056b3;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tutorialLink:hover {
+    color: #ff5722;
+}
+
+
+.discontinued{
+    background-color: yellow;
+  }

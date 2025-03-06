@@ -1346,29 +1346,6 @@ button.btnNewWindow::before {
 /* SM: Start: ***********Below styles are for cards on home page **************/
 
 
-.tutorialDiv {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  /*max-width: 300px;
-  margin: auto;*/
-  text-align: center;
-
-  font-family: arial;
-  /* width: 95%; */
-  /* float: left; */
-  padding: 0px;
-   /* margin: 5px;  */
-   margin-bottom: 5px;
-   /* border-radius: 10px; */
-   border: 1px solid rgba(0, 0, 0, 0.2);
-   word-wrap: break-word;
-   /* min-width: 300px; */
-  
-   height: auto;
-   background-color: #e2e8f0;
-}
-.tutorialDiv:hover{
-  background-color: orange;
-}
 
 .tutorialParent {
   /* background-color:bisque; */
@@ -2151,41 +2128,6 @@ ul.unordered-list-arrow li:before{
   right: 10px;
 }
 
-#tutorialDivId{
-  resize: horizontal; 
-  overflow: hidden; 
-  background-color: #fff;  
-  display: block; 
-  /* height: 100vh;  */
-  /* max-height: 90vh; 
-  min-height: 88vh;  */
-  overflow: auto; 
-  /* border-rightXX: 0.4px solid #9A9999;  */
-  /* padding: 20px;  */
-  /* box-shadowXX: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
-  border-right:  1px solid #c8c8c8;
-  border-left:   1px solid  #c8c8c8;
-  z-index: 10;
-}
-
-#tutorialDivId > div:not(.header3-desc){
-  margin: 20px;
-}
-
-#tutorialDivId{
-width: 100%;
-}
-
-
-#tutorialListDivId{
-  display: block;
-  min-width: 350px; 
-  background-color: rgb(250, 250, 250);
-  transition: ease 0.5s;
-}
-#tutorialListInnerDivId{
-  padding-bottom: 50px;
-}
 #tutorialEditDivId{
   /* height: 100vh; */
   overflow: auto; 
@@ -2197,9 +2139,7 @@ width: 100%;
   display: none;
 }
 
-.discontinued{
-  background-color: yellow;
-}
+
 
 #tutorialSearchDivId {
 margin-top: 10px;
