@@ -986,6 +986,8 @@ function fetchSubcategories() {
         .then(data => {
             document.getElementById("subCategoryDiv").style.display = "block";
             document.getElementById("durationDiv").style.display = "block";
+            const startButton = document.getElementById("startTestButton");
+            startButton.removeAttribute("disabled");
             let subcategoryContainer = document.getElementById("subcategoryContainer");
             subcategoryContainer.innerHTML = "";
             data.forEach(sub => {
