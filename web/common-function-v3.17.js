@@ -4748,6 +4748,7 @@ function SaveImageAndInsertAtCarot(event) {
 
                         document.getElementById(errormsgelementid + itemid).innerHTML = "<font color = #0000>" + response + "</font> ";
                         var imagename = document.getElementById("image-" + itemid).value;
+                        imagename = imagename.toLowerCase();
                         var randomId = "div-" + Math.floor(Math.random() * 1000000);
                         var Str = "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'image1-desc'> " + "<img class='movieImageCls' alt ='' src= '" + the.hosturl + "/img/" + imagename + "'> "  
                     
