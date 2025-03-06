@@ -789,7 +789,12 @@ function submitTestResults(name, age, score, category, duration, totalQuestions,
                     fetchMyCertificate(data.certificate, name, age, score, data.rank, data.percentile, duration, category);
                     //showquiz_results();
                 } else {
-                    console.error("Error saving test results.");
+                    if (data.message == 'loggedout') {
+                        document.getElementById("signupdiv").style.display = "block";
+                    } else {
+                        console.error("Error saving test results.");
+                        // No other action needed
+                    }
                 }
             } catch (error) {
                 console.error("JSON Parsing Error:", error);

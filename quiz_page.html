@@ -31,7 +31,10 @@
           max="100"
           required=""
           oninput="fetchCategories()"
-        />
+          autocomplete="off" 
+          inputmode="numeric" 
+          onfocus="this.removeAttribute('readonly');"
+          readonly >
       </div>
 
       <div id="categoryDiv" class="form-group">
