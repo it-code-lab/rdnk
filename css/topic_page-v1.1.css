@@ -6,7 +6,7 @@
   #slideInDivId:hover{
     color: #000;
   }
-  
+
 /* Slide-In Menu Button */
 #slideInDivId {
     background-color: #0073e6;
@@ -27,7 +27,7 @@
 }
 
 /* Contact Form */
-#sndmsgdivid {
+#tutorialDivId #sndmsgdivid {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -36,7 +36,7 @@
     margin: 15px auto !important;
 }
 
-#sndmsgdivid .formInputText, #sndmsgdivid textarea {
+#tutorialDivId #sndmsgdivid .formInputText, #tutorialDivId #sndmsgdivid textarea {
     width: calc(100% - 8px);
     padding: 10px;
     margin-bottom: 10px;
@@ -44,7 +44,7 @@
     border: 1px solid #ccc;
 }
 
-#sndmsgdivid button.helper {
+#tutorialDivId #sndmsgdivid button.helper {
     background-color: #0073e6;
     color: white;
     border: none;
@@ -55,7 +55,7 @@
     transition: background 0.3s;
 }
 
-#sndmsgdivid button.helper:hover {
+#tutorialDivId #sndmsgdivid button.helper:hover {
     background-color: #005bb5;
 }
 
