@@ -2320,14 +2320,7 @@ div:has(> .hideParentDiv) {display: none; }
   color: #fff;
 }
 
-#slideInDivId{
-  color: #a29e9e; 
-  font-size: 32px; 
-  margin-left: 20px;
-}
-#slideInDivId:hover{
-  color: #000;
-}
+
 
 .pageinfo-desc{
   background-color: #D6EAF8;
