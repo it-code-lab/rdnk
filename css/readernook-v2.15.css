@@ -1377,50 +1377,6 @@ button.btnNewWindow::before {
   /* background-color: #ECF0F1; */
 }
 
-.menucard {
-  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-  text-align: center;
-  font-family: arial;
-   float: left; 
-  margin: 10px;
-  cursor: pointer;
-  background-color: #095984;
-  color: white;
-  padding: 2px;
-  z-index: 10;
-  position: relative;
-}
-
-
-.menucard:hover {
-  box-shadow: 0 4px 8px 0 rgba(17, 35, 237, 0.9);
-}
-
-.menucard .cardMsg{
-	font-size: 14px;
-	height: 100px;
-	text-align: center;
-	padding: 10px;
-	
-}
-
-.menucard button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #4E9CAF;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
-.menucard button:hover {
-  background-color: #000;
-}
 
 .languageicon{
 	width:100px; 

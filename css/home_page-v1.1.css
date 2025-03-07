@@ -1,0 +1,94 @@
+.menucard {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    text-align: center;
+    font-family: arial;
+     float: left; 
+    margin: 10px;
+    cursor: pointer;
+    background-color: #095984;
+    color: white;
+    padding: 2px;
+    z-index: 10;
+    position: relative;
+  }
+  
+  
+  .menucard:hover {
+    box-shadow: 0 4px 8px 0 rgba(17, 35, 237, 0.9);
+  }
+  
+  .menucard .cardMsg{
+      font-size: 14px;
+      height: 100px;
+      text-align: center;
+      padding: 10px;
+      
+  }
+  
+  .menucard button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #4E9CAF;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .menucard button:hover {
+    background-color: #000;
+  }
+  
+/* Home Cards Container */
+#homeCardsContainerDivId {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Individual Menu Cards */
+.menucard {
+    background-color: white;
+    width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.menucard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Heading */
+.homeCardText {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Divider */
+.menucard hr {
+    width: 60%;
+    margin: 10px auto;
+    border: none;
+    border-top: 2px solid #0073e6;
+}
+
+/* Card Message */
+.menucard .cardMsg {
+    font-size: 16px;
+    color: #555;
+}
+
+
