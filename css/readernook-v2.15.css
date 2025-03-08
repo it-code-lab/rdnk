@@ -2378,6 +2378,10 @@ div:has(> .hideParentDiv) {display: none; }
   cursor: pointer;
 }
 
+.staying{
+  background-color: rgb(221, 217, 217);
+  border-radius: 5px;
+}
 
 .printBtn{
   width: 100px;

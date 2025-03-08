@@ -3755,8 +3755,10 @@ function editItem(btn) {
         "<button data-title='Convert selected text to blue h3 inline' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-blue-h3-inline') >Convert text to blue h3</button>" +
         
         "<label class='toolBarlabel'>Video Headers and lists</label>" +
-        "<button data-title='Convert selected text to header in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-video-header') >Convert text to video header</button>" +
-        "<button data-title='Convert selected text to list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-video-listitem') >Convert text to video listitem</button>" +
+        "<button data-title='Convert selected text to wavy header in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-video-header') >Convert text to wavy header</button>" +
+        "<button data-title='Convert selected text to wavy list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-video-listitem') >Convert text to wavy listitem</button>" +
+        "<button data-title='Convert selected text to staying header in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-staying-header') >Convert text to staying header</button>" +
+        "<button data-title='Convert selected text to staying building list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-staying-listitem') >Convert text to staying listitem</button>" +
 
         "<label class='toolBarlabel'>Alignment</label>" +
         "<button data-title='Left Align selected text' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','left-align') >Left</button>" +
@@ -5334,6 +5336,7 @@ function addComponent(itemid, type) {
           // Set the text content of the h2 element to the selected text
           h3Element.textContent = selectedText;
           h3Element.classList.add('video-hdr-inline-cls');
+          h3Element.classList.add('wavy');
 
           let videoHdrPropsDiv = document.createElement("div");
           videoHdrPropsDiv.classList.add("video-hdr-props");
@@ -5373,6 +5376,87 @@ function addComponent(itemid, type) {
           // Set the text content of the h2 element to the selected text
           h3Element.textContent = selectedText;
           h3Element.classList.add('video-listitem-inline-cls');
+          h3Element.classList.add('wavy');
+
+          let videolistitemPropsDiv = document.createElement("div");
+          videolistitemPropsDiv.classList.add("video-listitem-props");
+
+          videolistitemPropsDiv.style.display = "none"; // Initially hide the div
+
+          const randomId = "elm-" + Math.floor(Math.random() * 1000000);
+
+          videolistitemPropsDiv.innerHTML = `
+          <label>Place Holdr1:</label>
+          <div class="imgPropsInput" contenteditable="true" id="${randomId}-vidlistitemprop1">0</div>
+          <label>Place Holdr2:</label>
+          <div class="avatarFlgInput" contenteditable="true" id="${randomId}-vidlistitemprop2">n</div>
+          <button  onclick="closeMe(event,this)">Close</button>
+          `;
+
+         // Add toggle functionality
+          h3Element.addEventListener('click', function () {
+            videolistitemPropsDiv.style.display = "block" ;
+          });
+
+          h3Element.appendChild(videolistitemPropsDiv);
+
+
+          // Replace the selected text with the h2 element
+          let range = window.getSelection().getRangeAt(0);
+          range.deleteContents();
+          range.insertNode(h3Element);
+        }
+    }else if (type == "convert-to-staying-header") {
+        let selectedText = window.getSelection().toString();
+      
+        if (selectedText !== '') {
+          // Create an h2 element
+          let h3Element = document.createElement('h3');
+          
+          // Set the text content of the h2 element to the selected text
+          h3Element.textContent = selectedText;
+          h3Element.classList.add('video-hdr-inline-cls');
+          h3Element.classList.add('staying');
+
+          let videoHdrPropsDiv = document.createElement("div");
+          videoHdrPropsDiv.classList.add("video-hdr-props");
+
+          videoHdrPropsDiv.style.display = "none"; // Initially hide the div
+
+          const randomId = "elm-" + Math.floor(Math.random() * 1000000);
+
+          videoHdrPropsDiv.innerHTML = `
+          <label>Place Holdr1:</label>
+          <div class="imgPropsInput" contenteditable="true" id="${randomId}-vidhdrprop1">0</div>
+          <label>Place Holdr2:</label>
+          <div class="avatarFlgInput" contenteditable="true" id="${randomId}-vidhdrprop2">n</div>
+          <button  onclick="closeMe(event,this)">Close</button>
+          `;
+
+         // Add toggle functionality
+          h3Element.addEventListener('click', function () {
+            videoHdrPropsDiv.style.display = "block" ;
+          });
+
+          h3Element.appendChild(videoHdrPropsDiv);
+
+
+          // Replace the selected text with the h2 element
+          let range = window.getSelection().getRangeAt(0);
+          range.deleteContents();
+          range.insertNode(h3Element);
+        }
+    }else if (type == "convert-to-staying-listitem") {
+        let selectedText = window.getSelection().toString();
+      
+        if (selectedText !== '') {
+          // Create an h2 element
+          let h3Element = document.createElement('h3');
+          
+          // Set the text content of the h2 element to the selected text
+          h3Element.textContent = selectedText;
+          h3Element.classList.add('video-listitem-inline-cls');
+          h3Element.classList.add('staying');
 
           let videolistitemPropsDiv = document.createElement("div");
           videolistitemPropsDiv.classList.add("video-listitem-props");
