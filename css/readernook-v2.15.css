@@ -2379,8 +2379,8 @@ div:has(> .hideParentDiv) {display: none; }
 }
 
 .staying{
-  background-color: rgb(221, 217, 217);
-  border-radius: 5px;
+  background-color: rgb(221, 217, 217) !important;
+  border-radius: 5px !important;
 }
 
 .printBtn{
