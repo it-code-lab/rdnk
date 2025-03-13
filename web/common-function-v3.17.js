@@ -3439,7 +3439,7 @@ function getTutorial(tutorialStr) {
             var writer = tags[0].writer;
             var keywords = tags[0].keywords;
             var discontinue = tags[0].discontinue;
-
+            var techclass = tags[0].techclass;
 
             var path = window.location.pathname;
             var myUrl = path.substring(0, path.indexOf('/', path.indexOf('readernook')) + 1)
@@ -3497,7 +3497,7 @@ function getTutorial(tutorialStr) {
 
                 //newHTML = newHTML + '<a href="#" class="btn" onclick="editItem(' + "'" + itemid + "'," + "'" + technology + "'," + "'" + technologyseq + "'," + "'" + subpath + "',"+ "'" + subpathseq + "',"+ "'" + title + "',"+ "'" + titleseq + "',"+ "'" + shortdescription + "',"+ "'" + description + "',"+ "'" + writer + "',"+ "'" + keywords + "',"+ "'" + discontinue + "'"+');return false;" >Edit</a>';
 
-                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-itemimage= "' + itemimage + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '" onclick="editItem(this)" >Edit</button>';
+                newHTML = newHTML + '<button class="btn" data-itemid= "' + itemid + '" data-technology= "' + technology + '" data-technologyseq= "' + technologyseq + '" data-itemimage= "' + itemimage + '" data-subpath= "' + subpath + '" data-subpathseq= "' + subpathseq + '" data-title= "' + title + '" data-titleseq= "' + titleseq + '" data-shortdescription= "' + shortdescription + '"  data-writer= "' + writer + '" data-keywords= "' + keywords + '" data-discontinue= "' + discontinue + '"  data-techclass= "' + techclass + '" onclick="editItem(this)" >Edit</button>';
                 newHTML = newHTML + '<div class="printBtnDivCls"><button class="printBtn" onclick="printStoryBook()">Print Image Story Book</button></div>'
                 newHTML = newHTML + '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>'
 
@@ -3662,6 +3662,7 @@ function editItem(btn) {
     keywords = btn.dataset.keywords;
     itemimage = btn.dataset.itemimage;
     discontinue = btn.dataset.discontinue;
+    techclass = btn.dataset.techclass;
     
     document.body.classList.remove('image-story-book-style');
     document.body.classList.add('image-story-book-edit-style');
@@ -3849,6 +3850,10 @@ function editItem(btn) {
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Writer: </div><br>" +
         "<input type='text' id='writer-" + itemid + "' style='width:95%; margin:auto;' value='" + writer + "'>";
+
+    newHTML = newHTML +
+    "<br><br><div class = 'editFieldHead'>techclass: </div><br>" +
+    "<input type='text' id='techclass-" + itemid + "' style='width:95%; margin:auto;' value='" + techclass + "'>";
 
     newHTML = newHTML +
         "<br><br><div class = 'editFieldHead'>Keywords (tags): </div><br>" +
@@ -6235,7 +6240,7 @@ function updateItem(itemid, createNewItem) {
         writer = document.getElementById("writer-" + itemid).value;
         keywords = document.getElementById("keywords-" + itemid).value;
         discontinue = document.getElementById("discontinue-" + itemid).value;
-
+        techclass = document.getElementById("techclass-" + itemid).value;
 
         description = document.getElementById("description-" + itemid).innerHTML;
 
@@ -6279,6 +6284,7 @@ function updateItem(itemid, createNewItem) {
 
     writer = writer.replaceAll("'", "''");
     keywords = keywords.replaceAll("'", "''");
+    techclass = techclass.replaceAll("'", "''");
 
 
     $.ajax({
@@ -6299,6 +6305,7 @@ function updateItem(itemid, createNewItem) {
             keywords: keywords,
             discontinue: discontinue,
             createNewItem: createNewItem,
+            techclass: techclass,
             usrfunction: StrFunction
         },
         type: 'POST',
