@@ -119,6 +119,7 @@ function populateTutorialHTML($tutData, $database)
     $writer = $tags[0]['writer'];
     $keywords = $tags[0]['keywords'];
     $discontinue = $tags[0]['discontinue'];
+    $techclass = $tags[0]['techclass'];
 
     $path = $_SERVER['REQUEST_URI'];
     $myUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1);
@@ -174,7 +175,7 @@ function populateTutorialHTML($tutData, $database)
         global $sessionDesc;
         $_SESSION["data-description"] = $description;
         $sessionDesc = $description;
-        $newHTML .= '<button class="btn" data-itemid="' . $itemid . '" data-technology="' . $technology . '" data-itemimage="' . $itemimage . '" data-technologyseq="' . $technologyseq . '" data-subpath="' . $subpath . '" data-subpathseq="' . $subpathseq . '" data-title="' . $title . '" data-titleseq="' . $titleseq . '" data-shortdescription="' . $shortdescription . '"  data-writer="' . $writer . '" data-keywords="' . $keywords . '" data-discontinue="' . $discontinue . '" onclick="editItem(this)">Edit</button>';
+        $newHTML .= '<button class="btn" data-itemid="' . $itemid . '" data-technology="' . $technology . '" data-itemimage="' . $itemimage . '" data-technologyseq="' . $technologyseq . '" data-subpath="' . $subpath . '" data-subpathseq="' . $subpathseq . '" data-title="' . $title . '" data-titleseq="' . $titleseq . '" data-shortdescription="' . $shortdescription . '"  data-writer="' . $writer . '" data-keywords="' . $keywords . '" data-discontinue="' . $discontinue . '" data-techclass="' . $techclass. '" onclick="editItem(this)">Edit</button>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="printStoryBook()">Print Image Story Book</button></div>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="copyStoryBookToClipboard()">Copy Image Story Book</button></div>';
         $newHTML .= '<div class="printBtnDivCls"><button class="printBtn" onclick="window.print()">Printable</button></div>';
