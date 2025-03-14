@@ -163,7 +163,8 @@ function populateTutorialHTML($tutData, $database)
     $tutorialUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics";
     $technologyUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1) . "topics/" . $technology;
 
-    if ($technology == "Amazing Short Stories" || $technology == "Scary Stories") {
+    //if ($technology == "Amazing Short Stories" || $technology == "Scary Stories") {
+    if (stripos($technology, "Stories") !== false) {
         $newHTML = "<div class='songContainer'><div class='topNavDivCls'>" .
         '<a href="' . $technologyUrl . '" class="tutorialTopLinkCls">' . $technology . "</a>" . "<span>&gt;</span>" .
         '<a href="' . $_SERVER['REQUEST_URI'] . '" class="tutorialTopLinkCls">' . $title . "</a></div>";
@@ -405,7 +406,8 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
         $subPathQzRepl = $rows[$i]['subpath'];
         $subPathQzRepl = str_replace('quiz', "<span class='quizTxt'>Quiz</span>", $subPathQzRepl);
 
-        if ($technologySqueezed == "AmazingShortStories") {
+        //if ($technologySqueezed == "AmazingShortStories") {
+        if (stripos($technologySqueezed, "Stories") !== false) {
             $innerHTML = $innerHTML . '<a class="tutorialLink" href ="' . $tutorialTitleURL . '">';
             $innerHTML = $innerHTML . '<div id="tutorialDiv-' . $rows[$i]['itemid'] . '" class="max_4box_responsive itemDisplay itemContainerCls itemListView-container tutorialChild ' . $discontinuedFlgCls . $technologySqueezed . '">';
 
@@ -563,7 +565,7 @@ function isMobileDevice()
 
                 <?php else: ?>
                     
-                    <?php if ($technology == "Amazing Short Stories" || $technology == "Scary Stories"):?>
+                    <?php if (stripos($technology, "Stories") !== false): ?>
                         <div id="tutorialDivId">
                                 <?php echo $tutDivHTML; ?>
                         </div>
@@ -624,7 +626,7 @@ function isMobileDevice()
                 populateTutorialDropDown(fieldId = "tutorial-search-box");
             }, 800);
 
-            if ("<?php echo $technology; ?>" == "Amazing Short Stories" || "<?php echo $technology; ?>" == "Scary Stories"){
+            if (stripos("<?php echo $technology; ?>", "Stories") !== false) {
                 setTimeout(function () {
                 cleanUpExtraBlankLines();
                 document.body.classList.add('image-story-book-style');
