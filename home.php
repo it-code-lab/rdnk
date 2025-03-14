@@ -48,22 +48,21 @@ function getTechClassListHTML($database, $technologyFilter, $tutTitle)
       $techclass = $rows[$i]['techclass'];
       $imagesrc = replaceSpacesWithHyphen($techclass);
       $imagesrc = strtolower($imagesrc);
-
+  
       if ($i == 0 || $techclass != $rows[$i - 1]['techclass']) {
-         $techClassListHTML .= "<a href='/readernook/topics'><div class='menucard' >";
-     
-         $imagePath = $_SERVER['DOCUMENT_ROOT'] . "/readernook/images/" . $imagesrc . ".png"; // Construct the full path
-     
-         if (file_exists($imagePath)) {
-             $techClassListHTML .= "<img src='/readernook/images/" . $imagesrc . ".png' alt='Tutorials' class='homeCardImg'>";
-         } else {
-             // Use a default image if the specified image doesn't exist
-             $techClassListHTML .= "<img src='/readernook/images/default.png' alt='Tutorials' class='homeCardImg'>"; // Replace 'default.png' with your default image
-         }
-     
-         $techClassListHTML .= "<div class='homeCardText'>" . $techclass . "</div><hr></div></a>";
-     }
-   }
+          $techClassListHTML .= "<a href='javascript:void(0);' onclick='storeTechclass(\"" . htmlspecialchars($techclass) . "\")'><div class='menucard' >";
+  
+          $imagePath = $_SERVER['DOCUMENT_ROOT'] . "/readernook/images/" . $imagesrc . ".png";
+  
+          if (file_exists($imagePath)) {
+              $techClassListHTML .= "<img src='/readernook/images/" . $imagesrc . ".png' alt='Tutorials' class='homeCardImg'>";
+          } else {
+              $techClassListHTML .= "<img src='/readernook/images/default.png' alt='Tutorials' class='homeCardImg'>";
+          }
+  
+          $techClassListHTML .= "<div class='homeCardText'>" . $techclass . "</div><hr></div></a>";
+      }
+  }
 
 
    return $techClassListHTML;
@@ -184,8 +183,16 @@ function replaceSpacesWithHyphen($str)
              </div>
           </div>
        </div>
-
+       <form id="techclassForm" method="post" action="/readernook/topics">
+         <input type="hidden" name="selectedTechclass" id="selectedTechclass">
+      </form>
        <?php include 'footer.html'; ?>
+       
 </body>
-
+<script>
+   function storeTechclass(techclass) {
+    document.getElementById('selectedTechclass').value = techclass;
+    document.getElementById('techclassForm').submit(); // Submit form
+   }
+</script>
 </html>

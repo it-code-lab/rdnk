@@ -10,7 +10,10 @@ ini_set('display_errors', 0); // Disable error display
 ini_set('log_errors', 1);     // Log errors to a file
 error_reporting(E_ALL);       // Report all errors
 
-
+if (isset($_POST['selectedTechclass'])) {
+    $_SESSION['selectedTechclass'] = $_POST['selectedTechclass'];
+    error_log("selectedTechclass: " . $_SESSION['selectedTechclass']);
+}
 
 $title = "Reader Nook";
 $description = "Explore a wide range of educational tutorials in math, science,
@@ -40,11 +43,14 @@ $_SESSION['smusr'] = $_SESSION['smusr'] ?? null;
 $_SESSION['userlevel'] = $_SESSION['userlevel'] ?? null;
 $_SESSION['isLoggedin'] = $_SESSION['isLoggedin'] ?? false;
 $_SESSION["data-description"] = $_SESSION["data-description"] ?? '';
+$_SESSION["selectedTechclass"] = $_SESSION["selectedTechclass"] ?? '';
+
 
 $smusr = $_SESSION['smusr'];
 $userlevel = $_SESSION['userlevel'];
 $isLoggedin = $_SESSION['isLoggedin'];
 $sessionDesc = "";
+$techclass = $_SESSION["selectedTechclass"];
 
 $userObjs = [];
 $quizScores = [];
@@ -120,6 +126,8 @@ function populateTutorialHTML($tutData, $database)
     $keywords = $tags[0]['keywords'];
     $discontinue = $tags[0]['discontinue'];
     $techclass = $tags[0]['techclass'];
+
+    $_SESSION['selectedTechclass'] = $techclass;
 
     $path = $_SERVER['REQUEST_URI'];
     $myUrl = substr($path, 0, strpos($path, '/', strpos($path, 'readernook')) + 1);
@@ -295,6 +303,10 @@ function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
     //$defaultDisplayCount = 1000;
     //$technologyMaxCount = 0;
     //$currDisplayCount = 0;
+
+    $rows = array_filter($rows, function ($entry) {
+        return $entry['techclass'] == $_SESSION['selectedTechclass'] ;
+    });
 
     // Filter the rows based on 'discontinue' property if 'the.smusr' is not set
     if (!($_SESSION['smusr'])) {
