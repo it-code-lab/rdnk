@@ -626,12 +626,12 @@ function isMobileDevice()
                 populateTutorialDropDown(fieldId = "tutorial-search-box");
             }, 800);
 
-            if (stripos("<?php echo $technology; ?>", "Stories") !== false) {
+            <?php if (stripos($technology, "Stories") !== false): ?>
                 setTimeout(function () {
-                cleanUpExtraBlankLines();
-                document.body.classList.add('image-story-book-style');
+                    cleanUpExtraBlankLines();
+                    document.body.classList.add('image-story-book-style');
                 }, 800);
-            }
+            <?php endif; ?>
 
             if ("<?php echo $technology; ?>" == "Products"){
                 setTimeout(function () {
