@@ -25,10 +25,54 @@ $path = substr($path, 1);
 
 $isPHPUrl = false;
 
+$techClassListHTML = getTechClassListHTML($database, "", "");
+
 $isCrawler = isset($_SERVER['HTTP_USER_AGENT'])
-    && preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
+   && preg_match('/bot|crawl|slurp|spider|mediapartners|InspectionTool|GoogleOther/i', $_SERVER['HTTP_USER_AGENT']);
+
+function getTechClassListHTML($database, $technologyFilter, $tutTitle)
+{
+   $rows = $database->gettutorials();
+   // Filter the rows based on 'discontinue' property if 'the.smusr' is not set
+   if (!($_SESSION['smusr'])) {
+      $rows = array_filter($rows, function ($entry) {
+         return $entry['discontinue'] == "0";
+      });
+   }
+   
+   $techClassListHTML = "";
+   //SM-Needed to reindex the elements in order
+   $rows = array_values($rows);
+
+   for ($i = 0; $i < count($rows); $i++) {
+      $techclass = $rows[$i]['techclass'];
+      $imagesrc = replaceSpacesWithHyphen($techclass);
+      $imagesrc = strtolower($imagesrc);
+
+      if ($i == 0 || $techclass != $rows[$i - 1]['techclass']) {
+         $techClassListHTML .= "<a href='/readernook/topics'><div class='menucard' >";
+     
+         $imagePath = $_SERVER['DOCUMENT_ROOT'] . "/readernook/images/" . $imagesrc . ".png"; // Construct the full path
+     
+         if (file_exists($imagePath)) {
+             $techClassListHTML .= "<img src='/readernook/images/" . $imagesrc . ".png' alt='Tutorials' class='homeCardImg'>";
+         } else {
+             // Use a default image if the specified image doesn't exist
+             $techClassListHTML .= "<img src='/readernook/images/default.png' alt='Tutorials' class='homeCardImg'>"; // Replace 'default.png' with your default image
+         }
+     
+         $techClassListHTML .= "<div class='homeCardText'>" . $techclass . "</div><hr></div></a>";
+     }
+   }
 
 
+   return $techClassListHTML;
+}
+
+function replaceSpacesWithHyphen($str)
+{
+    return str_replace(" ", "-", $str);
+}
 
 ?>
 <!DOCTYPE html>
@@ -109,20 +153,14 @@ $isCrawler = isset($_SERVER['HTTP_USER_AGENT'])
                    </div>
                    
                    <div id="homeCardsContainerDivId">
-                   <a href="/readernook/topics">
-                      <div class="menucard" >
-                         <img src="/readernook/images/tutorials.png" alt="Tutorials" class="homeCardImg">
-                         <div class="homeCardText">Tutorials</div>
-                         <hr>
-                         <div class="cardMsg">Tutorials and sample programs.</div>
-                      </div>
-                      </a>
+                     <?php echo $techClassListHTML; ?>
+                   
+
                       <a href="/readernook/contactus">
                       <div class="menucard" onclick="Show('contactus')">
                          <img src="/readernook/images/howto.png" alt="File Scan" class="homeCardImg">
                          <div class="homeCardText">Question or Comments</div>
                          <hr>
-                         <div class="cardMsg">Contact Us</div>
                       </div>
                     </a>
                    </div>
