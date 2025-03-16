@@ -3760,6 +3760,7 @@ function editItem(btn) {
         "<button data-title='Convert selected text to wavy list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-video-listitem') >Convert text to wavy listitem</button>" +
         "<button data-title='Convert selected text to staying header in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-staying-header') >Convert text to staying header</button>" +
         "<button data-title='Convert selected text to staying building list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-staying-listitem') >Convert text to staying listitem</button>" +
+        "<input type='checkbox' id='toggleAspectRatio'>Portrait Mode" +
 
         "<label class='toolBarlabel'>Alignment</label>" +
         "<button data-title='Left Align selected text' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','left-align') >Left</button>" +
@@ -8735,28 +8736,43 @@ function addImageFrames() {
             // Handle resizing
             if (isFrameResizing) {
                 const deltaX = event.clientX - initialMouseX;
-
-                // Adjust width and maintain 16:9 aspect ratio
+                const aspectRatioCheckbox = document.getElementById("toggleAspectRatio");
                 let newWidth = initialWidth + deltaX;
-                let newHeight = (newWidth / 16) * 9;
+                let aspectRatio = aspectRatioCheckbox.checked ?  (16 / 9) : (9 / 16) ; // Check current aspect ratio
+                let newHeight = newWidth * aspectRatio;
 
                 // Constrain within container
-                if (
-                    storyImageFrame.offsetLeft + newWidth >
-                    storyImageContainerRect.width
-                ) {
-                    newWidth =
-                        storyImageContainerRect.width - storyImageFrame.offsetLeft;
-                    newHeight = (newWidth / 16) * 9;
+                if (storyImageFrame.offsetLeft + newWidth > storyImageContainerRect.width) {
+                    newWidth = storyImageContainerRect.width - storyImageFrame.offsetLeft;
+                    newHeight = newWidth * aspectRatio;
                 }
-                if (
-                    storyImageFrame.offsetTop + newHeight >
-                    storyImageContainerRect.height
-                ) {
-                    newHeight =
-                        storyImageContainerRect.height - storyImageFrame.offsetTop;
-                    newWidth = (newHeight / 9) * 16;
+                if (storyImageFrame.offsetTop + newHeight > storyImageContainerRect.height) {
+                    newHeight = storyImageContainerRect.height - storyImageFrame.offsetTop;
+                    newWidth = newHeight / aspectRatio;
                 }
+                // Adjust width and maintain 16:9 aspect ratio
+                //let newWidth = initialWidth + deltaX;
+                //let newHeight = (newWidth / 16) * 9;
+
+
+
+                // Constrain within container
+                // if (
+                //     storyImageFrame.offsetLeft + newWidth >
+                //     storyImageContainerRect.width
+                // ) {
+                //     newWidth =
+                //         storyImageContainerRect.width - storyImageFrame.offsetLeft;
+                //     newHeight = (newWidth / 16) * 9;
+                // }
+                // if (
+                //     storyImageFrame.offsetTop + newHeight >
+                //     storyImageContainerRect.height
+                // ) {
+                //     newHeight =
+                //         storyImageContainerRect.height - storyImageFrame.offsetTop;
+                //     newWidth = (newHeight / 9) * 16;
+                // }
 
                 storyImageFrame.style.width = `${newWidth}px`;
                 storyImageFrame.style.height = `${newHeight}px`;
