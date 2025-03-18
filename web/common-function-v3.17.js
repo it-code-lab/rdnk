@@ -6331,7 +6331,10 @@ function updateItem(itemid, createNewItem) {
                 let x = document.getElementById("toastsnackbar");
                 x.innerHTML = "Saved Successfully";
                 x.classList.add("show");
-
+                setTimeout(() => {
+                    addImageFrames();
+                    addCopyButtons();
+                }, 2000);
                 setTimeout(function () {
                     x.classList.remove("show");
                 }, 3000);

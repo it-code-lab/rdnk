@@ -14,7 +14,7 @@ if (isset($_POST['selectedTechclass'])) {
     $_SESSION['selectedTechclass'] = $_POST['selectedTechclass'];
     error_log("selectedTechclass: " . $_SESSION['selectedTechclass']);
 }
-
+$DISABLE_CACHE = isset($_SESSION['userlevel']) && $_SESSION['userlevel'] === "9";
 $title = "Reader Nook";
 $description = "Explore a wide range of educational tutorials in math, science,
  social studies, computers, and more. Enhance your knowledge and skills with
@@ -68,12 +68,12 @@ if (strpos($path, 'topics/') !== false) {
     if (strpos($technologyNItemstr, '/') !== false) {
         $tutTitle = substr($technologyNItemstr, strpos($technologyNItemstr, "/") + 1);
         $tutData = $database->getTutorial($technologyNItemstr);
-        $tutDivHTML = populateTutorialHTML($tutData, $database);
-        $tutListHTML = getTutorialsListHTML($database, $technology, $tutTitle);
+        $tutDivHTML = populateTutorialHTML($tutData, $database,$DISABLE_CACHE);
+        $tutListHTML = getTutorialsListHTML($database, $technology, $tutTitle, $DISABLE_CACHE);
         
     } else {
         $technology = urldecode($technologyNItemstr);
-        $tutListHTML = getTutorialsListHTML($database, $technology, $tutTitle);
+        $tutListHTML = getTutorialsListHTML($database, $technology, $tutTitle, $DISABLE_CACHE);
         $title = $technology. " | ReaderNook";
     }
 
@@ -88,11 +88,11 @@ if (strpos($path, 'topics/') !== false) {
 
     }
 } else {
-    $tutListHTML = getTutorialsListHTML($database, "", "");
+    $tutListHTML = getTutorialsListHTML($database, "", "", $DISABLE_CACHE);
     $title = "Topics | ReaderNook";
 }
 
-function populateTutorialHTML($tutData, $database)
+function populateTutorialHTML($tutData, $database, $DISABLE_CACHE = false)
 {
 
     global $technology;
@@ -134,7 +134,7 @@ function populateTutorialHTML($tutData, $database)
 
     // START: Find the next tutorial to be put at the bottom of the page
 
-    $tf = $database->gettutorials();
+    $tf = $database->gettutorials($DISABLE_CACHE);
     $nextTutorialTitle = "";
     $nextTutorialTitleURL = "";
     $rows = $tf;
@@ -287,11 +287,11 @@ function filterByTechnology($entry, $tech)
     return strtoupper($entry['technology']) == strtoupper($tech);
 }
 
-function getTutorialsListHTML($database, $technologyFilter, $tutTitle)
+function getTutorialsListHTML($database, $technologyFilter, $tutTitle, $DISABLE_CACHE = false)
 {
     global $tutTitleItemId;
 
-    $rows = $database->gettutorials();
+    $rows = $database->gettutorials($DISABLE_CACHE);
 
     // Initialize the variables
     $innerHTML = "";
