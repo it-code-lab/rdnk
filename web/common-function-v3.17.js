@@ -6274,7 +6274,7 @@ function updateItem(itemid, createNewItem) {
     }
     var StrFunction = "UpdateItem";
 
-    title = title.replaceAll("'", "''");
+    title = removeSpecialCharactersAndKeepSpaces(title);
     technology = technology.replaceAll("'", "''");
     subpath = subpath.replaceAll("'", "''");
     shortdescription = shortdescription.replace(/"/g, '\'');
@@ -6360,6 +6360,10 @@ function updateItem(itemid, createNewItem) {
             //console.log(xhr);
         }
     });
+}
+
+function removeSpecialCharactersAndKeepSpaces(text) {
+    return text.replace(/[^a-zA-Z0-9\s]/g, '');
 }
 
 function updateInfo(data) {
