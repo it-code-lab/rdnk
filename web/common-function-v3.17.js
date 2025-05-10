@@ -3762,6 +3762,10 @@ function editItem(btn) {
         "<button data-title='Convert selected text to staying building list item in video' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','convert-to-staying-listitem') >Convert text to staying listitem</button>" +
         "<input type='checkbox' id='toggleAspectRatio'>Portrait Mode" +
 
+        "<label class='toolBarlabel'>Multi Shorts</label>" +
+        "<button data-title='Shorts1'' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','shorts1') >Add Shorts Template</button>" +
+
+
         "<label class='toolBarlabel'>Alignment</label>" +
         "<button data-title='Left Align selected text' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','left-align') >Left</button>" +
         "<button data-title='Center Align selected text' type='button' class='itmUpdBtnSmall btn btn-primary' onclick=addComponent('" + itemid + "','center-align') >Center</button>" +
@@ -5265,8 +5269,10 @@ function addComponent(itemid, type) {
         partOneHTML = AllHTML;
     }
 
-
-    var randomId = type + "-" + Math.floor(Math.random() * 1000000);
+    var timestamp = new Date().getTime();
+    var randomId = type + "-" + timestamp;
+    
+    //var randomId = type + "-" + Math.floor(Math.random() * 1000000);
     if (type == "codescript1") {
         document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  class = 'codescript1-desc'> <pre> TODO Edit - Code Script Style1 </pre><button class='copyDiv' onclick=copyCurrentComponent(this) >Copy</button><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>" + partTwoHTML;
     } else if (type == "codescript2") {
@@ -5650,6 +5656,17 @@ function addComponent(itemid, type) {
     } else if (type == "sub2unorderedlist") {
         document.getElementById(componentid).innerHTML = partOneHTML + "<div id= '" + randomId + "' onmousedown=setLastFocusedDivId(this.id)  ><ul class = 'sub2unordered-list-desc'> <li>TODO</li><li> Edit - list</li> </ul><button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>" + partTwoHTML;
 
+    } else if (type == "shorts1") {
+        var tempCompHTML = partOneHTML + "<div id= '" + randomId + "-shorts' onmousedown=setLastFocusedDivId(this.id)  class = 'shorts' > TODO Edit - Enter Content and Images <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button>"
+            + "<br><input type='text'   class = 'shorts-title' placeholder='title'/>"
+            + "<br><input type='text'   class = 'shorts-description' placeholder='description'/>"
+            + "<br><input type='text'   class = 'shorts-tags' placeholder='tags'/>"
+            + "<br><input  type='text'  class = 'shorts-channel'  placeholder='channel'/>"
+            + "<br><input  type='text'  class = 'shorts-playlist'  placeholder='playlist'/>"
+            + "<br><input type='text'   class = 'shorts-ctatext'  placeholder='ctatext'/>"
+            + "</div>";
+            document.getElementById(componentid).innerHTML = tempCompHTML + partTwoHTML;
+        
     } else if (type == "qz1") {
         var tempCompHTML = partOneHTML + "<div id= '" + randomId + "-qs' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-qs'> TODO Edit - Write Question <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button></div>"
             //+ "<div id= '" + randomId + "-allans' onmousedown=setLastFocusedDivId(this.id)  class = 'qz1-allans'> "
