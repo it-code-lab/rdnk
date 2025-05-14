@@ -5664,6 +5664,7 @@ function addComponent(itemid, type) {
             + "<div data-title='channel' class = 'shorts-props shorts-channel'  placeholder='channel'> channel</div>"
             + "<div data-title='playlist' class = 'shorts-props shorts-playlist'  placeholder='playlist'>playlist </div>"
             + "<div  data-title='ctatext' class = 'shorts-props shorts-ctatext'  placeholder='ctatext'> </div>"
+            + "<div  data-title='avatar' class = 'shorts-props shorts-avatar'  placeholder='avatar'> </div>"
             + "</div>";
             document.getElementById(componentid).innerHTML = tempCompHTML + partTwoHTML;
         
@@ -8984,6 +8985,8 @@ function addCopyButtons() {
             <div class="imgPropsInput" contenteditable="true" id="${randomId}-vidduration">0</div>
             <label>Show Avatar for the preceding text duration (y/n):</label>
             <div class="avatarFlgInput" contenteditable="true" id="${randomId}-avatarflag">n</div>
+            <label>Loop the video if shorter than preeding text (y/n):</label>
+            <div class="loopFlgInput" contenteditable="true" id="${randomId}-loopflag">n</div>
             `;
             element.appendChild(videoPropsDiv);
         }
