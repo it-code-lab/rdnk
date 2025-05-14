@@ -5658,12 +5658,12 @@ function addComponent(itemid, type) {
 
     } else if (type == "shorts1") {
         var tempCompHTML = partOneHTML + "<div id= '" + randomId + "-shorts' onmousedown=setLastFocusedDivId(this.id)  class = 'shorts' > TODO Edit - Enter Content and Images <button class='deleteDiv' onclick=deleteCurrentComponent(this) ></button>"
-            + "<div data-title='title'   class = 'shorts-title' placeholder='title'> title</div>"
-            + "<div data-title='description'  class = 'shorts-description' placeholder='description'>description </div>"
-            + "<div  data-title='tags' class = 'shorts-tags' placeholder='tags'>tags </div>"
-            + "<div data-title='channel' class = 'shorts-channel'  placeholder='channel'> channel</div>"
-            + "<div data-title='playlist' class = 'shorts-playlist'  placeholder='playlist'>playlist </div>"
-            + "<div  data-title='ctatext' class = 'shorts-ctatext'  placeholder='ctatext'> </div>"
+            + "<div data-title='title'   class = 'shorts-props shorts-title' placeholder='title'> title</div>"
+            + "<div data-title='description'  class = 'shorts-props shorts-description' placeholder='description'>description </div>"
+            + "<div  data-title='tags' class = 'shorts-props shorts-tags' placeholder='tags'>tags </div>"
+            + "<div data-title='channel' class = 'shorts-props shorts-channel'  placeholder='channel'> channel</div>"
+            + "<div data-title='playlist' class = 'shorts-props shorts-playlist'  placeholder='playlist'>playlist </div>"
+            + "<div  data-title='ctatext' class = 'shorts-props shorts-ctatext'  placeholder='ctatext'> </div>"
             + "</div>";
             document.getElementById(componentid).innerHTML = tempCompHTML + partTwoHTML;
         
